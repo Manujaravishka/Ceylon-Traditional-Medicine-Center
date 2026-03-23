@@ -1,4 +1,9 @@
 package org.example.ceylontraditionalmedicinecenter.repository;
 
-public interface PaymentRepository {
+import org.example.ceylontraditionalmedicinecenter.entity.Payment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PaymentRepository extends JpaRepository<Payment,Long> {
 }
