@@ -12,4 +12,5 @@ import org.springframework.stereotype.Component;
 public class AuthDTO {
     public String email;
     public String token;
+    public String role;
 }

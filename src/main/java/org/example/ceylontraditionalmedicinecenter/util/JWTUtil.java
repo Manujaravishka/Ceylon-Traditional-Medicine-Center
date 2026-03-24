@@ -13,8 +13,10 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:otherprops.properties")
@@ -33,7 +35,25 @@ public class JWTUtil implements Serializable {
     }
 
     public Claims getUserRoleCodeFromToken(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return getAllClaimsFromToken(token);
+    }
+
+    public List<String> getRolesFromToken(String token) {
+        Claims claims = getAllClaimsFromToken(token);
+        Object roleClaim = claims.get("roles");
+        if (roleClaim instanceof List) {
+            //noinspection unchecked
+            return ((List<Object>) roleClaim).stream().map(Object::toString).collect(Collectors.toList());
+        } else if (roleClaim instanceof String) {
+            return List.of(roleClaim.toString());
+        }
+
+        String singleRole = claims.get("role", String.class);
+        if (singleRole != null) {
+            return List.of(singleRole);
+        }
+
+        return List.of();
     }
 
     //retrieve expiration date from jwt token
@@ -64,7 +84,12 @@ public class JWTUtil implements Serializable {
     //generate token for user
     public String generateToken(UserDTO userDTO) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role",userDTO.getRole());
+        String role = userDTO.getRole() == null ? "ROLE_USER" : userDTO.getRole().trim().toUpperCase();
+        if (!role.startsWith("ROLE_")) {
+            role = "ROLE_" + role;
+        }
+        claims.put("roles", List.of(role));
+        claims.put("role", role);
         return doGenerateToken(claims, userDTO.getEmail());
     }
 

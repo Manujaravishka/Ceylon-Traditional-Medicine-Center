@@ -85,9 +85,9 @@ public class SecurityConfig {
                                                 "/api/v1/review/**",
                                                 "/api/v1/article/**"
                                         ).permitAll()
-                                        .requestMatchers("/api/v1/admin/**").authenticated()
-                                        .requestMatchers("/api/v1/user/update-role").authenticated()
-                                        .requestMatchers("/api/v1/user/getAll").authenticated()
+                                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                                        .requestMatchers("/api/v1/user/update-role").hasRole("ADMIN")
+                                        .requestMatchers("/api/v1/user/getAll").hasRole("ADMIN")
                                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

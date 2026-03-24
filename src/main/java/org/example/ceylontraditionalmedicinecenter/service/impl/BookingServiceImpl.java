@@ -61,7 +61,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public boolean saveBooking(BookingDTO bookingDTO) {
-        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmail(bookingDTO.getUserEmail()));
+        Optional<User> optionalUser = userRepository.findByEmail(bookingDTO.getUserEmail());
         Optional<TreatPackage> optionalPackage = treatPackageRepository.findByName(bookingDTO.getPackageName());
         Optional<Accommodation> optionalAccommodation = accommodationRepository.findByName(bookingDTO.getAccommodationName());
         Optional<Doctor> optionalDoctor = doctorRepository.findByEmail(bookingDTO.getDoctorEmail());

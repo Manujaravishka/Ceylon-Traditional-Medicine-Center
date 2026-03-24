@@ -37,7 +37,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = modelMapper.map(userDTO, User.class);
         user.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
         if (user.getRole() == null || user.getRole().isBlank()) {
-            user.setRole("USER");
+            user.setRole("ROLE_USER");
+        } else {
+            String normalized = user.getRole().trim().toUpperCase();
+            if (!normalized.startsWith("ROLE_")) {
+                normalized = "ROLE_" + normalized;
+            }
+            user.setRole(normalized);
         }
         userRepository.save(user);
         return VarList.Created;
@@ -45,11 +51,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDTO getUserByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
             return null;
         }
-        return modelMapper.map(user, UserDTO.class);
+        return modelMapper.map(optionalUser.get(), UserDTO.class);
     }
 
     @Override
@@ -61,31 +67,40 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public boolean deleteUserByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
             return false;
         }
-        userRepository.delete(user);
+        userRepository.delete(optionalUser.get());
         return true;
     }
 
     @Override
     public boolean updateUserRole(String email, String role) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
             return false;
         }
-        user.setRole(role);
+        User user = optionalUser.get();
+        if (role == null || role.isBlank()) {
+            return false;
+        }
+        String normalized = role.trim().toUpperCase();
+        if (!normalized.startsWith("ROLE_")) {
+            normalized = "ROLE_" + normalized;
+        }
+        user.setRole(normalized);
         userRepository.save(user);
         return true;
     }
 
     @Override
     public boolean updateUser(String email, UserDTO userDTO) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
             return false;
         }
+        User user = optionalUser.get();
         user.setName(userDTO.getName());
         user.setContact(userDTO.getContact());
         if (userDTO.getPassword() != null && !userDTO.getPassword().isBlank()) {
@@ -105,16 +120,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email).orElse(null);
         if (user == null) {
             throw new UsernameNotFoundException("User not found: " + email);
         }
 
-        String role = user.getRole() == null ? "USER" : user.getRole();
+        String role = user.getRole() == null ? "ROLE_USER" : user.getRole().trim().toUpperCase();
+        if (!role.startsWith("ROLE_")) {
+            role = "ROLE_" + role;
+        }
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
-                .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase())))
+                .authorities(Collections.singletonList(new SimpleGrantedAuthority(role)))
                 .build();
     }
 }

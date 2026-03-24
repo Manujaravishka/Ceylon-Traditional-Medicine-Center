@@ -50,6 +50,10 @@ public class AuthController {
 
         AuthDTO authDTO = new AuthDTO();
         authDTO.setEmail(loadedUser.getEmail());
+        authDTO.setRole(loadedUser.getRole() == null ? "ROLE_USER" : loadedUser.getRole().trim().toUpperCase());
+        if (!authDTO.getRole().startsWith("ROLE_")) {
+            authDTO.setRole("ROLE_" + authDTO.getRole());
+        }
         authDTO.setToken(token);
 
         return ResponseEntity.status(HttpStatus.CREATED)
