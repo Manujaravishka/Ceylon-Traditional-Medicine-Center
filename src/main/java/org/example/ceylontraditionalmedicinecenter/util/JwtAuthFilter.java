@@ -6,10 +6,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.example.ceylontraditionalmedicinecenter.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,7 +24,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private JWTUtil jwtUtil;
     @Autowired
-    private UserServiceImpl userService;
+    private UserDetailsService userService;
     @Value("${jwt.secret}")
     private String secretKey;
 
