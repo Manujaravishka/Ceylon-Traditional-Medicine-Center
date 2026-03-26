@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hela Suwaya - Holistic Healing Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f6f1;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2a6b4e;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #444;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #2a6b4e;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2a6b4e;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-icons i {
+            font-size: 1.2rem;
+            margin-left: 20px;
+            color: #2a6b4e;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #2a6b4e;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #1e523b;
+        }
+
+        /* About Section */
+        .section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2a6b4e;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: #2a6b4e;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Concept Section */
+        .concept {
+            background-color: #eaf2ef;
+        }
+
+        .concept-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .concept-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .concept-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .concept-text {
+            flex: 1;
+            min-width: 300px;
+            padding-left: 30px;
+        }
+
+        .concept-text h3 {
+            font-size: 1.8rem;
+            color: #2a6b4e;
+            margin-bottom: 20px;
+        }
+
+        .concept-text p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .features {
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .feature-icon {
+            color: #2a6b4e;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .feature-content h4 {
+            color: #2a6b4e;
+            margin-bottom: 5px;
+        }
+
+        /* Articles Section */
+        .articles {
+            background-color: #fff;
+        }
+
+        .articles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .article-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .article-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .article-card:hover .article-image img {
+            transform: scale(1.1);
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-content h3 {
+            color: #2a6b4e;
+            margin-bottom: 10px;
+        }
+
+        .article-content p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2a3b2e;
+            color: #fff;
+            padding: 3rem 5%;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #c8d8d0;
+        }
+
+        .footer-column p, .footer-column li {
+            margin-bottom: 10px;
+            color: #aabdb4;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column a {
+            color: #aabdb4;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #3a4b3e;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #2a6b4e;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #3a4b3e;
+            color: #aabdb4;
+        }
+        #main-icon {
+            color: #FFD700; /* Gold color */
+            font-size: 2.5rem; /* Larger size */
+            margin-right: 10px; /* Space between icon and brand logo */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-text, .about-image, .concept-text, .concept-image {
+                padding: 0;
+                margin-bottom: 30px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        /* Articles Section - Big Card Layout */
+        .articles {
+            background-color: #fff;
+            padding: 5rem 5%;
+        }
+
+        .articles-container {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .article-card {
+            display: flex;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            min-height: 350px;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .article-card:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .article-card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .article-image {
+            flex: 1;
+            min-width: 45%;
+            overflow: hidden;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .article-card:hover .article-image img {
+            transform: scale(1.05);
+        }
+
+        .article-content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .article-content h3 {
+            color: #2a6b4e;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .article-content p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.95rem;
+            margin-top: auto;
+        }
+
+        /* Responsive adjustments for the article cards */
+        @media (max-width: 992px) {
+            .article-card:nth-child(odd),
+            .article-card:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .article-image {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .article-content {
+                padding: 25px;
+            }
+
+            .article-content h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="logo">
+        <i  id="main-icon" class="fas fa-spa"></i>
+        <div class="logo-text">හෙළ සුවය</div>
+    </div>
+
+    <ul class="nav-links">
+        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#service">Service</a></li>
+        <li class="nav-item"><a class="nav-link" href="#packageSection">Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="#doctorSection">Doctor</a></li>
+        <li class="nav-item"><a class="nav-link" href="#accommodation">Accommodation</a></li>
+        <li class="nav-item"><a class="nav-link" href="#accommodation">Programmes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+    </ul>
+
+
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Begin Your Transformative Journey</h1>
+        <p>Experience completely personalized and immersive healing at Hela Suwaya</p>
+        <a href="#" class="btn">Discover Our Retreats</a>
+    </div>
+</section>
+
+
+<!-- Articles Section (Dynamically Loaded) -->
+<section class="section articles">
+    <div class="section-title">
+        <h2>WELLNESS ARTICLES</h2>
+        <p>Explore our latest insights on holistic health and wellness</p>
+    </div>
+
+    <div class="articles-container" id="articles-container">
+        <!-- Articles will be loaded here dynamically -->
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const ARTICLE_API = "http://localhost:8080/api/v1/article";
+
+    // Function to load articles dynamically
+    function loadArticles() {
+        $.ajax({
+            url: ARTICLE_API + "/getAll",
+            type: "GET",
+            success: function (response) {
+                if (response.code === 201 || response.code === 200) {
+                    let articles = response.data;
+                    let html = "";
+
+                    articles.forEach(article => {
+                        // Fix image URL like your accommodations example
+                        let imagePath = article.imageUrl
+                            ? `/uploads/${article.imageUrl}`   // Note the relative path
+                            : "https://via.placeholder.com/300x200?text=No+Image";
+
+                        html += `
+                            <div class="article-card">
+                                <div class="article-image">
+                                    <img src="${imagePath}" alt="${article.title}" class="img-fluid">
+                                </div>
+                                <div class="article-content">
+                                    <h3>${article.title}</h3>
+                                    <p>${article.description.length > 400
+                            ? article.description.substring(0, 400) + "..."
+                            : article.description}</p>
+                                    <div class="article-meta">
+                                        <span><i class="fa-solid fa-calendar"></i> ${new Date().toLocaleDateString()}</span>
+                                        <span><i class="fa-solid fa-user"></i> Admin</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    $("#articles-container").html(html);
+                } else {
+                    $("#articles-container").html("<p>No articles found.</p>");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching articles:", error);
+                $("#articles-container").html("<p>Failed to load articles. Please try again later.</p>");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        loadArticles();
+    });
+</script>
+
+
+
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section contact-details">
+            <h3>CONTACT DETAILS</h3>
+
+            <div class="contact-item">
+                <h4>ADDRESS</h4>
+                <p>395/4,<br>
+                    Harischandra Mawatha,<br>
+                    Anuradhapura,<br>
+                    Sri Lanka</p>
+            </div>
+
+            <div class="contact-item">
+                <h4>GENERAL NUMBER</h4>
+                <p>+94 76 992 1134</p>
+                <p>+94 76 992 1134</p>
+            </div>
+
+            <div class="contact-item">
+                <h4>EMAIL ADDRESS</h4>
+                <p>reservations@helasuwaya.lk</p>
+            </div>
+
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-section menu-section">
+            <h3>Hela Suwaya MENU</h3>
+
+            <div class="menu-columns">
+                <div class="menu-column">
+                    <ul>
+                        <li><a href="#">HOME</a></li>
+                        <li><a href="#">OUR DOCTORS</a></li>
+                        <li><a href="#">OUR PACKAGES</a></li>
+                        <li><a href="#">OUR FACILITIES</a></li>
+                        <li><a href="#">AYURVEDA</a></li>
+                        <li><a href="#">OUR BLOG</a></li>
+                    </ul>
+                </div>
+                <div class="menu-column">
+                    <ul>
+                        <li><a href="#">ABOUT US</a></li>
+                        <li><a href="#">OUR TREATMENTS</a></li>
+                        <li><a href="#">ACCOMMODATION</a></li>
+                        <li><a href="#">DESTINATIONS AND EXCURSIONS</a></li>
+                        <li><a href="#">HELA WEDAKAMA</a></li>
+                        <li><a href="#">CONTACT US</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-section logos-section">
+            <div class="logo-container">
+                <div class="main-logo">
+                    <div class="logo-placeholder">
+                        <i class="fas fa-leaf" style="font-size: 2rem; color: #d4af37;"></i>
+                        <h4>Hela Suwaya<br>AYURVEDA</h4>
+                    </div>
+                </div>
+                <div class="certification-logo">
+                    <div class="cert-placeholder">
+                        <i class="fas fa-certificate" style="font-size: 1.5rem; color: #4a7c59;"></i>
+                        <small>Certification<br>Partner</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy;2024 Hela Suwaya Ayurveda Private Limited</p>
+        <p>Website Design and Development by <a href="#">Athwa Solutions</a></p>
+    </div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+        <span>Back to top</span>
+    </button>
+
+    <!-- WhatsApp button -->
+    <a href="https://wa.me/94769921134" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</footer>
+
+<script>
+
+
+    // Function to scroll to top
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    // Show/hide back to top button based on scroll position
+    window.addEventListener('scroll', function() {
+        const backToTopBtn = document.querySelector('.back-to-top');
+        const navbar = document.querySelector('.navbar');
+
+        // Back to top button opacity
+        if (window.pageYOffset > 300) {
+            backToTopBtn.style.opacity = '1';
+        } else {
+            backToTopBtn.style.opacity = '0.7';
+        }
+
+        // Navbar background color change
+        if (window.scrollY > 50) { // Change color after scrolling 50px
+            navbar.classList.remove('bg-transparent');
+            navbar.classList.add('bg-dark'); // Add solid dark background
+        } else {
+            navbar.classList.remove('bg-dark');
+            navbar.classList.add('bg-transparent'); // Revert to transparent
+        }
+    });
+</script>
+</body>
+</html>

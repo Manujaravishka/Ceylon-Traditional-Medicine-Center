@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Hela Suwaya | Luxury Ayurveda & Wellness</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Sinhala:wght@700&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #3a5a40; /* Deeper Forest Green */
+            --primary-light: #4a7c59;
+            --accent: #c5a028; /* Polished Gold */
+            --bg-light: #f9fbf9;
+            --text-dark: #1a1a1a;
+            --text-muted: #666;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand-logo {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- Luxury Navbar --- */
+        .navbar {
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98) !important;
+            padding: 0.8rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .navbar.scrolled .nav-link { color: var(--text-dark) !important; }
+        .navbar.scrolled .brand-logo { text-shadow: none; }
+
+        .brand-logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #d4af37, #f1d57a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-link {
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0 10px;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 1px;
+            bottom: 0; left: 50%;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        .nav-link:hover::after { width: 100%; left: 0; }
+
+        /* --- Hero Header --- */
+        .page-header {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: #1a241b; /* Fallback */
+            clip-path: ellipse(150% 100% at 50% 0%); /* Subtle curve */
+        }
+        
+        .page-header .display-4 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        /* --- Accommodation Section --- */
+        .section-title-wrap { margin-bottom: 4rem; }
+        .section-subtitle {
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .section-main-title {
+            font-size: 3rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        .section-main-title::after {
+            content: "";
+            position: absolute;
+            width: 60px; height: 2px;
+            background: var(--accent);
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* --- Accommodation Cards (Modified for World Class Look) --- */
+        #destinationList .col-lg-4 { margin-bottom: 30px; }
+        .dest-card {
+            background: #fff;
+            border-radius: 0; /* Sharp, high-end look */
+            overflow: hidden;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.03);
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+        .dest-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+        .dest-img-container {
+            overflow: hidden;
+            height: 300px;
+        }
+        .dest-img-container img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 1.2s ease;
+        }
+        .dest-card:hover img { transform: scale(1.1); }
+
+        /* --- Luxury Footer --- */
+        .footer {
+            background: #0f1610 !important;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .footer h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+        }
+        .contact-item h4 { font-family: 'Poppins', sans-serif; font-size: 0.75rem; opacity: 0.6; }
+
+        .back-to-top {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: var(--accent); color: #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+<header class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand brand-logo" href="#">හෙළ සුවය</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <nav class="collapse navbar-collapse" id="navmenu">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#treatments">Services</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#packages">Accommodation</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item ms-lg-3">
+                    <a href="signin.html" class="btn btn-outline-light rounded-0 px-4 py-2" style="font-size: 0.8rem; letter-spacing: 1px;">SIGN IN</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="container-fluid page-header" id="homee">
+    <div class="container text-center">
+        <span class="section-subtitle text-white">Sanctuary of Peace</span>
+        <h1 class="display-4 text-white mb-4">Our Accommodation</h1>
+        <div class="d-flex justify-content-center align-items-center text-white-50">
+            <a href="index.html" class="text-white text-decoration-none">Home</a>
+            <i class="fa fa-circle mx-3" style="font-size: 5px;"></i>
+            <span>Experience Comfort</span>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5 mt-5">
+    <div class="text-center section-title-wrap">
+        <span class="section-subtitle">Luxury Living</span>
+        <h2 class="section-main-title">A Space for Healing</h2>
+        <p class="text-muted mt-3 mx-auto" style="max-width: 600px;">
+            Immerse yourself in our thoughtfully designed rooms, where traditional Sri Lankan aesthetics meet modern comfort.
+        </p>
+    </div>
+    
+    <div class="row g-4" id="destinationList">
+        </div>
+</div>
+
+<footer class="footer pt-5 mt-5" id="contact">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-6">
+                <h3 class="text-white mb-4">CONTACT</h3>
+                <div class="contact-item mb-4">
+                    <h4>ADDRESS</h4>
+                    <p class="text-white-50">395/4, Harischandra Mawatha,<br>Anuradhapura, Sri Lanka</p>
+                </div>
+                <div class="contact-item mb-4">
+                    <h4>INQUIRIES</h4>
+                    <p class="text-white-50">+94 25 2030200<br>reservations@helasuwaya.lk</p>
+                </div>
+                <div class="d-flex gap-3 mt-4">
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-6">
+                <h3 class="text-white mb-4">EXPLORE</h3>
+                <div class="row">
+                    <div class="col-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">The Resort</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Ayurveda Care</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Dining</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Packages</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Contact Us</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 text-center">
+                <div class="p-4 border border-secondary">
+                    <i class="fas fa-leaf mb-3" style="font-size: 2rem; color: var(--accent);"></i>
+                    <h4 class="text-white">HELA SUWAYA</h4>
+                    <p class="small text-white-50">Authentic Ayurvedic Experience</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-top border-secondary mt-5 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <p class="small text-white-50">&copy; 2026 Hela Suwaya Ayurveda. All rights reserved.</p>
+            <p class="small text-white-50">Crafted by <a href="#" class="text-accent text-decoration-none">Athwa Solutions</a></p>
+        </div>
+    </div>
+</footer>
+
+<button class="back-to-top border-0" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+</button>
+<a href="https://wa.me/94704725634" class="whatsapp-btn" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Refined Scroll Effects
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('.navbar');
+        const btt = document.querySelector('.back-to-top');
+        
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+            header.classList.remove('navbar-dark');
+            header.classList.add('navbar-light');
+        } else {
+            header.classList.remove('scrolled');
+            header.classList.add('navbar-dark');
+            header.classList.remove('navbar-light');
+        }
+
+        btt.style.opacity = window.scrollY > 400 ? '1' : '0';
+        btt.style.visibility = window.scrollY > 400 ? 'visible' : 'hidden';
+    });
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>

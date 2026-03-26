@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ayurveda Wellness</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Custom CSS (if you have them) -->
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/about.css" rel="stylesheet">
+
+    <style>
+        /* ===============================
+     Modern Ayurveda Booking Page Styles
+     =============================== */
+
+        /* Modern color palette with Ayurvedic inspiration */
+        :root {
+            --ay-primary: #2a6e5d;     /* Deep herbal green - more sophisticated */
+            --ay-primary-light: #3a8d77; /* Lighter green for accents */
+            --ay-primary-dark: #1d4f42;  /* Darker green for depth */
+            --ay-accent: #d4af37;      /* Warm golden turmeric */
+            --ay-accent-light: #e6c862; /* Lighter gold */
+            --ay-bg: #f8f6f2;          /* Soft warm beige */
+            --ay-card-bg: #ffffff;     /* Pure white for cards */
+            --ay-text: #1a2e2b;        /* Deep slate - improved contrast */
+            --ay-text-light: #5a6a64;  /* Muted text */
+            --ay-success: #2a8c6d;     /* Vibrant success green */
+            --ay-danger: #e63946;      /* Modern red for errors */
+            --ay-border: #e0e7eb;      /* Light border color */
+            --ay-shadow-sm: 0 4px 12px rgba(16, 24, 40, 0.08);
+            --ay-shadow-md: 0 8px 24px rgba(16, 24, 40, 0.12);
+            --ay-shadow-lg: 0 12px 36px rgba(16, 24, 40, 0.15);
+            --ay-gradient-border: linear-gradient(135deg, var(--ay-primary-light), var(--ay-accent-light)); /* New gradient for card style */
+        }
+
+        /* Navbar with background */
+        .navbar {
+            background: linear-gradient(135deg, var(--ay-primary) 0%, var(--ay-primary-dark) 100%) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--ay-shadow-md);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Booking Page Wrapper - Modern gradient background */
+        #bookingPage {
+            padding-top: 6.5rem;
+            background: linear-gradient(135deg, var(--ay-bg) 0%, #f5f2eb 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Typography Enhancements with better hierarchy */
+        #bookingPage h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.75rem;
+            color: var(--ay-primary-dark);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            position: relative;
+            text-align: center;
+        }
+
+        #bookingPage h2:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--ay-accent);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        #bookingPage h4 {
+            color: var(--ay-primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        #bookingPage .form-label {
+            color: var(--ay-text);
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        /* Modern Card Styling - WIDER and SHORTER */
+        #bookingPage .card {
+            border: none;
+            border-radius: 16px;
+            background: var(--ay-card-bg);
+            box-shadow: var(--ay-shadow-sm);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            width: 100%; /* Ensure full width */
+            min-height: 280px; /* Reduced height */
+        }
+
+        #bookingPage .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--ay-shadow-md);
+        }
+
+        #bookingPage .rounded-4 {
+            border-radius: 16px !important;
+        }
+
+        /* Main container card - wider */
+        #bookingPage > .container > .card {
+            max-width: 98%; /* Increased width for main card */
+            margin: 0 auto;
+        }
+
+        /* Card body - wider */
+        #bookingPage .card-body {
+            width: 100%; /* Full width within card */
+            padding: 1.5rem; /* Adjusted padding for better spacing */
+        }
+
+        /* New card style variation with gradient border */
+        #bookingPage .card.variant-gradient {
+            border: 2px solid transparent;
+            background: var(--ay-card-bg);
+            background-clip: padding-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        #bookingPage .card.variant-gradient::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--ay-gradient-border);
+            border-radius: 18px;
+            z-index: -1;
+        }
+
+        #bookingPage .card.variant-gradient:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--ay-shadow-lg);
+        }
+
+        /* Form Inputs with modern styling */
+        #bookingPage .form-control {
+            border: 2px solid var(--ay-border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: var(--ay-text);
+            width: 100%; /* Full width inputs */
+        }
+
+        #bookingPage .form-control:focus {
+            border-color: var(--ay-primary);
+            box-shadow: 0 0 0 3px rgba(42, 110, 93, 0.15);
+            background: #ffffff;
+        }
+
+        #bookingPage input[type="date"] {
+            cursor: pointer;
+        }
+
+        /* Remove number spinners */
+        #bookingPage input[type=number]::-webkit-outer-spin-button,
+        #bookingPage input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        #bookingPage input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        /* Modern Buttons with subtle gradient - WIDER BUTTONS */
+        #bookingPage .btn-primary {
+            background: linear-gradient(135deg, var(--ay-primary) 0%, var(--ay-primary-dark) 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 14px 28px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: var(--ay-shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%; /* Full width buttons */
+            max-width: 300px; /* But not too wide */
+            margin: 0 auto; /* Center align */
+            display: block;
+        }
+
+        #bookingPage .btn-primary:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        #bookingPage .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--ay-shadow-md);
+        }
+
+        #bookingPage .btn-primary:hover:before {
+            left: 100%;
+        }
+
+        #bookingPage .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: var(--ay-shadow-sm);
+        }
+
+        /* Select buttons - wider */
+        #bookingPage .btn-primary.btn-sm {
+            width: auto; /* Auto width for small buttons */
+            padding: 8px 20px;
+            max-width: 120px;
+        }
+
+        /* Sticky Booking Summary with modern design */
+        @media (min-width: 992px) {
+            #bookingPage .col-md-4 > .card.bg-light {
+                position: sticky;
+                top: 8rem;
+                border-left: 4px solid var(--ay-primary);
+            }
+        }
+
+        #bookingPage .card.bg-light {
+            background: var(--ay-card-bg) !important;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--ay-shadow-md);
+        }
+
+        /* Summary List with improved spacing */
+        #bookingPage .list-group-item {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(42, 110, 93, 0.1);
+            padding: 14px 0;
+            color: var(--ay-text);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        #bookingPage .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        #bookingPage .list-group-item:hover {
+            background: rgba(42, 110, 93, 0.03);
+        }
+
+        #bookingPage .list-group-item strong {
+            font-weight: 600;
+            color: var(--ay-text);
+        }
+
+        #bookingPage #summaryTotal {
+            color: var(--ay-success);
+            font-weight: 700;
+            font-size: 1.35rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Selectable Cards with modern design - WIDER and SHORTER */
+        #packageCards .selectable-card,
+        #availableVehicles .selectable-card,
+        #guideCards .selectable-card {
+            border: 2px solid var(--ay-border);
+            border-radius: 14px;
+            background: var(--ay-card-bg);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            overflow: hidden;
+            height: 320px; /* Reduced height */
+            width: 100%; /* Full width */
+        }
+
+        #packageCards .selectable-card:hover,
+        #availableVehicles .selectable-card:hover,
+        #guideCards .selectable-card:hover {
+            border-color: var(--ay-primary-light);
+            box-shadow: var(--ay-shadow-md);
+            transform: translateY(-5px);
+        }
+
+        #packageCards .selectable-card.selected,
+        #availableVehicles .selectable-card.selected,
+        #guideCards .selectable-card.selected {
+            border-color: var(--ay-primary);
+            box-shadow: var(--ay-shadow-md);
+            background: linear-gradient(135deg, rgba(42, 110, 93, 0.05), #ffffff);
+            transform: translateY(-5px);
+            position: relative;
+        }
+
+        #packageCards .selectable-card.selected:after,
+        #availableVehicles .selectable-card.selected:after,
+        #guideCards .selectable-card.selected:after {
+            content: '✓';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            background: var(--ay-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .card-img-top {
+            height: 140px; /* Slightly reduced image height */
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .selectable-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        /* Card body adjustments for shorter cards */
+        .selectable-card .card-body {
+            padding: 1rem;
+            width: 100%; /* Ensure full width for selectable card bodies */
+        }
+
+        .selectable-card .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .selectable-card .card-text {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mini Badges with modern style */
+        #bookingPage .badge-soft {
+            color: var(--ay-primary);
+            background: rgba(42, 110, 93, 0.1);
+            border-radius: 20px;
+            padding: 0.4rem 0.8rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Payment Modal with modern design */
+        #paymentModal .modal-content {
+            border: none;
+            border-radius: 16px;
+            background: var(--ay-card-bg);
+            box-shadow: var(--ay-shadow-lg);
+            overflow: hidden;
+        }
+
+        #paymentModal .modal-header {
+            background: linear-gradient(135deg, var(--ay-primary) 0%, var(--ay-primary-dark) 100%);
+            color: white;
+            border-bottom: none;
+            padding: 1.5rem 2rem;
+        }
+
+        #paymentModal .modal-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        #paymentModal .btn-close {
+            filter: invert(1);
+        }
+
+        #paymentModal .modal-body {
+            padding: 2rem;
+        }
+
+        #paymentModal .btn-success {
+            background: linear-gradient(135deg, var(--ay-success) 0%, #237a5f 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 14px 28px;
+            font-weight: 700;
+            box-shadow: var(--ay-shadow-sm);
+            transition: all 0.3s ease;
+            width: 100%; /* Full width payment button */
+        }
+
+        #paymentModal .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--ay-shadow-md);
+            filter: brightness(1.05);
+        }
+
+        #paymentModal .form-control {
+            border-radius: 10px;
+            border: 2px solid var(--ay-border);
+            background: #ffffff;
+            transition: all 0.3s ease;
+            padding: 12px 16px;
+        }
+
+        #paymentModal .form-control:focus {
+            border-color: var(--ay-primary);
+            box-shadow: 0 0 0 3px rgba(42, 110, 93, 0.15);
+        }
+
+        /* Card Option Styling */
+        .card-option {
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-option:hover {
+            border-color: var(--ay-primary-light);
+            background: rgba(42, 110, 93, 0.03);
+        }
+
+        .card-option.selected {
+            border-color: var(--ay-primary);
+            background: rgba(42, 110, 93, 0.08);
+        }
+
+        /* Animation for Page Load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #bookingPage .card {
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        #bookingPage .card:nth-child(2) { animation-delay: 0.1s; }
+        #bookingPage .card:nth-child(3) { animation-delay: 0.2s; }
+
+        /* Responsive Adjustments */
+        @media (max-width: 991px) {
+            #bookingPage .col-md-4 > .card.bg-light {
+                position: static;
+                margin-top: 2.5rem;
+                border-left: none;
+                border-top: 4px solid var(--ay-primary);
+            }
+
+            #bookingPage .col-md-7 .card {
+                padding: 1.5rem;
+            }
+
+            #bookingPage h2 {
+                font-size: 2.25rem;
+            }
+
+            /* Stack cards on mobile */
+            #packageCards .selectable-card,
+            #availableVehicles .selectable-card,
+            #guideCards .selectable-card {
+                height: auto;
+                min-height: 280px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #bookingPage h2 {
+                font-size: 2rem;
+            }
+
+            #bookingPage .btn-primary,
+            #paymentModal .btn-success {
+                padding: 12px 20px;
+                font-size: 1rem;
+                width: 100%; /* Full width on mobile */
+            }
+
+            #bookingPage .card {
+                margin-bottom: 1.5rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+
+            .nav-link {
+                padding: 0.5rem !important;
+            }
+        }
+
+        /* Custom scrollbar for webkit browsers */
+        #bookingPage ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #bookingPage ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        #bookingPage ::-webkit-scrollbar-thumb {
+            background: var(--ay-primary-light);
+            border-radius: 10px;
+        }
+
+        #bookingPage ::-webkit-scrollbar-thumb:hover {
+            background: var(--ay-primary);
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top py-3">
+    <div class="container">
+<!--        <i  id="main-icon" class="fas fa-spa"></i>-->
+        <a class="navbar-brand brand-logo" href="#">හෙළ සුවය</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <nav class="collapse navbar-collapse" id="navmenu">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#service">Service</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="userBooking.html">View Your Booking</a></li>
+
+                <li class="nav-item">
+                    <a href="signup.html" class="nav-link" id="signInUpLink">Sign in</a>
+                </li>
+                <!-- User Dropdown -->
+                <li class="nav-item dropdown d-none" id="userDropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <span>Hi, User Name</span>
+                    </a>
+                    <ul class="dropdown-menu border-0 rounded-0 m-0">
+                        <li><a href="#" class="dropdown-item" onclick="loadPage('user-profile.html')">User Profile</a></li>
+                        <li><a href="#" class="dropdown-item" onclick="loadPage('booking.html')">Bookings</a></li>
+                        <li><a href="#" class="dropdown-item text-danger" id="logoutBtn">Log out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!-- Booking Page Wrapper -->
+<main id="bookingPage">
+    <div class="container py-5">
+        <div class="card shadow-lg p-4 mx-auto">
+            <h2 class="mb-4 text-center">Create a New Booking</h2>
+
+            <div class="row g-4">
+                <!-- Left Panel -->
+                <div class="col-md-7">
+                    <div class="card p-4 shadow-sm rounded-4">
+
+                        <!-- Booking Date -->
+                        <div class="mb-3">
+                            <label for="bookingDate" class="form-label">Booking Start Date</label>
+                            <input type="date" id="bookingDate" class="form-control" required>
+                        </div>
+
+                        <!-- Package Cards -->
+                        <div class="mb-3">
+                            <label class="form-label">Select Package</label>
+                            <div id="packageCards" class="row g-3">
+                                <!-- Packages will render here -->
+                            </div>
+                        </div>
+
+                        <!-- Available Accommodation -->
+                        <div class="mb-3">
+                            <label class="form-label">Available Accommodation</label>
+                            <div id="availableVehicles" class="row g-3">
+                                <!-- Accommodation will be loaded here dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Available Doctors -->
+                        <div class="mb-3">
+                            <label class="form-label">Available Doctors</label>
+                            <div id="guideCards" class="row g-2">
+                                <!-- Doctors will be loaded here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel -->
+                <div class="col-md-4 offset-md-1 offset-lg-1 offset-xl-1">
+                    <div class="card shadow-sm rounded-4 p-4 bg-light">
+                        <h4 class="mb-3 text-center">Booking Summary</h4>
+
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">User email</label>
+                            <input type="text" id="userEmail" name="userEmail" class="form-control" readonly>
+                        </div>
+
+                        <!-- Booking Date-->
+                        <div class="mb-3">
+                            <label for="summaryBookingDate" class="form-label">Booking Date</label>
+                            <input type="text" id="summaryBookingDate" class="form-control" readonly>
+                        </div>
+
+                        <!-- Checkout Date (calculated) -->
+                        <div class="mb-3">
+                            <label for="checkoutDate" class="form-label">Checkout Date</label>
+                            <input type="text" id="checkoutDate" class="form-control" readonly>
+                        </div>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>Estimated Days:</strong> <span id="summaryDays">--</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Selected Package:</strong> <span id="summaryPackage">--</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Location:</strong> <span id="summaryVehicle">--</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Doctor:</strong> <span id="summaryGuide">--</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Doctor Email:</strong> <span id="summaryGuideEmail">--</span>
+                            </li>
+                            <li class="list-group-item ">
+                                <strong>Location No:</strong> <span id="summaryVehicleNumber">--</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Base Price:</strong> <span id="summaryBase">LKR 0.00</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Doctor Fee:</strong> <span id="summaryGuideFee">LKR 0.00</span>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Total Price:</strong>
+                                <span id="summaryTotal" class="text-success fw-bold">LKR 0.00</span>
+                            </li>
+                        </ul>
+
+                        <div class="d-grid mt-4">
+                            <button class="btn btn-primary btn-lg" id="confirmBookingBtn" type="button">Confirm Booking</button>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- /row -->
+        </div> <!-- /card -->
+    </div> <!-- /container -->
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Complete Your Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p><strong>Email:</strong> <span id="paymentEmail"></span></p>
+                    <p><strong>Total Amount:</strong> <span class="text-success fw-bold">LKR <span id="paymentTotal">0.00</span></span></p>
+
+                    <form id="cardPaymentForm" novalidate>
+                        <div class="mb-3">
+                            <label for="cardNumber" class="form-label">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="expiryDate" class="form-label">Expiry Date</label>
+                                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="password" class="form-control" id="cvv" placeholder="123" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cardHolderName" class="form-label">Card Holder Name</label>
+                            <input type="text" class="form-control" id="cardHolderName" placeholder="Vindya Madubhashini" required>
+                        </div>
+
+                        <button type="submit" id="makePaymentBtn" class="btn btn-success w-100 mt-3">Pay Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section contact-details">
+            <h3>CONTACT DETAILS</h3>
+
+            <div class="contact-item">
+                <h4>ADDRESS</h4>
+                <p>395/4,<br>
+                    Harischandra Mawatha,<br>
+                    Anuradhapura,<br>
+                    Sri Lanka</p>
+            </div>
+
+            <div class="contact-item">
+                <h4>GENERAL NUMBER</h4>
+                <p>+94 25 2030200</p>
+                <p>+94 704 725 634</p>
+            </div>
+
+            <div class="contact-item">
+                <h4>EMAIL ADDRESS</h4>
+                <p>reservations@helasuwaya.lk</p>
+            </div>
+
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-section menu-section">
+            <h3>Hela Suwaya MENU</h3>
+
+            <div class="menu-columns">
+                <div class="menu-column">
+                    <ul>
+                        <li><a href="#">HOME</a></li>
+                        <li><a href="#">OUR DOCTORS</a></li>
+                        <li><a href="#">OUR PACKAGES</a></li>
+                        <li><a href="#">OUR FACILITIES</a></li>
+                        <li><a href="#">AYURVEDA</a></li>
+                        <li><a href="#">OUR BLOG</a></li>
+                    </ul>
+                </div>
+                <div class="menu-column">
+                    <ul>
+                        <li><a href="#">ABOUT US</a></li>
+                        <li><a href="#">OUR TREATMENTS</a></li>
+                        <li><a href="#">ACCOMMODATION</a></li>
+                        <li><a href="#">DESTINATIONS AND EXCURSIONS</a></li>
+                        <li><a href="#">HELA WEDAKAMA</a></li>
+                        <li><a href="#">CONTACT US</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-section logos-section">
+            <div class="logo-container">
+                <div class="main-logo">
+                    <div class="logo-placeholder">
+                        <i class="fas fa-leaf" style="font-size: 2rem; color: #d4af37;"></i>
+                        <h4>Hela Suwaya<br>AYURVEDA</h4>
+                    </div>
+                </div>
+                <div class="certification-logo">
+                    <div class="cert-placeholder">
+                        <i class="fas fa-certificate" style="font-size: 1.5rem; color: #4a7c59;"></i>
+                        <small>Certification<br>Partner</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy;2024 Hela Suwaya Ayurveda Private Limited</p>
+        <p>Website Design and Development by <a href="#">Athwa Solutions</a></p>
+    </div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+        <span>Back to top</span>
+    </button>
+
+    <!-- WhatsApp button -->
+    <a href="https://wa.me/94704725634" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</footer>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" id="backToTop" style="position: fixed; bottom: 24px; right: 24px; display: none;"><i class="fa fa-angle-double-up"></i></a>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/load.js"></script>
+
+<!-- Consolidated JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        let bookingData = null;
+        let packageDays = 0;
+        let basePrice = 0;
+
+        // Load user email from localStorage
+        function getFromLocalStorage(key) {
+            const data = localStorage.getItem(key);
+            if (!data) return null;
+
+            try {
+                const parsedData = JSON.parse(data);
+                const now = new Date().getTime();
+
+                if (now > parsedData.expiry) {
+                    localStorage.removeItem(key);
+                    return null;
+                }
+                return parsedData.value;
+            } catch (e) {
+                console.error("LocalStorage parse error:", e);
+                localStorage.removeItem(key);
+                return null;
+            }
+        }
+
+        // Set user email
+        const userEmail = getFromLocalStorage("email");
+        if (userEmail) {
+            $("#userEmail").val(userEmail);
+            $("#paymentEmail").text(userEmail);
+        } else {
+            $("#userEmail").val('Guest User');
+            $("#paymentEmail").text('Guest User');
+            console.warn("No valid email found in localStorage.");
+        }
+
+        // Update booking date when changed
+        $("#bookingDate").on('change', function() {
+            const bookingDate = $(this).val();
+            $("#summaryBookingDate").val(bookingDate);
+            updateCheckoutDate();
+        });
+
+        // Function to update checkout date
+        function updateCheckoutDate() {
+            const bookingDate = $("#bookingDate").val();
+            if (bookingDate && packageDays > 0) {
+                const date = new Date(bookingDate);
+                date.setDate(date.getDate() + packageDays);
+                const checkout = date.toISOString().split("T")[0];
+                $("#checkoutDate").val(checkout);
+            }
+        }
+
+        // Function to update total price
+        function updateTotalPrice() {
+            const basePriceVal = parseFloat($("#summaryBase").text().replace('LKR ', '')) || 0;
+            const guideFee = parseFloat($("#summaryGuideFee").text().replace('LKR ', '')) || 0;
+            const accommodationCost = parseFloat($("#summaryVehicleNumber").text().replace('LKR ', '')) || 0;
+
+            const total = basePriceVal + guideFee + accommodationCost;
+
+            $("#summaryTotal").text(`LKR ${total.toFixed(2)}`);
+            $("#paymentTotal").text(total.toFixed(2));
+        }
+
+        // Load Packages
+        function loadPackages() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/v1/package/getAll",
+                success: function (response) {
+                    if (response && response.data) {
+                        $("#packageCards").empty();
+
+                        response.data.forEach(function (pkg) {
+                            const img = pkg.imageUrl
+                                ? `<img src="/uploads/${pkg.imageUrl}" class="card-img-top" alt="${pkg.name || 'Unnamed Package'}">`
+                                : '<img src="/uploads/placeholder.jpg" class="card-img-top" alt="Unnamed Package">';
+
+                            const activitiesText = pkg.activities && pkg.activities.length
+                                ? `<p class="card-text small">Activities: ${pkg.activities.join(', ')}</p>`
+                                : '<p class="card-text small">Activities: N/A</p>';
+
+                            const packageItem = `
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="card h-100 selectable-card card-option" data-price="${pkg.price || 0}" data-days="${pkg.estimateDays || 0}" data-name="${pkg.name || 'Unnamed Package'}">
+                                    ${img}
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">${pkg.name || 'Unnamed Package'}</h5>
+                                        <p class="card-text">Price: LKR ${pkg.price || 'N/A'}</p>
+                                        <p class="card-text">Est. Days: ${pkg.estimateDays || 'N/A'}</p>
+                                        ${activitiesText}
+                                    </div>
+                                    <div class="card-footer bg-transparent border-0 text-center">
+                                        <button class="btn btn-primary btn-sm select-package">Select</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                            $("#packageCards").append(packageItem);
+                        });
+
+                        // Bind package selection events
+                        $(document).on('click', '.select-package', function () {
+                            $(".selectable-card").removeClass('selected card-option');
+                            const card = $(this).closest('.selectable-card');
+                            card.addClass('selected card-option');
+
+                            const price = parseFloat(card.data('price'));
+                            const days = parseInt(card.data('days'));
+                            const name = card.data('name');
+
+                            // Set global variables
+                            packageDays = days;
+                            basePrice = price;
+
+                            $("#summaryPackage").text(name);
+                            $("#summaryDays").text(days);
+                            $("#summaryBase").text(`LKR ${price.toFixed(2)}`);
+
+                            updateCheckoutDate();
+                            updateTotalPrice();
+                        });
+                    } else {
+                        $("#packageCards").html('<p class="text-danger text-center">No packages available.</p>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error loading packages:", error);
+                    $("#packageCards").html('<p class="text-danger text-center">Error loading packages.</p>');
+                }
+            });
+        }
+
+        // Load Accommodations
+        function loadAccommodations() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/v1/accommodation/getAll",
+                success: function (response) {
+                    if (response && response.data) {
+                        $("#availableVehicles").empty();
+
+                        response.data.forEach(function (accommodation) {
+                            const img = accommodation.imageUrl
+                                ? `<img src="/uploads/${accommodation.imageUrl}" class="card-img-top" alt="${accommodation.name || 'Unnamed Accommodation'}">`
+                                : '<img src="/uploads/placeholder.jpg" class="card-img-top" alt="Unnamed Accommodation">';
+
+                            const accommodationItem = `
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="card h-100 selectable-card card-option" data-cost="${accommodation.costPerDay || 0}" data-name="${accommodation.name || 'Unnamed Accommodation'}">
+                                    ${img}
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">${accommodation.name || 'Unnamed Accommodation'}</h5>
+                                        <p class="card-text">Location: ${accommodation.location || 'N/A'}</p>
+                                        <p class="card-text">Category: ${accommodation.category || 'N/A'}</p>
+                                        <p class="card-text">Cost/Day: LKR ${accommodation.costPerDay || 'N/A'}</p>
+                                    </div>
+                                    <div class="card-footer bg-transparent border-0 text-center">
+                                        <button class="btn btn-primary btn-sm select-accommodation">Select</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                            $("#availableVehicles").append(accommodationItem);
+                        });
+
+                        // Bind accommodation selection events
+                        $(document).on('click', '.select-accommodation', function () {
+                            $(".selectable-card").removeClass('selected card-option');
+                            const card = $(this).closest('.selectable-card');
+                            card.addClass('selected card-option');
+
+                            const cost = parseFloat(card.data('cost'));
+                            const name = card.data('name');
+
+                            $("#summaryVehicle").text(name);
+                            $("#summaryVehicleNumber").text(cost > 0 ? `LKR ${cost.toFixed(2)}` : 'N/A');
+                            updateTotalPrice();
+                        });
+                    } else {
+                        $("#availableVehicles").html('<p class="text-danger text-center">No accommodations available.</p>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error loading accommodations:", error);
+                    $("#availableVehicles").html('<p class="text-danger text-center">Error loading accommodations.</p>');
+                }
+            });
+        }
+
+        // Load Doctors
+        function loadDoctors() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/v1/doctor/getAll",
+                success: function (response) {
+                    if (response && response.data) {
+                        $("#guideCards").empty();
+
+                        response.data.forEach(function (doctor) {
+                            if (doctor.status === "ACTIVE") {
+                                const img = doctor.imageUrl
+                                    ? `<img src="/uploads/${doctor.imageUrl}" class="card-img-top" alt="${doctor.fullName || 'Unnamed Doctor'}">`
+                                    : '<img src="/uploads/placeholder.jpg" class="card-img-top" alt="Unnamed Doctor">';
+
+                                const statusClass = "badge-soft";
+                                const statusText = doctor.status || 'N/A';
+
+                                const doctorItem = `
+                                <div class="col-lg-4 col-md-6 mb-3">
+                                    <div class="card h-100 selectable-card card-option" data-fee="${doctor.paymentPerDay || 0}" data-name="${doctor.fullName || 'Unnamed Doctor'}" data-email="${doctor.email || 'No email'}">
+                                        ${img}
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">${doctor.fullName || 'Unnamed Doctor'}</h5>
+                                            <p class="card-text">${doctor.email || 'No email'}</p>
+                                            <p class="card-text">Fee/Day: LKR ${doctor.paymentPerDay || 'N/A'}</p>
+                                            <p class="card-text"><span class="${statusClass}">${statusText}</span></p>
+                                        </div>
+                                        <div class="card-footer bg-transparent border-0 text-center">
+                                            <button class="btn btn-primary btn-sm select-doctor">Select</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+
+                                $("#guideCards").append(doctorItem);
+                            }
+                        });
+
+                        // Bind doctor selection events
+                        $(document).on('click', '.select-doctor', function () {
+                            $(".selectable-card").removeClass('selected card-option');
+                            const card = $(this).closest('.selectable-card');
+                            card.addClass('selected card-option');
+
+                            const fee = parseFloat(card.data('fee'));
+                            const name = card.data('name');
+                            const email = card.data('email');
+
+                            $("#summaryGuide").text(name);
+                            $("#summaryGuideEmail").text(email);
+
+                            // Calculate total doctor fee based on days
+                            const totalDoctorFee = fee * packageDays;
+                            $("#summaryGuideFee").text(`LKR ${totalDoctorFee.toFixed(2)}`);
+
+                            updateTotalPrice();
+                        });
+                    } else {
+                        $("#guideCards").html('<p class="text-danger text-center">No doctors available.</p>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error loading doctors:", error);
+                    $("#guideCards").html('<p class="text-danger text-center">Error loading doctors.</p>');
+                }
+            });
+        }
+
+        // Confirm Booking Button
+        $("#confirmBookingBtn").click(function (e) {
+            e.preventDefault();
+
+            const packageName = $("#summaryPackage").text().trim();
+            const doctorEmail = $("#summaryGuideEmail").text().trim();
+            const accommodationName = $("#summaryVehicle").text().trim(); // Changed to accommodationName
+            const userEmail = $("#userEmail").val().trim();
+            const bookingDate = $("#summaryBookingDate").val();
+
+            if (!packageName || !doctorEmail || !accommodationName || !userEmail || !bookingDate) {
+                alert("Please select package, doctor, accommodation, and booking date before confirming.");
+                return;
+            }
+
+            bookingData = {
+                packageName: packageName,
+                doctorEmail: doctorEmail,
+                accommodationName: accommodationName, // Updated to match DTO
+                userEmail: userEmail,
+                estimateDays: parseInt($("#summaryDays").text()) || 0,
+                bookingDate: bookingDate,
+                checkoutDate: $("#checkoutDate").val(),
+                packagePrice: parseFloat($("#summaryBase").text().replace("LKR", "").trim()) || 0,
+                doctorFee: parseFloat($("#summaryGuideFee").text().replace("LKR", "").trim()) || 0,
+                accommodationFee: parseFloat($("#summaryVehicleNumber").text().replace("LKR", "").trim()) || 0,
+                totalPrice: parseFloat($("#summaryTotal").text().replace("LKR", "").trim()) || 0
+            };
+
+            $("#paymentEmail").text(userEmail);
+            $("#paymentTotal").text(bookingData.totalPrice.toFixed(2));
+
+            $("#paymentModal").modal("show");
+        });
+
+        // Payment Form Submission
+        $("#makePaymentBtn").click(function (e) {
+            e.preventDefault();
+
+            if (!bookingData) {
+                alert("No booking data available.");
+                return;
+            }
+
+            // Get card details
+            const cardHolderName = $("#cardHolderName").val().trim();
+            const cardNumber = $("#cardNumber").val().trim();
+            const expiryDate = $("#expiryDate").val().trim();
+            const cvv = $("#cvv").val().trim();
+
+            // Basic validation
+            if (!cardHolderName || !cardNumber || !expiryDate || !cvv) {
+                alert("Please fill in all card payment details.");
+                return;
+            }
+
+            // Save booking first
+            $.ajax({
+                url: "http://localhost:8080/api/v1/booking/save",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(bookingData),
+                success: function (response) {
+                    const booking = response.data;
+
+                    const paymentDTO = {
+                        userEmail: booking.userEmail,
+                        amount: booking.totalPrice,
+                        cardHolderName: cardHolderName,
+                        cardNumber: cardNumber,
+                        expiryDate: expiryDate,
+                        cvv: cvv,
+                        paymentDate: new Date().toISOString(),
+                        status: "SUCCESS",
+                        paymentMethod: "CARD",
+                        bookingId: booking.id
+                    };
+
+                    // Save payment
+                    $.ajax({
+                        url: "http://localhost:8080/api/v1/payment/save",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(paymentDTO),
+                        success: function () {
+                            alert("Payment and Booking successful!");
+                            $("#paymentModal").modal("hide");
+                            clearAllFields();
+                        },
+                        error: function () {
+                            alert("Booking saved but payment failed!");
+                        }
+                    });
+                },
+                error: function () {
+                    alert("Booking failed. Payment not processed.");
+                }
+            });
+        });
+
+        // Clear all form fields
+        function clearAllFields() {
+            bookingData = null;
+            packageDays = 0;
+            basePrice = 0;
+
+            $("#userEmail").val(userEmail || '');
+            $("#summaryBookingDate").val('');
+            $("#checkoutDate").val('');
+
+            $("#summaryPackage").text('--');
+            $("#summaryGuideEmail").text('--');
+            $("#summaryVehicleNumber").text('--');
+            $("#summaryDays").text('--');
+            $("#summaryBase").text('LKR 0.00');
+            $("#summaryGuideFee").text('LKR 0.00');
+            $("#summaryTotal").text('LKR 0.00');
+            $("#summaryVehicle").text('--');
+            $("#summaryGuide").text('--');
+
+            $("#cardHolderName").val('');
+            $("#cardNumber").val('');
+            $("#expiryDate").val('');
+            $("#cvv").val('');
+
+            // Reset selections
+            $(".selectable-card").removeClass('selected card-option');
+            $("#bookingDate").val('');
+        }
+
+        // Initialize loading all data
+        loadPackages();
+        loadAccommodations();
+        loadDoctors();
+    });
+</script>
+
+</body>
+</html>
