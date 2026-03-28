@@ -2,70 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hela Suwaya - Holistic Healing Center</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Hela Suwaya | Sacred Healing Sanctuary - Ceylon Ayurveda</title>
+    <!-- Google Fonts: Elegant Serif + Modern Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #f9f6f1;
-            color: #333;
+            font-family: 'Inter', sans-serif;
+            background-color: #FCF9F4;
+            color: #2C2A29;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Navigation Bar */
+        h1, h2, h3, h4, .logo-text, .section-title h2, .hero-content h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* ========== WORLD-CLASS NAVBAR ========== */
         .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 1.2rem 6%;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            background: transparent;
+        }
+
+        /* Glass morphism on scroll */
+        .navbar.scrolled {
+            background: rgba(26, 35, 28, 0.92);
+            backdrop-filter: blur(16px);
+            padding: 0.8rem 6%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border-bottom: 1px solid rgba(212, 175, 122, 0.3);
+        }
+
+        .navbar.scrolled .logo-text {
+            color: #F5EAD9;
+        }
+
+        .navbar.scrolled #main-icon {
+            color: #E6CFA5;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: #F0E5D6;
+        }
+
+        .navbar.scrolled .nav-links a:after {
+            background: #E6CFA5;
+        }
+
+        .navbar.scrolled .nav-links a:hover {
+            color: #FFE6B3;
         }
 
         .logo {
             display: flex;
             align-items: center;
+            gap: 12px;
+            z-index: 1001;
         }
 
-        .logo img {
-            height: 40px;
-            margin-right: 10px;
+        #main-icon {
+            font-size: 2.4rem;
+            color: #C7A252;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+            transition: all 0.3s;
         }
 
         .logo-text {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #2a6b4e;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #FFFFFF;
             letter-spacing: 1px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: color 0.3s;
         }
 
+        .navbar.scrolled .logo-text {
+            text-shadow: none;
+        }
+
+        /* Navigation Links - Elegant */
         .nav-links {
             display: flex;
             list-style: none;
+            gap: 2.2rem;
+            margin: 0;
+            padding: 0;
         }
 
-        .nav-links li {
-            margin: 0 15px;
-        }
-
-        .nav-links a {
+        .nav-links li a {
             text-decoration: none;
-            color: #444;
             font-weight: 500;
-            font-size: 1.1rem;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            color: #FFFFFF;
+            letter-spacing: 0.8px;
+            transition: all 0.3s;
             position: relative;
+            padding: 6px 0;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
         }
 
         .nav-links a:after {
@@ -73,523 +127,606 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
-            background-color: #2a6b4e;
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #2a6b4e;
+            background: #E6CFA5;
+            transition: width 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .nav-links a:hover:after {
             width: 100%;
         }
 
-        .nav-icons {
-            display: flex;
-            align-items: center;
+        .nav-links a:hover {
+            color: #FFEFD0;
         }
 
-        .nav-icons i {
-            font-size: 1.2rem;
-            margin-left: 20px;
-            color: #2a6b4e;
-            cursor: pointer;
+        /* CTA Button in Nav */
+        .nav-cta {
+            background: linear-gradient(135deg, #C7A252, #A77C3C);
+            padding: 8px 24px;
+            border-radius: 40px;
+            color: white !important;
+            text-shadow: none !important;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #D9B15E, #B88942);
+            box-shadow: 0 6px 18px rgba(199, 162, 82, 0.4);
+        }
+
+        .nav-cta:after {
+            display: none !important;
         }
 
         .hamburger {
             display: none;
+            font-size: 1.8rem;
             cursor: pointer;
+            color: #FFFFFF;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            z-index: 1001;
+            transition: all 0.2s;
         }
 
-        /* Hero Section */
+        /* ========== HERO SECTION - CINEMATIC MASTERPIECE ========== */
         .hero {
-            height: 80vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative;
+            height: 100vh;
+            min-height: 780px;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #fff;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        /* Video Background or Parallax Image */
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .hero-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.55) contrast(1.05) saturate(1.1);
+            transform: scale(1.02);
+            animation: slowZoom 25s ease-out infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        /* Overlay Gradient - Rich & Deep */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 25, 20, 0.65) 0%, rgba(30, 25, 20, 0.5) 50%, rgba(0, 0, 0, 0.4) 100%);
+            z-index: -1;
         }
 
         .hero-content {
-            max-width: 800px;
-            padding: 0 20px;
+            max-width: 950px;
+            padding: 0 24px;
+            animation: fadeUp 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            z-index: 10;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(212, 175, 122, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 6px 20px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+            color: #F5E6D3;
+            border: 1px solid rgba(212, 175, 122, 0.5);
+            margin-bottom: 28px;
+            font-family: 'Inter', sans-serif;
         }
 
         .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+            font-size: 5rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 24px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content h1 span {
+            color: #E6CFA5;
+            display: inline-block;
+            position: relative;
         }
 
         .hero-content p {
             font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: #2a6b4e;
-            color: #fff;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background-color: #1e523b;
-        }
-
-        /* About Section */
-        .section {
-            padding: 5rem 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: #2a6b4e;
-            margin-bottom: 15px;
-        }
-
-        .section-title p {
-            color: #666;
+            color: rgba(255, 248, 235, 0.95);
+            margin-bottom: 36px;
             max-width: 700px;
-            margin: 0 auto;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            font-weight: 400;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
-        .about-content {
+        .hero-buttons {
             display: flex;
+            gap: 20px;
+            justify-content: center;
             flex-wrap: wrap;
-            justify-content: space-between;
+        }
+
+        .btn-primary-hero {
+            background: linear-gradient(105deg, #D9B15E, #B88942);
+            border: none;
+            padding: 14px 42px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1F2A24;
+            transition: all 0.4s;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
         }
 
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-            padding-right: 30px;
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            color: #2a6b4e;
-            margin-bottom: 20px;
-        }
-
-        .about-text p {
-            margin-bottom: 15px;
-            color: #555;
-        }
-
-        .about-image {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Concept Section */
-        .concept {
-            background-color: #eaf2ef;
-        }
-
-        .concept-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .concept-image {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .concept-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .concept-text {
-            flex: 1;
-            min-width: 300px;
-            padding-left: 30px;
-        }
-
-        .concept-text h3 {
-            font-size: 1.8rem;
-            color: #2a6b4e;
-            margin-bottom: 20px;
-        }
-
-        .concept-text p {
-            margin-bottom: 15px;
-            color: #555;
-        }
-
-        .features {
-            margin-top: 20px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .feature-icon {
-            color: #2a6b4e;
-            font-size: 1.5rem;
-            margin-right: 15px;
-            margin-top: 5px;
-        }
-
-        .feature-content h4 {
-            color: #2a6b4e;
-            margin-bottom: 5px;
-        }
-
-        /* Articles Section */
-        .articles {
-            background-color: #fff;
-        }
-
-        .articles-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .article-card {
-            background: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .btn-primary-hero i {
             transition: transform 0.3s;
         }
 
-        .article-card:hover {
-            transform: translateY(-10px);
+        .btn-primary-hero:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(105deg, #E8C474, #C9964A);
+            box-shadow: 0 20px 32px rgba(0, 0, 0, 0.3);
         }
 
+        .btn-primary-hero:hover i {
+            transform: translateX(6px);
+        }
+
+        .btn-outline-hero {
+            background: transparent;
+            border: 1.5px solid rgba(230, 207, 165, 0.8);
+            padding: 14px 38px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #FFFFFF;
+            transition: all 0.3s;
+            text-decoration: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-outline-hero:hover {
+            background: rgba(199, 162, 82, 0.25);
+            border-color: #E6CFA5;
+            transform: translateY(-2px);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 20;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            color: #F5E6D3;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        .scroll-indicator i {
+            color: #E6CFA5;
+            font-size: 1.4rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Section Styling (Keep existing but refined) */
+        .section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-title h2 {
+            font-size: 3.2rem;
+            color: #4F3A27;
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title h2:after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 3px;
+            background: #D4AF7A;
+            margin: 12px auto 0;
+        }
+        .section-title p {
+            color: #6B5A4B;
+            max-width: 650px;
+            margin: 16px auto 0;
+            font-size: 1.05rem;
+        }
+
+        /* About + Concept (preserved elegance) */
+        .about-content, .concept-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4rem;
+        }
+        .about-text, .concept-text {
+            flex: 1;
+        }
+        .about-image, .concept-image {
+            flex: 1;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.2);
+        }
+        .about-image img, .concept-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s;
+        }
+        .about-image:hover img, .concept-image:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Articles Section (dynamic) */
+        .articles {
+            background: #F7F2EA;
+        }
+        .articles-container {
+            display: flex;
+            flex-direction: column;
+            gap: 70px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .article-card {
+            display: flex;
+            background: #FFFFFF;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(212, 175, 122, 0.2);
+        }
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.2);
+        }
+        .article-card:nth-child(odd) { flex-direction: row; }
+        .article-card:nth-child(even) { flex-direction: row-reverse; }
         .article-image {
-            height: 200px;
+            flex: 1.2;
+            min-height: 320px;
             overflow: hidden;
         }
-
         .article-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.6s;
         }
-
         .article-card:hover .article-image img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
-
         .article-content {
-            padding: 20px;
-        }
-
-        .article-content h3 {
-            color: #2a6b4e;
-            margin-bottom: 10px;
-        }
-
-        .article-content p {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .article-meta {
+            flex: 1;
+            padding: 3rem;
             display: flex;
-            justify-content: space-between;
-            color: #888;
-            font-size: 0.9rem;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .article-content h3 {
+            font-size: 1.9rem;
+            color: #4F3A27;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
-        /* Footer */
+        /* Footer (premium) */
         footer {
-            background-color: #2a3b2e;
-            color: #fff;
-            padding: 3rem 5%;
+            background: #1E2A23;
+            color: #E8DFD3;
+            padding: 4rem 5% 2rem;
         }
-
         .footer-content {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+            gap: 2rem;
         }
-
-        .footer-column {
-            flex: 1;
-            min-width: 250px;
-            margin-bottom: 30px;
-        }
-
-        .footer-column h3 {
+        .footer-section h3 {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #c8d8d0;
+            margin-bottom: 1.5rem;
+            color: #E6CFA5;
         }
-
-        .footer-column p, .footer-column li {
-            margin-bottom: 10px;
-            color: #aabdb4;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column a {
-            color: #aabdb4;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-column a:hover {
-            color: #fff;
-        }
-
         .social-icons {
             display: flex;
-            margin-top: 15px;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
-
         .social-icons a {
+            background: rgba(255, 248, 235, 0.1);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #3a4b3e;
-            margin-right: 10px;
-            transition: background-color 0.3s;
+            color: #F0E1CF;
+            transition: 0.2s;
         }
-
         .social-icons a:hover {
-            background-color: #2a6b4e;
+            background: #C7A252;
+            color: #1E2A23;
+        }
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #25D366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            transition: 0.2s;
+            z-index: 99;
+            text-decoration: none;
+        }
+        .whatsapp-btn:hover {
+            transform: scale(1.08);
+            background: #128C7E;
         }
 
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            margin-top: 20px;
-            border-top: 1px solid #3a4b3e;
-            color: #aabdb4;
-        }
-        #main-icon {
-            color: #FFD700; /* Gold color */
-            font-size: 2.5rem; /* Larger size */
-            margin-right: 10px; /* Space between icon and brand logo */
-        }
-
-        /* Responsive Design */
         @media (max-width: 992px) {
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(26, 35, 28, 0.97);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                text-align: center;
+                border-top: 1px solid rgba(212, 175, 122, 0.3);
             }
-
+            .nav-links.active {
+                display: flex;
+            }
             .hamburger {
                 display: block;
             }
-
             .hero-content h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
-        }
-
-        @media (max-width: 768px) {
-            .about-text, .about-image, .concept-text, .concept-image {
-                padding: 0;
-                margin-bottom: 30px;
+            .hero-content p {
+                font-size: 1rem;
             }
-
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-        }
-        /* Articles Section - Big Card Layout */
-        .articles {
-            background-color: #fff;
-            padding: 5rem 5%;
-        }
-
-        .articles-container {
-            display: flex;
-            flex-direction: column;
-            gap: 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .article-card {
-            display: flex;
-            background: #fff;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s, box-shadow 0.3s;
-            min-height: 350px;
-        }
-
-        .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .article-card:nth-child(odd) {
-            flex-direction: row;
-        }
-
-        .article-card:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .article-image {
-            flex: 1;
-            min-width: 45%;
-            overflow: hidden;
-        }
-
-        .article-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .article-card:hover .article-image img {
-            transform: scale(1.05);
-        }
-
-        .article-content {
-            flex: 1;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .article-content h3 {
-            color: #2a6b4e;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        .article-content p {
-            color: #666;
-            margin-bottom: 25px;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-
-        .article-meta {
-            display: flex;
-            justify-content: space-between;
-            color: #888;
-            font-size: 0.95rem;
-            margin-top: auto;
-        }
-
-        /* Responsive adjustments for the article cards */
-        @media (max-width: 992px) {
-            .article-card:nth-child(odd),
-            .article-card:nth-child(even) {
+            .article-card:nth-child(odd), .article-card:nth-child(even) {
                 flex-direction: column;
             }
-
-            .article-image {
-                min-height: 250px;
-            }
         }
 
         @media (max-width: 768px) {
-            .article-content {
-                padding: 25px;
+            .hero-content h1 {
+                font-size: 2.4rem;
             }
-
-            .article-content h3 {
-                font-size: 1.5rem;
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary-hero, .btn-outline-hero {
+                width: 80%;
+                justify-content: center;
+            }
+            .section-title h2 {
+                font-size: 2.2rem;
             }
         }
-
     </style>
 </head>
 <body>
-<!-- Navigation Bar -->
-<nav class="navbar">
+
+<!-- WORLD-CLASS NAVBAR (Premium Glass) -->
+<nav class="navbar" id="navbar">
     <div class="logo">
-        <i  id="main-icon" class="fas fa-spa"></i>
-        <div class="logo-text">හෙළ සුවය</div>
+        <i id="main-icon" class="fas fa-lotus"></i>
+        <div class="logo-text">CEYLON TRADITIONAL MEDICINE </div>
     </div>
-
-    <ul class="nav-links">
-        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#service">Service</a></li>
-        <li class="nav-item"><a class="nav-link" href="#packageSection">Packages</a></li>
-        <li class="nav-item"><a class="nav-link" href="#doctorSection">Doctor</a></li>
-        <li class="nav-item"><a class="nav-link" href="#accommodation">Accommodation</a></li>
-        <li class="nav-item"><a class="nav-link" href="#accommodation">Programmes</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#home">HOME</a></li>
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#service">SERVICE</a></li>
+        <li><a href="#packageSection">PACKAGES</a></li>
+        <li><a href="#doctorSection">DOCTORS</a></li>
+        <li><a href="#accommodation">STAYS</a></li>
+        <li><a href="#programs">PROGRAMMES</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li><a href="#" class="nav-cta" id="bookNowBtn">BOOK RETREAT <i class="fas fa-arrow-right"></i></a></li>
     </ul>
-
-
+    <div class="hamburger" id="hamburgerBtn">
+        <i class="fas fa-bars"></i>
+    </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero">
+<!-- HERO SECTION - Cinematic, Immersive -->
+<section class="hero" id="home">
+    <div class="hero-background">
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80" alt="Ayurveda Sanctuary">
+    </div>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-        <h1>Begin Your Transformative Journey</h1>
-        <p>Experience completely personalized and immersive healing at Hela Suwaya</p>
-        <a href="#" class="btn">Discover Our Retreats</a>
+        <div class="hero-badge">
+            <i class="fas fa-feather-alt me-1"></i> TRADITIONAL CEYLON HEALING
+        </div>
+        <h1>
+            Awaken Your Inner <span>Balance</span><br>
+            With Ancient Wisdom
+        </h1>
+        <p>Step into Hela Suwaya — where 5,000 years of Sri Lankan medicinal heritage meets personalized wellness journeys. Rejuvenate body, mind, and soul in the heart of the cultural triangle.</p>
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary-hero" id="heroExploreBtn">Begin Healing Journey <i class="fas fa-leaf"></i></a>
+            <a href="#" class="btn-outline-hero" id="heroDiscoverBtn">Discover Treatments <i class="fas fa-play-circle"></i></a>
+        </div>
+    </div>
+    <div class="scroll-indicator" id="scrollIndicator">
+        <span>DISCOVER SERENITY</span>
+        <i class="fas fa-chevron-down"></i>
     </div>
 </section>
 
-
-<!-- Articles Section (Dynamically Loaded) -->
-<section class="section articles">
+<!-- About Section (preserved) -->
+<section class="section" id="about">
     <div class="section-title">
-        <h2>WELLNESS ARTICLES</h2>
-        <p>Explore our latest insights on holistic health and wellness</p>
+        <h2>Sacred Lineage of Healing</h2>
+        <p>Rooted in 5,000 years of Sri Lankan medicinal heritage</p>
     </div>
-
-    <div class="articles-container" id="articles-container">
-        <!-- Articles will be loaded here dynamically -->
+    <div class="about-content">
+        <div class="about-text">
+            <h3>Hela Wedakama — The Indigenous Science of Life</h3>
+            <p>At Hela Suwaya, we revive authentic traditional medicine practices passed down through generations. Our center blends herbal remedies, Panchakarma detox, and spiritual alignment to restore balance.</p>
+            <p>Each guest receives a personalized regimen, crafted by our master physicians, using organic botanicals from our own medicinal gardens.</p>
+        </div>
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Ayurvedic Treatment">
+        </div>
     </div>
 </section>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Concept Section -->
+<section class="section concept" style="background: #F3EDE4;">
+    <div class="section-title">
+        <h2>Our Philosophy</h2>
+        <p>Balance of Doshas | Harmony with Nature</p>
+    </div>
+    <div class="concept-content">
+        <div class="concept-image">
+            <img src="https://images.unsplash.com/photo-1545579133-99bb5ab189bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Meditation">
+        </div>
+        <div class="concept-text">
+            <h3>Ancient Wisdom, Modern Serenity</h3>
+            <p>Our concept merges traditional Ayurveda with bespoke wellness journeys. From herbal steam chambers to yoga pavilions overlooking ancient reservoirs, every element is designed to heal.</p>
+            <div class="features">
+                <div class="feature-item"><div class="feature-icon"><i class="fas fa-leaf"></i></div><div class="feature-content"><h4>Authentic Formulations</h4><p>Hand-prepared herbal remedies based on ancient ola-leaf manuscripts.</p></div></div>
+                <div class="feature-item"><div class="feature-icon"><i class="fas fa-spa"></i></div><div class="feature-content"><h4>Personalized Panchakarma</h4><p>Customized detox programs supervised by resident vaidyas.</p></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Articles Section (Dynamic) -->
+<section class="section articles" id="articlesSection">
+    <div class="section-title">
+        <h2>Wisdom Chronicles</h2>
+        <p>Insights from our healers & wellness experts</p>
+    </div>
+    <div class="articles-container" id="articles-container">
+        <div style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-pulse"></i> Loading sacred texts...</div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>SACRED SANCTUARY</h3>
+            <p>395/4, Harischandra Mawatha,<br>Anuradhapura, Sri Lanka</p>
+            <p><i class="fas fa-phone-alt"></i> +94 76 992 1134</p>
+            <p><i class="fas fa-envelope"></i> reservations@helasuwaya.lk</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul style="list-style: none;">
+                <li><a href="#" style="color:#CEC2B2;">Ayurveda Treatments</a></li>
+                <li><a href="#" style="color:#CEC2B2;">Wellness Packages</a></li>
+                <li><a href="#" style="color:#CEC2B2;">Accommodation</a></li>
+                <li><a href="#" style="color:#CEC2B2;">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Certified Heritage</h3>
+            <i class="fas fa-certificate" style="font-size: 2rem; color: #D4AF7A;"></i>
+            <p>Traditional Medicine Council of Sri Lanka</p>
+        </div>
+    </div>
+    <div class="footer-bottom" style="text-align:center; margin-top:2rem; padding-top:1rem; border-top:1px solid rgba(200,180,150,0.2);">
+        <p>© 2025 Hela Suwaya Ayurveda Private Limited — Preserving Ceylon's Healing Legacy</p>
+    </div>
+    <a href="https://wa.me/94769921134" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</footer>
+
 <script>
+    // Backend API integration (unchanged)
     const ARTICLE_API = "http://localhost:8080/api/v1/article";
 
-    // Function to load articles dynamically
     function loadArticles() {
         $.ajax({
             url: ARTICLE_API + "/getAll",
@@ -598,177 +735,109 @@
                 if (response.code === 201 || response.code === 200) {
                     let articles = response.data;
                     let html = "";
-
-                    articles.forEach(article => {
-                        // Fix image URL like your accommodations example
-                        let imagePath = article.imageUrl
-                            ? `/uploads/${article.imageUrl}`   // Note the relative path
-                            : "https://via.placeholder.com/300x200?text=No+Image";
-
-                        html += `
-                            <div class="article-card">
-                                <div class="article-image">
-                                    <img src="${imagePath}" alt="${article.title}" class="img-fluid">
-                                </div>
-                                <div class="article-content">
-                                    <h3>${article.title}</h3>
-                                    <p>${article.description.length > 400
-                            ? article.description.substring(0, 400) + "..."
-                            : article.description}</p>
-                                    <div class="article-meta">
-                                        <span><i class="fa-solid fa-calendar"></i> ${new Date().toLocaleDateString()}</span>
-                                        <span><i class="fa-solid fa-user"></i> Admin</span>
+                    if (!articles || articles.length === 0) {
+                        html = '<div class="text-center" style="padding: 3rem;">No articles found.</div>';
+                    } else {
+                        articles.forEach(article => {
+                            let imagePath = article.imageUrl ? `/uploads/${article.imageUrl}` : "https://via.placeholder.com/800x500?text=Hela+Wisdom";
+                            html += `
+                                <div class="article-card">
+                                    <div class="article-image">
+                                        <img src="${imagePath}" alt="${escapeHtml(article.title)}" loading="lazy">
+                                    </div>
+                                    <div class="article-content">
+                                        <h3>${escapeHtml(article.title)}</h3>
+                                        <p>${escapeHtml(article.description && article.description.length > 380 ? article.description.substring(0, 380) + "..." : article.description || "Discover ancient healing practices.")}</p>
+                                        <div class="article-meta" style="margin-top: 1rem; color:#9B856C;">
+                                            <span><i class="fa-regular fa-calendar"></i> ${new Date().toLocaleDateString()}</span>
+                                            <span><i class="fa-regular fa-user"></i> Vaidya Parampara</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        `;
-                    });
-
+                            `;
+                        });
+                    }
                     $("#articles-container").html(html);
                 } else {
-                    $("#articles-container").html("<p>No articles found.</p>");
+                    $("#articles-container").html('<div style="text-align:center;">No sacred texts available now.</div>');
                 }
             },
-            error: function (xhr, status, error) {
-                console.error("Error fetching articles:", error);
-                $("#articles-container").html("<p>Failed to load articles. Please try again later.</p>");
+            error: function () {
+                $("#articles-container").html('<div style="text-align:center; color:#A97C50;">Unable to load articles.</div>');
             }
         });
     }
 
-    $(document).ready(function () {
-        loadArticles();
-    });
-</script>
-
-
-
-<!-- Footer Section -->
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section contact-details">
-            <h3>CONTACT DETAILS</h3>
-
-            <div class="contact-item">
-                <h4>ADDRESS</h4>
-                <p>395/4,<br>
-                    Harischandra Mawatha,<br>
-                    Anuradhapura,<br>
-                    Sri Lanka</p>
-            </div>
-
-            <div class="contact-item">
-                <h4>GENERAL NUMBER</h4>
-                <p>+94 76 992 1134</p>
-                <p>+94 76 992 1134</p>
-            </div>
-
-            <div class="contact-item">
-                <h4>EMAIL ADDRESS</h4>
-                <p>reservations@helasuwaya.lk</p>
-            </div>
-
-            <div class="social-icons">
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-
-        <div class="footer-section menu-section">
-            <h3>Hela Suwaya MENU</h3>
-
-            <div class="menu-columns">
-                <div class="menu-column">
-                    <ul>
-                        <li><a href="#">HOME</a></li>
-                        <li><a href="#">OUR DOCTORS</a></li>
-                        <li><a href="#">OUR PACKAGES</a></li>
-                        <li><a href="#">OUR FACILITIES</a></li>
-                        <li><a href="#">AYURVEDA</a></li>
-                        <li><a href="#">OUR BLOG</a></li>
-                    </ul>
-                </div>
-                <div class="menu-column">
-                    <ul>
-                        <li><a href="#">ABOUT US</a></li>
-                        <li><a href="#">OUR TREATMENTS</a></li>
-                        <li><a href="#">ACCOMMODATION</a></li>
-                        <li><a href="#">DESTINATIONS AND EXCURSIONS</a></li>
-                        <li><a href="#">HELA WEDAKAMA</a></li>
-                        <li><a href="#">CONTACT US</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-section logos-section">
-            <div class="logo-container">
-                <div class="main-logo">
-                    <div class="logo-placeholder">
-                        <i class="fas fa-leaf" style="font-size: 2rem; color: #d4af37;"></i>
-                        <h4>Hela Suwaya<br>AYURVEDA</h4>
-                    </div>
-                </div>
-                <div class="certification-logo">
-                    <div class="cert-placeholder">
-                        <i class="fas fa-certificate" style="font-size: 1.5rem; color: #4a7c59;"></i>
-                        <small>Certification<br>Partner</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <p>&copy;2024 Hela Suwaya Ayurveda Private Limited</p>
-        <p>Website Design and Development by <a href="#">Athwa Solutions</a></p>
-    </div>
-
-    <!-- Back to top button -->
-    <button class="back-to-top" onclick="scrollToTop()">
-        <i class="fas fa-chevron-up"></i>
-        <span>Back to top</span>
-    </button>
-
-    <!-- WhatsApp button -->
-    <a href="https://wa.me/94769921134" class="whatsapp-btn" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-</footer>
-
-<script>
-
-
-    // Function to scroll to top
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
         });
     }
 
-    // Show/hide back to top button based on scroll position
-    window.addEventListener('scroll', function() {
-        const backToTopBtn = document.querySelector('.back-to-top');
-        const navbar = document.querySelector('.navbar');
+    // Navbar scroll effect + mobile menu
+    document.addEventListener('DOMContentLoaded', function () {
+        loadArticles();
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburgerBtn');
+        const navLinks = document.getElementById('navLinks');
 
-        // Back to top button opacity
-        if (window.pageYOffset > 300) {
-            backToTopBtn.style.opacity = '1';
-        } else {
-            backToTopBtn.style.opacity = '0.7';
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        if (hamburger) {
+            hamburger.addEventListener('click', function (e) {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+            });
         }
 
-        // Navbar background color change
-        if (window.scrollY > 50) { // Change color after scrolling 50px
-            navbar.classList.remove('bg-transparent');
-            navbar.classList.add('bg-dark'); // Add solid dark background
-        } else {
-            navbar.classList.remove('bg-dark');
-            navbar.classList.add('bg-transparent'); // Revert to transparent
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll indicator functionality
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        if (scrollIndicator) {
+            scrollIndicator.addEventListener('click', () => {
+                const aboutSection = document.getElementById('about');
+                if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // Hero buttons smooth scroll
+        const heroExplore = document.getElementById('heroExploreBtn');
+        const heroDiscover = document.getElementById('heroDiscoverBtn');
+        const bookNow = document.getElementById('bookNowBtn');
+
+        if (heroExplore) {
+            heroExplore.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        if (heroDiscover) {
+            heroDiscover.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('articlesSection').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        if (bookNow) {
+            bookNow.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert("Connect with our wellness concierge: reservations@helasuwaya.lk");
+            });
         }
     });
 </script>

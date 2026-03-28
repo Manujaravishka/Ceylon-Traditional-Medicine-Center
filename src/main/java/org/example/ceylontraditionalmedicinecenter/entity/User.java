@@ -25,4 +25,5 @@ public class User implements Serializable {
     private String contact;
     private String password;
     private String role;
+    private String status;
 }

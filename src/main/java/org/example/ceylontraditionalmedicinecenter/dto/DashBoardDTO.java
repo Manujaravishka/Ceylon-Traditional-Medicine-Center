@@ -12,4 +12,5 @@ public class DashBoardDTO {
     private int totalBookings;
     private int totalAccommodations;
     private int totalDoctors;
+    private int totalUsers;
 }

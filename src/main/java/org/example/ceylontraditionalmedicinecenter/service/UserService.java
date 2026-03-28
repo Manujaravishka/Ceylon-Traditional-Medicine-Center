@@ -1,6 +1,5 @@
 package org.example.ceylontraditionalmedicinecenter.service;
 
-import jakarta.validation.Valid;
 import org.example.ceylontraditionalmedicinecenter.dto.UserDTO;
 
 import java.util.List;
@@ -11,6 +10,12 @@ public interface UserService {
     UserDTO getUserByEmail(String email);
 
     List<UserDTO> getAllUsers();
+
+    List<UserDTO> getActiveUsers();
+
+    long getTotalUsers();
+
+    long getActiveUsersCount();
 
     boolean deleteUserByEmail(String email);
 

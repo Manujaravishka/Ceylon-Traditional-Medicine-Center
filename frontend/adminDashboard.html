@@ -2,1182 +2,369 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEYLON TRADITIONAL MEDICINE CENTER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>CEYLON TRADITIONAL MEDICINE CENTER | Elite Admin Suite</title>
+    <!-- Google Fonts + Modern Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        body {
-            display: flex;
-            flex-wrap: wrap;
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7fc;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4f9;
+            overflow-x: hidden;
+        }
+
+        /* ----- SIDEBAR LUXURY REVAMP ----- */
         .sidebar {
-            width: 260px;
-            height: 100vh;
-            background: linear-gradient(135deg, #2c3e50 0%, #1e2a36 100%);
-            color: #ecf0f1;
-            padding: 20px 15px;
+            width: 280px;
+            background: linear-gradient(180deg, #0B2B26 0%, #051E1A 100%);
+            backdrop-filter: blur(0px);
+            color: #E9F5F2;
             position: fixed;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            height: 100vh;
             overflow-y: auto;
-            transition: all 0.3s;
-            z-index: 1000;
+            z-index: 1050;
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 12px 0 40px rgba(0, 0, 0, 0.08);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
         }
+
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: #1e3a34;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #5f9e8c;
+            border-radius: 10px;
+        }
+
         .sidebar h2 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #FFFFFF, #C0F0E0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            padding: 24px 20px 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            margin-bottom: 24px;
         }
+
         .sidebar a {
-            color: #bdc3c7;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 24px;
+            margin: 6px 12px;
+            border-radius: 14px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #D1E6E1;
+            transition: all 0.25s ease;
             text-decoration: none;
-            display: block;
-            padding: 12px 15px;
-            margin: 4px 0;
-            border-radius: 8px;
-            transition: all 0.3s;
-            font-weight: 400;
         }
+
         .sidebar a i {
-            margin-right: 12px;
-            width: 22px;
+            width: 26px;
+            font-size: 1.25rem;
             text-align: center;
-            font-size: 1.1rem;
         }
+
         .sidebar a:hover {
-            background: rgba(255,255,255,0.15);
-            color: #fff;
+            background: rgba(96, 188, 164, 0.2);
+            color: white;
             transform: translateX(5px);
         }
+
         .sidebar .active {
-            background: #3498db;
+            background: linear-gradient(95deg, #2C8C74, #1E6B58);
             color: white;
-            box-shadow: 0 4px 10px rgba(52,152,219,0.4);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
         }
+
+        /* Profile card in sidebar */
+        .admin-profile {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 20px 16px 24px 16px;
+            padding: 16px 12px;
+            border-radius: 24px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* MAIN CONTENT AREA */
         .content {
-            flex-grow: 1;
-            padding: 30px;
-            margin-left: 260px;
-            transition: margin-left 0.3s ease;
-            background-color: #f4f7fc;
+            margin-left: 280px;
+            padding: 32px 36px;
+            background: #f4f9fe;
             min-height: 100vh;
+            transition: margin-left 0.3s;
         }
-        .hidden {
-            display: none !important;
+
+        /* Cards Modern Glassmorphic */
+        .stat-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(0px);
+            border-radius: 28px;
+            border: 1px solid rgba(255,255,255,0.6);
+            box-shadow: 0 12px 28px -8px rgba(0, 32, 32, 0.08);
+            transition: all 0.3s;
+            padding: 1.2rem;
         }
-        .card-dashboard {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 22px 35px -12px rgba(30, 107, 86, 0.2);
+        }
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(145deg, #EFFAF7, #E2F0EC);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #1F6E58;
+        }
+
+        /* tables */
+        .custom-table {
             background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+            border-collapse: separate;
+            border-spacing: 0;
         }
-        .card-dashboard:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-        }
-        .card-dashboard .icon {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-right: 15px;
-        }
-        .table thead {
-            background: linear-gradient(135deg, #34495e, #2c3e50);
+        .custom-table thead tr {
+            background: linear-gradient(105deg, #153E38, #0F2E29);
             color: white;
         }
-        .table th, .table td {
+        .custom-table th {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 16px 12px;
+            border: none;
+        }
+        .custom-table td {
+            padding: 14px 12px;
             vertical-align: middle;
+            border-bottom: 1px solid #edf2f7;
         }
-        .table-hover tbody tr:hover {
-            background-color: rgba(52,152,219,0.05);
+        .custom-table tr:hover td {
+            background-color: #F6FEFB;
         }
-        .btn-primary, .btn-success, .btn-danger, .btn-warning {
-            border-radius: 8px;
-            padding: 8px 16px;
-            font-weight: 500;
+
+        /* Buttons modern */
+        .btn-lux {
+            border-radius: 40px;
+            padding: 8px 22px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-primary-lux {
+            background: #1F6E58;
+            color: white;
+        }
+        .btn-primary-lux:hover {
+            background: #0E5442;
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(31,110,88,0.3);
+        }
+        .btn-danger-lux {
+            background: #DD5A4C;
+            color: white;
+        }
+        .btn-danger-lux:hover {
+            background: #BC3F31;
+        }
+        .search-glass {
+            background: white;
+            border-radius: 60px;
+            border: 1px solid #E2E8F0;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            width: 260px;
             transition: all 0.2s;
         }
-        .btn-primary { background: #3498db; border: none; }
-        .btn-primary:hover { background: #2980b9; transform: scale(1.02); }
-        .btn-success { background: #27ae60; border: none; }
-        .btn-success:hover { background: #229954; transform: scale(1.02); }
-        .btn-danger { background: #e74c3c; border: none; }
-        .btn-danger:hover { background: #c0392b; transform: scale(1.02); }
-        .modal-content {
-            border-radius: 15px;
+        .search-glass:focus {
+            border-color: #1F6E58;
+            box-shadow: 0 0 0 3px rgba(31,110,88,0.2);
+            outline: none;
+        }
+        /* Modal refined */
+        .modal-modern .modal-content {
+            border-radius: 32px;
             border: none;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
-        .modal-header {
-            background: linear-gradient(135deg, #34495e, #2c3e50);
+        .modal-modern .modal-header {
+            background: #0F2E29;
             color: white;
-            border-radius: 15px 15px 0 0;
             border-bottom: none;
+            padding: 18px 28px;
         }
-        .modal-header .btn-close {
-            filter: brightness(0) invert(1);
+        /* Charts container */
+        .chart-container {
+            background: white;
+            border-radius: 28px;
+            padding: 20px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.03);
         }
-        .form-control, .form-select {
-            border-radius: 8px;
-            border: 1px solid #dcdcdc;
-            padding: 10px 15px;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 0 0.2rem rgba(52,152,219,0.25);
-        }
-        .img-preview {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid #e9ecef;
-            margin-top: 10px;
-            display: none;
-        }
-        .mt-auto {
-            margin-top: auto;
-        }
-        @media (max-width: 768px) {
+
+        /* responsive */
+        @media (max-width: 992px) {
             .sidebar {
                 width: 100%;
                 height: auto;
                 position: relative;
+                transform: none;
             }
             .content {
                 margin-left: 0;
+                padding: 24px;
             }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .badge-status {
+            background: #EFFAF7;
+            color: #1E6B58;
+            padding: 4px 10px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .img-preview {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-top: 10px;
+            border: 2px solid #E2E8F0;
         }
     </style>
 </head>
 <body>
-<div class="sidebar d-flex flex-column">
-    <h2 class="text-center">CEYLON TRADITIONAL MEDICINE CENTER</h2>
-    <a onclick="showPanel('dashboard')" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-    <a onclick="showPanel('users')"><i class="fas fa-users"></i> Users</a>
-    <a onclick="showPanel('activities')"><i class="fas fa-heartbeat"></i> Wellness Program</a>
-    <a onclick="showPanel('accommodations')"><i class="fas fa-bed"></i> Accommodation</a>
-    <a onclick="showPanel('doctors')"><i class="fas fa-user-md"></i> Doctor</a>
-    <a onclick="showPanel('bookings')"><i class="fas fa-calendar-check"></i> Bookings</a>
-    <a onclick="showPanel('packages')"><i class="fas fa-gift"></i> Packages</a>
-    <a onclick="showPanel('payments')"><i class="fas fa-credit-card"></i> Payments</a>
-    <a onclick="showPanel('reviews')"><i class="fas fa-star"></i> Reviews</a>
-    <a onclick="showPanel('articles')"><i class="fas fa-newspaper"></i> Articles</a>
 
-    <div class="mt-auto pt-4">
-        <hr class="bg-light opacity-25">
-        <h5 class="text-light"><i class="fas fa-user-circle me-2"></i>Hi, <span class="fw-bold">admin</span></h5>
-        <button id="logoutBtn" class="btn btn-danger w-100 mt-2" onclick="logout()">
-            <i class="fas fa-sign-out-alt me-2"></i>Log Out
-        </button>
+<div class="sidebar d-flex flex-column">
+    <h2 class="text-center"><i class="fas fa-leaf me-2"></i> CEYLON MED</h2>
+    <div class="flex-grow-1">
+        
+        <a onclick="showPanel('dashboard')" class="active"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a onclick="showPanel('users')"><i class="fas fa-users"></i> Users</a>
+        <a onclick="showPanel('activities')"><i class="fas fa-spa"></i> Wellness Program</a>
+        <a onclick="showPanel('accommodations')"><i class="fas fa-hotel"></i> Accommodation</a>
+        <a onclick="showPanel('doctors')"><i class="fas fa-user-md"></i> Doctors</a>
+        <a onclick="showPanel('bookings')"><i class="fas fa-calendar-alt"></i> Bookings</a>
+        <a onclick="showPanel('packages')"><i class="fas fa-gift"></i> Packages</a>
+        <a onclick="showPanel('payments')"><i class="fas fa-credit-card"></i> Payments</a>
+        <a onclick="showPanel('reviews')"><i class="fas fa-star"></i> Reviews</a>
+        <a onclick="showPanel('articles')"><i class="fas fa-newspaper"></i> Articles</a>
+    </div>
+    <div class="admin-profile mt-auto">
+        <div class="d-flex align-items-center gap-3">
+            <div class="bg-white bg-opacity-25 rounded-circle p-2"><i class="fas fa-user-circle fa-lg"></i></div>
+            <div><span class="fw-bold">Admin</span><br><small class="opacity-75">Master Healer</small></div>
+        </div>
+        <button id="logoutBtn" class="btn btn-outline-light w-100 mt-3 rounded-pill" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Log Out</button>
     </div>
 </div>
 
 <div class="content">
-    <!-- Dashboard -->
+    <!-- DASHBOARD -->
     <div id="dashboard">
-        <div class="container-fluid">
-            <h2 class="mb-4"><i class="fas fa-chart-line me-2 text-primary"></i>Dashboard</h2>
+        <div class="container-fluid px-0">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold" style="color: #153E38;"><i class="fas fa-chart-pie me-2 text-success"></i>Insightful Analytics</h2>
+                <div class="text-muted"><i class="far fa-calendar-alt me-1"></i>Live overview</div>
+            </div>
+            <div class="row g-4 mb-5">
+                <div class="col-md-3"><div class="stat-card d-flex align-items-center justify-content-between"><div><h6 class="text-secondary">Total Bookings</h6><h3 class="fw-bold mt-2 mb-0" id="totalBookings">0</h3></div><div class="stat-icon"><i class="fas fa-calendar-check fa-fw"></i></div></div></div>
+                <div class="col-md-3"><div class="stat-card d-flex align-items-center justify-content-between"><div><h6 class="text-secondary">Accommodations</h6><h3 class="fw-bold mt-2 mb-0" id="totalVehicles">0</h3></div><div class="stat-icon"><i class="fas fa-bed"></i></div></div></div>
+                <div class="col-md-3"><div class="stat-card d-flex align-items-center justify-content-between"><div><h6 class="text-secondary">Doctors</h6><h3 class="fw-bold mt-2 mb-0" id="totalGuides">0</h3></div><div class="stat-icon"><i class="fas fa-stethoscope"></i></div></div></div>
+                <div class="col-md-3"><div class="stat-card d-flex align-items-center justify-content-between"><div><h6 class="text-secondary">Active Users</h6><h3 class="fw-bold mt-2 mb-0" id="totalUsers">0</h3></div><div class="stat-icon"><i class="fas fa-user-friends"></i></div></div></div>
+            </div>
             <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card-dashboard p-3 d-flex align-items-center">
-                        <i class="fas fa-calendar-check icon"></i>
-                        <div>
-                            <h6 class="text-muted mb-1">Total Bookings</h6>
-                            <h3 class="mb-0 fw-bold" id="totalBookings">0</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-dashboard p-3 d-flex align-items-center">
-                        <i class="fas fa-hotel icon"></i>
-                        <div>
-                            <h6 class="text-muted mb-1">Total Accommodation</h6>
-                            <h3 class="mb-0 fw-bold" id="totalVehicles">0</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-dashboard p-3 d-flex align-items-center">
-                        <i class="fas fa-user-md icon"></i>
-                        <div>
-                            <h6 class="text-muted mb-1">Total Doctors</h6>
-                            <h3 class="mb-0 fw-bold" id="totalGuides">0</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-5">
-                <div class="col-md-6">
-                    <div class="card shadow-sm border-0 rounded-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-center mb-3"><i class="fas fa-chart-bar me-2 text-primary"></i>Bookings Per Day</h5>
-                            <canvas id="bookingsPerDayChart" height="300"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card shadow-sm border-0 rounded-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-center mb-3"><i class="fas fa-chart-line me-2 text-success"></i>Total Price Per Booking</h5>
-                            <canvas id="totalPricePerBookingChart" height="300"></canvas>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-lg-6"><div class="chart-container"><h5 class="fw-semibold mb-3"><i class="fas fa-chart-bar me-2 text-primary"></i>Bookings Trend</h5><canvas id="bookingsPerDayChart" height="250"></canvas></div></div>
+                <div class="col-lg-6"><div class="chart-container"><h5 class="fw-semibold mb-3"><i class="fas fa-coins me-2 text-warning"></i>Revenue per Booking</h5><canvas id="totalPricePerBookingChart" height="250"></canvas></div></div>
             </div>
         </div>
     </div>
 
-    <!-- Users -->
-    <div id="users" class="hidden">
-        <h2 class="mb-4"><i class="fas fa-users me-2 text-primary"></i>User Management</h2>
-        <div class="d-flex justify-content-end mb-3">
-            <input type="text" id="searchInput" class="form-control w-50" placeholder="Search by Name or Email" onkeyup="searchUsers()">
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="userTableBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Reviews -->
-    <div id="reviews" class="hidden">
-        <h2 class="mb-4"><i class="fas fa-star me-2 text-warning"></i>Review Management</h2>
-        <div class="d-flex justify-content-end mb-3">
-            <input type="text" id="searchReview" class="form-control w-25" placeholder="Search by User Email or Comment">
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User Email</th>
-                    <th>Rating</th>
-                    <th>Comment</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="reviewTableBody">
-                <tr><td colspan="6" class="text-center">Loading...</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Bookings -->
-    <div id="bookings" class="hidden">
-        <h2 class="mb-4"><i class="fas fa-calendar-check me-2 text-info"></i>Booking Management</h2>
-        <div class="d-flex justify-content-end mb-3">
-            <input type="text" id="searchBooking" class="form-control w-25" placeholder="Search by Email, Package...">
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead>
-                <tr>
-                    <th>Package</th>
-                    <th>Doctor Email</th>
-                    <th>Accommodation</th>
-                    <th>User Email</th>
-                    <th>Booking Date</th>
-                    <th>Checkout</th>
-                    <th>Days</th>
-                    <th>Doctor Fee</th>
-                    <th>Package Price</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody id="bookingTableBody">
-                <tr><td colspan="10" class="text-center">Loading...</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Doctors -->
-    <div id="doctors" class="hidden">
-        <h2 class="mb-4"><i class="fas fa-user-md me-2 text-danger"></i>Doctor Management</h2>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDoctorModal"><i class="fas fa-plus me-2"></i>Add Doctor</button>
-            <input type="text" id="searchDoctor" class="form-control w-25" placeholder="Search Doctors by Name or Email">
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead>
-                <tr>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Image</th>
-                    <th>Description</th>
-                    <th>Payment/day</th>
-                    <th>LinkedIn</th>
-                    <th>Booked</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="doctorTableBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Packages -->
-    <div id="packages" class="hidden">
-        <h2 class="mb-4"><i class="fas fa-gift me-2 text-success"></i>Package Management</h2>
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPackageModal"><i class="fas fa-plus me-2"></i>Add Package</button>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Days</th>
-                    <th>Price (LKR)</th>
-                    <th>Activities</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="packageTableBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Payments -->
-    <div id="payments" class="hidden">
-        <h2 class="mb-4"><i class="fas fa-credit-card me-2 text-secondary"></i>Payment Management</h2>
-        <input type="text" id="searchEmail" class="form-control mb-3 w-25" placeholder="Search by user email...">
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User Email</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                </tr>
-                </thead>
-                <tbody id="paymentTableBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Articles -->
-    <div id="articles" class="hidden">
-        <h2 class="mb-4"><i class="fas fa-newspaper me-2 text-primary"></i>Article Management</h2>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addArticleModal"><i class="fas fa-plus me-2"></i>Add Article</button>
-            <input type="text" id="searchArticle" class="form-control w-25" placeholder="Search by Title or Description">
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="articleTableBody">
-                <tr><td colspan="5" class="text-center">Loading...</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Accommodations -->
-    <div id="accommodations" class="hidden">
-        <h2 class="mb-4"><i class="fas fa-bed me-2 text-warning"></i>Accommodation Management</h2>
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addAccommodationModal"><i class="fas fa-plus me-2"></i>Add Accommodation</button>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Location</th>
-                    <th>Category</th>
-                    <th>Cost/Day</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="accommodationTableBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Activities -->
-    <div id="activities" class="hidden">
-        <h2 class="mb-4"><i class="fas fa-heartbeat me-2 text-danger"></i>Activity Management</h2>
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addActivityModal"><i class="fas fa-plus me-2"></i>Add Activity</button>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Cost/Day</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="activityTableBody"></tbody>
-            </table>
-        </div>
-    </div>
+    <!-- Users Panel -->
+    <div id="users" class="hidden"><div class="d-flex flex-wrap justify-content-between align-items-center mb-4"><div><h3><i class="fas fa-users me-2"></i>User Registry</h3><small class="text-muted">Showing active users. Toggle to load all.</small></div><div class="d-flex gap-2 align-items-center"><input type="text" id="searchInput" class="search-glass" placeholder="Search by name or email..."><select id="userStatusFilter" class="form-select" style="width:auto;"><option value="active" selected>Active</option><option value="all">All</option><option value="inactive">Inactive</option></select></div></div><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Full Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="userTableBody"></tbody></table></div></div>
+    <div id="reviews" class="hidden"><h3><i class="fas fa-star me-2"></i>Guest Reviews</h3><input type="text" id="searchReview" class="search-glass my-3" placeholder="Filter by user or comment..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>ID</th><th>User Email</th><th>Rating</th><th>Comment</th><th>Date</th><th>Action</th></tr></thead><tbody id="reviewTableBody"></tbody></table></div></div>
+    <div id="bookings" class="hidden"><h3><i class="fas fa-calendar-check me-2"></i>Booking Logs</h3><input type="text" id="searchBooking" class="search-glass my-3" placeholder="Search by email or package..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Package</th><th>Doctor</th><th>Accommodation</th><th>User</th><th>Booking Date</th><th>Checkout</th><th>Days</th><th>Doctor Fee</th><th>Package Price</th><th>Total (LKR)</th></tr></thead><tbody id="bookingTableBody"></tbody></table></div></div>
+    <div id="doctors" class="hidden"><div class="d-flex justify-content-between align-items-center mb-3"><h3><i class="fas fa-user-md me-2"></i>Ayurvedic Practitioners</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addDoctorModal"><i class="fas fa-plus me-2"></i>Add Doctor</button><input type="text" id="searchDoctor" class="search-glass" placeholder="Search doctor..."></div><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Name</th><th>Email</th><th>Image</th><th>Description</th><th>Fee/Day</th><th>LinkedIn</th><th>Booked</th><th>Status</th><th>Actions</th></tr></thead><tbody id="doctorTableBody"></tbody></table></div></div>
+    <div id="packages" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-gift me-2"></i>Healing Packages</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addPackageModal"><i class="fas fa-plus"></i> Add Package</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Name</th><th>Days</th><th>Price(LKR)</th><th>Activities</th><th>Image</th><th>Actions</th></tr></thead><tbody id="packageTableBody"></tbody></table></div></div>
+    <div id="payments" class="hidden"><h3><i class="fas fa-credit-card me-2"></i>Secure Transactions</h3><input type="text" id="searchEmail" class="search-glass my-3" placeholder="Search by user email..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>ID</th><th>User Email</th><th>Amount (LKR)</th><th>Date</th></tr></thead><tbody id="paymentTableBody"></tbody></table></div></div>
+    <div id="articles" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-newspaper"></i> Wisdom Articles</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addArticleModal"><i class="fas fa-plus"></i> Add Article</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Image</th><th>Actions</th></tr></thead><tbody id="articleTableBody"></tbody></table></div></div>
+    <div id="accommodations" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-bed"></i> Serene Stays</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addAccommodationModal"><i class="fas fa-plus"></i> Add Accommodation</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Name</th><th>Description</th><th>Location</th><th>Category</th><th>Cost/Day</th><th>Image</th><th>Actions</th></tr></thead><tbody id="accommodationTableBody"></tbody></table></div></div>
+    <div id="activities" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-heartbeat"></i> Wellness Activities</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addActivityModal"><i class="fas fa-plus"></i> Add Activity</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Activity Name</th><th>Description</th><th>Cost/Day</th><th>Image</th><th>Actions</th></tr></thead><tbody id="activityTableBody"></tbody></table></div></div>
 </div>
 
-<!-- Modals (unchanged but styled via global CSS) -->
-<!-- Add Doctor Modal -->
-<div class="modal fade" id="addDoctorModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-user-md me-2"></i>Add Doctor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addDoctorForm" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="doctorName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" id="doctorEmail" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" id="doctorDescription" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Payment per Day</label>
-                        <input type="number" class="form-control" id="doctorPayment" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">LinkedIn URL</label>
-                        <input type="url" class="form-control" id="doctorLinkedIn">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Image</label>
-                        <input type="file" class="form-control" id="doctorImage" accept="image/*" required>
-                        <img id="addImagePreview" class="img-preview">
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Save Doctor</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- MODALS (exactly same structure but with refined classes) -->
+<div class="modal fade modal-modern" id="addDoctorModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5><i class="fas fa-user-md me-2"></i>Register New Doctor</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addDoctorForm" enctype="multipart/form-data"><div class="mb-3"><label>Full Name</label><input type="text" id="doctorName" class="form-control" required></div><div class="mb-3"><label>Email</label><input type="email" id="doctorEmail" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="doctorDescription" rows="2" class="form-control" required></textarea></div><div class="mb-3"><label>Payment/day (LKR)</label><input type="number" id="doctorPayment" class="form-control" required></div><div class="mb-3"><label>LinkedIn</label><input type="url" id="doctorLinkedIn" class="form-control"></div><div class="mb-3"><label>Profile Image</label><input type="file" id="doctorImage" class="form-control" accept="image/*"><img id="addImagePreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Create Doctor</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="editDoctorModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Doctor Profile</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editDoctorForm" enctype="multipart/form-data"><input type="hidden" id="editDoctorEmail"><div class="mb-3"><label>Name</label><input type="text" id="editDoctorName" class="form-control"></div><div class="mb-3"><label>Description</label><textarea id="editDoctorDescription" class="form-control" rows="2"></textarea></div><div class="mb-3"><label>Payment/day</label><input type="text" id="editDoctorPayment" class="form-control"></div><div class="mb-3"><label>LinkedIn</label><input type="text" id="editDoctorLinkedIn" class="form-control"></div><div class="mb-3"><label>New Image</label><input type="file" id="editDoctorImage" class="form-control"><img id="editImagePreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Update</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="addPackageModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Create New Package</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addPackageForm" enctype="multipart/form-data"><div class="mb-3"><label>Name</label><input type="text" name="name" class="form-control" required></div><div class="mb-3"><label>Price (LKR)</label><input type="number" name="price" class="form-control" required></div><div class="mb-3"><label>Estimate Days</label><input type="number" name="estimateDays" class="form-control" required></div><div class="mb-3"><label>Select Activities</label><select multiple class="form-control" name="activity" id="packageActivities" required></select></div><div class="mb-3"><label>Image</label><input type="file" name="imageUrl" id="packageImage" class="form-control"><img id="PackageImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Save Package</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="editPackageModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Package</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editPackageForm" enctype="multipart/form-data"><input type="hidden" id="editPackageId"><div class="mb-3"><label>Name</label><input type="text" id="editPackageName" class="form-control"></div><div class="mb-3"><label>Price</label><input type="number" id="editPackagePrice" class="form-control"></div><div class="mb-3"><label>Days</label><input type="number" id="editPackageDays" class="form-control"></div><div class="mb-3"><label>Activities</label><select multiple id="editPackageActivities" class="form-control"></select></div><div class="mb-3"><label>New Image</label><input type="file" name="imageUrl" id="editPackageImage" class="form-control"><img id="editPackageImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Update</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="addArticleModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Publish Article</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addArticleForm" enctype="multipart/form-data"><div class="mb-3"><label>Title</label><input type="text" id="articleTitle" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="articleDescription" rows="2" class="form-control" required></textarea></div><div class="mb-3"><label>Image</label><input type="file" id="articleImage" class="form-control"><img id="addArticleImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Create</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="editArticleModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Article</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editArticleForm" enctype="multipart/form-data"><input type="hidden" id="editArticleId"><div class="mb-3"><label>Title</label><input type="text" id="editArticleTitle" class="form-control"></div><div class="mb-3"><label>Description</label><textarea id="editArticleDescription" class="form-control" rows="2"></textarea></div><div class="mb-3"><label>New Image</label><input type="file" id="editArticleImage" class="form-control"><img id="editArticleImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Save</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="addAccommodationModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Add Accommodation</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addAccommodationForm" enctype="multipart/form-data"><div class="mb-3"><label>Name</label><input type="text" id="accommodationName" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="accommodationDescription" class="form-control" rows="2"></textarea></div><div class="mb-3"><label>Location</label><input type="text" id="accommodationLocation" class="form-control" required></div><div class="mb-3"><label>Category</label><select id="accommodationCategory" class="form-control"><option>A/C</option><option>Non A/C</option><option>Luxary</option><option>City</option></select></div><div class="mb-3"><label>Cost/Day</label><input type="text" id="accommodationCost" class="form-control" required></div><div class="mb-3"><label>Image</label><input type="file" id="accommodationImage" class="form-control"><img id="addImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Save</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="editAccommodationModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Accommodation</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editAccommodationForm" enctype="multipart/form-data"><input type="hidden" id="editAccommodationId"><div class="mb-3"><label>Name</label><input type="text" id="editAccommodationName" class="form-control"></div><div class="mb-3"><label>Description</label><textarea id="editAccommodationDescription" class="form-control"></textarea></div><div class="mb-3"><label>Location</label><input type="text" id="editAccommodationLocation" class="form-control"></div><div class="mb-3"><label>Category</label><select id="editAccommodationCategory" class="form-control"><option>A/C</option><option>Non A/C</option><option>Luxary</option><option>City</option></select></div><div class="mb-3"><label>Cost/Day</label><input type="text" id="editAccommodationCostPerDay" class="form-control"></div><div class="mb-3"><label>Image</label><input type="file" id="editAccommodationImage" class="form-control"><img id="editImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Update</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="addActivityModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Add Wellness Activity</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addActivityForm" enctype="multipart/form-data"><div class="mb-3"><label>Name</label><input type="text" id="activityName" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="activityDescription" class="form-control" rows="2"></textarea></div><div class="mb-3"><label>Cost/Day</label><input type="text" id="activityCost" class="form-control" required></div><div class="mb-3"><label>Image</label><input type="file" id="activityImage" class="form-control"><img id="addActivityImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Add Activity</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="editActivityModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Activity</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editActivityForm" enctype="multipart/form-data"><input type="hidden" id="editActivityId"><div class="mb-3"><label>Name</label><input type="text" id="editActivityName" class="form-control"></div><div class="mb-3"><label>Description</label><textarea id="editActivityDescription" class="form-control"></textarea></div><div class="mb-3"><label>Cost/Day</label><input type="text" id="editActivityCost" class="form-control"></div><div class="mb-3"><label>Image</label><input type="file" id="editActivityImage" class="form-control"><img id="editActivityImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Save</button></form></div></div></div></div>
 
-<!-- Edit Doctor Modal -->
-<div class="modal fade" id="editDoctorModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Doctor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editDoctorForm" enctype="multipart/form-data">
-                    <input type="hidden" id="editDoctorEmail" name="email">
-                    <div class="mb-3">
-                        <label>Full Name</label>
-                        <input type="text" id="editDoctorName" name="editDoctorName" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>Description</label>
-                        <textarea id="editDoctorDescription" name="editDoctorDescription" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label>Payment Per Day</label>
-                        <input type="text" id="editDoctorPayment" name="editDoctorPayment" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>LinkedIn</label>
-                        <input type="text" id="editDoctorLinkedIn" name="editDoctorLinkedIn" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>Profile Image</label>
-                        <input type="file" id="editDoctorImage" name="editDoctorImage" class="form-control">
-                        <img id="editImagePreview" class="img-preview">
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Update Doctor</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Add Package Modal -->
-<div class="modal fade" id="addPackageModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-gift me-2"></i>Add Package</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addPackageForm" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label class="form-label">Package Name</label>
-                        <input type="text" class="form-control" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Price (LKR)</label>
-                        <input type="number" class="form-control" name="price" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Estimated Days</label>
-                        <input type="number" class="form-control" name="estimateDays" min="1" max="20" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Select Activities</label>
-                        <select multiple class="form-control" name="activity" id="packageActivities" required></select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Package Image</label>
-                        <input type="file" class="form-control" name="imageUrl" id="packageImage" accept="image/*">
-                        <img id="PackageImgPreview" class="img-preview">
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Create Package</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Package Modal -->
-<div class="modal fade" id="editPackageModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Package</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editPackageForm" enctype="multipart/form-data">
-                    <input type="hidden" id="editPackageId" name="id">
-                    <div class="mb-3">
-                        <label class="form-label">Package Name</label>
-                        <input type="text" class="form-control" id="editPackageName" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Price (LKR)</label>
-                        <input type="number" class="form-control" id="editPackagePrice" name="price" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Estimated Days</label>
-                        <input type="number" class="form-control" id="editPackageDays" name="estimateDays" min="1" max="20" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Select Activities</label>
-                        <select multiple class="form-control" name="activity" id="editPackageActivities" required></select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Package Image</label>
-                        <input type="file" class="form-control" name="imageUrl" id="editPackageImage" accept="image/*">
-                        <img id="editPackageImgPreview" class="img-preview" style="width:100px;height:100px;">
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Save Changes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Add Article Modal -->
-<div class="modal fade" id="addArticleModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-newspaper me-2"></i>Add Article</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addArticleForm" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label class="form-label">Title</label>
-                        <input type="text" class="form-control" id="articleTitle" name="title" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" id="articleDescription" name="description" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Image</label>
-                        <input type="file" class="form-control" id="articleImage" name="imageUrl" accept="image/*">
-                        <img id="addArticleImgPreview" class="img-preview">
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Save Article</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Article Modal -->
-<div class="modal fade" id="editArticleModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Article</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editArticleForm" enctype="multipart/form-data">
-                    <input type="hidden" id="editArticleId" name="id">
-                    <div class="mb-3">
-                        <label class="form-label">Title</label>
-                        <input type="text" class="form-control" id="editArticleTitle" name="title" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" id="editArticleDescription" name="description" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Image</label>
-                        <input type="file" class="form-control" id="editArticleImage" name="imageUrl" accept="image/*">
-                        <img id="editArticleImgPreview" class="img-preview">
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Save Changes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Add Accommodation Modal -->
-<div class="modal fade" id="addAccommodationModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-bed me-2"></i>Add Accommodation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addAccommodationForm" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label class="form-label">Name</label>
-                        <input type="text" id="accommodationName" name="name" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea id="accommodationDescription" name="description" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Location</label>
-                        <input type="text" id="accommodationLocation" name="location" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Category</label>
-                        <select id="accommodationCategory" name="category" class="form-control" required>
-                            <option value="A/C">A/C</option>
-                            <option value="Non A/C">Non A/C</option>
-                            <option value="Luxary">Luxary</option>
-                            <option value="City">City</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Cost Per Day</label>
-                        <input type="text" id="accommodationCost" name="costPerDay" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Image</label>
-                        <input type="file" id="accommodationImage" name="imageUrl" class="form-control" accept="image/*">
-                        <img id="addImgPreview" class="img-preview">
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Save Accommodation</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Accommodation Modal -->
-<div class="modal fade" id="editAccommodationModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Accommodation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editAccommodationForm" enctype="multipart/form-data">
-                    <input type="hidden" id="editAccommodationId">
-                    <div class="mb-3">
-                        <label class="form-label">Name</label>
-                        <input type="text" id="editAccommodationName" name="editAccommodationName" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea id="editAccommodationDescription" name="editAccommodationDescription" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Location</label>
-                        <input type="text" id="editAccommodationLocation" name="editAccommodationLocation" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Category</label>
-                        <select id="editAccommodationCategory" name="editAccommodationCategory" class="form-control">
-                            <option value="A/C">A/C</option>
-                            <option value="Non A/C">Non A/C</option>
-                            <option value="Luxary">Luxary</option>
-                            <option value="City">City</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Cost Per Day</label>
-                        <input type="text" id="editAccommodationCostPerDay" name="editAccommodationCostPerDay" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Image</label>
-                        <input type="file" id="editAccommodationImage" name="editAccommodationImage" class="form-control" accept="image/*">
-                        <img id="editImgPreview" class="img-preview" style="width:100px;height:100px;">
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Save Changes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Add Activity Modal -->
-<div class="modal fade" id="addActivityModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-heartbeat me-2"></i>Add Activity</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addActivityForm" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label class="form-label">Name</label>
-                        <input type="text" id="activityName" name="name" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea id="activityDescription" name="description" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Cost Per Day</label>
-                        <input type="text" id="activityCost" name="costPerDay" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Image</label>
-                        <input type="file" id="activityImage" name="imageUrl" class="form-control" accept="image/*">
-                        <img id="addActivityImgPreview" class="img-preview">
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Save Activity</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Activity Modal -->
-<div class="modal fade" id="editActivityModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Edit Activity</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editActivityForm" enctype="multipart/form-data">
-                    <input type="hidden" id="editActivityId">
-                    <div class="mb-3">
-                        <label class="form-label">Name</label>
-                        <input type="text" id="editActivityName" name="name" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea id="editActivityDescription" name="description" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Cost Per Day</label>
-                        <input type="text" id="editActivityCost" name="costPerDay" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Image</label>
-                        <input type="file" id="editActivityImage" name="imageUrl" class="form-control" accept="image/*">
-                        <img id="editActivityImgPreview" class="img-preview" style="width:100px;height:100px;">
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Save Changes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Scripts (unchanged, just moved to bottom) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // All original JavaScript functions (exactly as provided)
-    $(document).ready(function () {
-        loadDashboardCounts();
-        loadBookingsPerDayChart();
-        loadTotalPricePerBookingChart();
-        loadAllUsers();
-        loadAllReviews();
-        loadAllPayments();
-        showPanel('dashboard');
-    });
-
-    function getAuthHeaders() {
-        const token = localStorage.getItem("token");
-        return token ? { Authorization: `Bearer ${token}` } : {};
-    }
-
-    function loadDashboardCounts() {
-        $.ajax({
-            url: "http://localhost:8080/api/v1/dashboard/counts",
-            method: "GET",
-            headers: getAuthHeaders(),
-            success: function (response) {
-                $('#totalBookings').text(response.data.totalBookings || 0);
-                $('#totalVehicles').text(response.data.totalAccommodations || 0);
-                $('#totalGuides').text(response.data.totalDoctors || 0);
-            },
-            error: function () {
-                alert("Failed to load dashboard data.");
-            }
-        });
-    }
-
-    function loadBookingsPerDayChart() {
-        $.ajax({
-            url: "http://localhost:8080/api/v1/dashboard/chart/booking-per-day",
-            method: "GET",
-            headers: getAuthHeaders(),
-            success: function (res) {
-                if (res.data && res.data.length > 0) {
-                    const labels = res.data.map(item => item.date);
-                    const data = res.data.map(item => item.count || 0);
-                    new Chart(document.getElementById('bookingsPerDayChart'), {
-                        type: 'bar',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Bookings Per Day',
-                                data: data,
-                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: { beginAtZero: true, title: { display: true, text: 'Number of Bookings' } },
-                                x: { title: { display: true, text: 'Date' } }
-                            }
-                        }
-                    });
-                } else {
-                    alert("No booking data available to display.");
-                }
-            },
-            error: function () {
-                alert("Failed to load Bookings Per Day chart data.");
-            }
-        });
-    }
-
-    function loadTotalPricePerBookingChart() {
-        $.ajax({
-            url: "http://localhost:8080/api/v1/dashboard/chart/total-price-per-booking",
-            method: "GET",
-            headers: getAuthHeaders(),
-            success: function (res) {
-                if (res.data && res.data.length > 0) {
-                    const labels = res.data.map(item => "Booking " + item.bookingId);
-                    const data = res.data.map(item => item.total || 0);
-                    new Chart(document.getElementById('totalPricePerBookingChart'), {
-                        type: 'line',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Total Price Per Booking',
-                                data: data,
-                                fill: false,
-                                borderColor: 'rgba(255, 99, 132, 0.8)',
-                                tension: 0.1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: { beginAtZero: true, title: { display: true, text: 'Price (LKR)' } },
-                                x: { title: { display: true, text: 'Booking ID' } }
-                            }
-                        }
-                    });
-                } else {
-                    alert("No price data available to display.");
-                }
-            },
-            error: function () {
-                alert("Failed to load Total Price Per Booking chart data.");
-            }
-        });
-    }
-
-    // Users
-    function loadAllUsers() {
-        $.ajax({
-            url: "http://localhost:8080/api/v1/user/getAll",
-            method: "GET",
-            headers: getAuthHeaders(),
-            success: function (users) {
-                if (users && users.data && users.data.length) {
-                    $("#userTableBody").empty();
-                    window.allUsers = users.data;
-                    renderTable(users.data);
-                } else {
-                    $("#userTableBody").html('<tr><td colspan="4" class="text-center">No users found</td></tr>');
-                }
-            },
-            error: function (xhr) {
-                console.error('Failed to load users', xhr);
-                alert("Failed to load users. Please check login or token.");
-            }
-        });
-    }
-    function renderTable(users) {
-        $("#userTableBody").empty();
-        users.forEach(user => {
-            $("#userTableBody").append(`
-                <tr>
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${user.role}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" onclick="deleteUser('${user.email}')"><i class="fas fa-trash"></i> Delete</button>
-                    </td>
-                </tr>
-            `);
-        });
-    }
-    function searchUsers() {
-        const searchTerm = $("#searchInput").val().toLowerCase();
-        const filteredUsers = window.allUsers.filter(user => user.name.toLowerCase().includes(searchTerm) || user.email.toLowerCase().includes(searchTerm));
-        renderTable(filteredUsers);
-    }
-    function deleteUser(email) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            $.ajax({
-                url: `http://localhost:8080/api/v1/user/delete/${email}`,
-                method: "DELETE",
-                headers: getAuthHeaders(),
-                success: function () {
-                    alert("User deleted successfully.");
-                    loadAllUsers();
-                },
-                error: function (xhr) {
-                    console.error('Failed to delete user', xhr);
-                    alert("Failed to delete user. Please verify permissions.");
-                }
-            });
-        }
-    }
-
-    // Reviews
-    function loadAllReviews() {
-        $.ajax({
-            url: "http://localhost:8080/api/v1/review/all",
-            method: "GET",
-            success: function (response) {
-                if (response.code === 201 || response.code === 200) {
-                    window.allReviews = response.data;
-                    renderReviews(response.data);
-                } else {
-                    $("#reviewTableBody").html(`<tr><td colspan="6" class="text-center">No reviews found</td></tr>`);
-                }
-            },
-            error: function () {
-                $("#reviewTableBody").html(`<tr><td colspan="6" class="text-center text-danger">Failed to load reviews</td></tr>`);
-            }
-        });
-    }
-    function renderReviews(reviews) {
-        const tbody = $("#reviewTableBody");
-        tbody.empty();
-        reviews.forEach(review => {
-            tbody.append(`
-                <tr>
-                    <td>${review.id || 'N/A'}</td>
-                    <td>${review.userEmail || 'N/A'}</td>
-                    <td>${review.rating || 'N/A'}</td>
-                    <td>${review.comment || 'N/A'}</td>
-                    <td>${review.createdAt || 'N/A'}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" onclick="deleteReview(${review.id || 0})"><i class="fas fa-trash"></i> Delete</button>
-                    </td>
-                </tr>
-            `);
-        });
-    }
-    $("#searchReview").on("keyup", function () {
-        const searchTerm = $(this).val().toLowerCase();
-        const filteredReviews = window.allReviews.filter(review =>
-            (review.userEmail && review.userEmail.toLowerCase().includes(searchTerm)) ||
-            (review.comment && review.comment.toLowerCase().includes(searchTerm))
-        );
-        renderReviews(filteredReviews);
-    });
-    function deleteReview(id) {
-        if (confirm("Are you sure you want to delete this review?")) {
-            $.ajax({
-                url: `http://localhost:8080/api/v1/review/delete/${id}`,
-                method: "DELETE",
-                success: function (response) {
-                    if (response.code === 200 || response.code === 201 || response.code === 1) {
-                        alert("Review deleted successfully.");
-                        loadAllReviews();
-                    } else {
-                        alert("Failed to delete review.");
-                    }
-                },
-                error: function () {
-                    alert("Failed to delete review.");
-                }
-            });
-        }
-    }
-
-    // Bookings
-    $(document).ready(function () {
-        loadBookings();
-    });
-    function loadBookings() {
-        $.ajax({
-            url: "http://localhost:8080/api/v1/booking/getAll",
-            method: "GET",
-            success: function (response) {
-                if (response.code === 201 || response.code === 200) {
-                    let rows = "";
-                    response.data.forEach(b => {
-                        rows += `<tr>
-                            <td>${b.packageName}</td>
-                            <td>${b.doctorEmail}</td>
-                            <td>${b.accommodationName}</td>
-                            <td>${b.userEmail}</td>
-                            <td>${b.bookingDate}</td>
-                            <td>${b.checkoutDate}</td>
-                            <td>${b.estimateDays}</td>
-                            <td>${b.doctorFee}</td>
-                            <td>${b.packagePrice}</td>
-                            <td>${b.totalPrice}</td>
-                        </tr>`;
-                    });
-                    $("#bookingTableBody").html(rows);
-                } else {
-                    $("#bookingTableBody").html(`<tr><td colspan="10" class="text-center">No bookings found</td></tr>`);
-                }
-            },
-            error: function () {
-                $("#bookingTableBody").html(`<tr><td colspan="10" class="text-center text-danger">Failed to load bookings</td></tr>`);
-            }
-        });
-    }
-    $("#searchBooking").on("keyup", function () {
-        let value = $(this).val().toLowerCase();
-        $("#bookingTableBody tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-        });
-    });
-
-    // Payments
-    let allPayments = [];
-    function loadAllPayments() {
-        $.ajax({
-            url: "http://localhost:8080/api/v1/payment/getAll",
-            type: "GET",
-            success: function (response) {
-                allPayments = response.data;
-                renderPayments(allPayments);
-            },
-            error: function () {
-                alert("Failed to load payments.");
-            }
-        });
-    }
-    function renderPayments(payments) {
-        const tbody = $("#paymentTableBody");
-        tbody.empty();
-        payments.forEach(payment => {
-            tbody.append(`
-                <tr>
-                    <td>${payment.id}</td>
-                    <td>${payment.userEmail}</td>
-                    <td>LKR ${payment.amount.toFixed(2)}</td>
-                    <td>${payment.paymentDate}</td>
-                </tr>
-            `);
-        });
-    }
-    $("#searchEmail").on("input", function () {
-        const query = $(this).val().toLowerCase();
-        const filtered = allPayments.filter(p => p.userEmail.toLowerCase().includes(query));
-        renderPayments(filtered);
-    });
-
-    // Panel switching
-    function showPanel(panelId) {
-        $('.content > div').addClass('hidden');
-        $('#' + panelId).removeClass('hidden');
-        // Highlight active sidebar link
-        $('.sidebar a').removeClass('active');
-        $(`.sidebar a[onclick*='${panelId}']`).addClass('active');
-    }
-
-    function logout() {
-        localStorage.removeItem("name");
-        localStorage.removeItem("token");
-        localStorage.removeItem("email");
-        localStorage.removeItem("role");
-        window.location.href = "index.html";
-    }
-
-    // Image previews (optional, but keep existing functionality)
-    // Add your existing preview handlers here if needed
-</script>
-
-<!-- External JS files (keep as is) -->
 <script src="js/doctor.js"></script>
 <script src="js/accommodation.js"></script>
 <script src="js/activity.js"></script>
 <script src="js/tpackage.js"></script>
 <script src="js/article.js"></script>
+<script>
+    function getAuthHeaders(){const token=localStorage.getItem("token");return token?{Authorization:`Bearer ${token}`}:{};}
+    function showPanel(panelId){$('.content > div').addClass('hidden');$('#'+panelId).removeClass('hidden');$('.sidebar a').removeClass('active');$(`.sidebar a[onclick*='${panelId}']`).addClass('active');}
+    function logout(){localStorage.clear();window.location.href="index.html";}
+    $(document).ready(function(){loadDashboardCounts();loadBookingsPerDayChart();loadTotalPricePerBookingChart();loadAllUsers();loadAllReviews();loadAllPayments();loadBookings();showPanel('dashboard');});
+    function loadDashboardCounts(){$.ajax({url:"http://localhost:8080/api/v1/dashboard/counts",method:"GET",headers:getAuthHeaders(),success:function(r){$('#totalBookings').text(r.data.totalBookings||0);$('#totalVehicles').text(r.data.totalAccommodations||0);$('#totalGuides').text(r.data.totalDoctors||0);$('#totalUsers').text(r.data.totalUsers||0);},error:()=>alert("Failed dashboard data")});}
+    function loadBookingsPerDayChart(){$.ajax({url:"http://localhost:8080/api/v1/dashboard/chart/booking-per-day",method:"GET",headers:getAuthHeaders(),success:function(res){if(res.data&&res.data.length){new Chart(document.getElementById('bookingsPerDayChart'),{type:'bar',data:{labels:res.data.map(i=>i.date),datasets:[{label:'Bookings',data:res.data.map(i=>i.count),backgroundColor:'#2C8C74',borderRadius:8}]},options:{responsive:true,maintainAspectRatio:true}});}}})}
+    function loadTotalPricePerBookingChart(){$.ajax({url:"http://localhost:8080/api/v1/dashboard/chart/total-price-per-booking",method:"GET",headers:getAuthHeaders(),success:function(res){if(res.data&&res.data.length){new Chart(document.getElementById('totalPricePerBookingChart'),{type:'line',data:{labels:res.data.map(i=>"Booking#"+i.bookingId),datasets:[{label:'Revenue (LKR)',data:res.data.map(i=>i.total),borderColor:'#E67E22',tension:0.2,fill:false}]}});}}})}
+    function loadAllUsers(status='active'){const token=localStorage.getItem('token');if(!token){$('#userTableBody').html('<tr><td colspan="5">Login required: go to signin page and login as admin.</td></tr>');return;}$.ajax({url:`http://localhost:8080/api/v1/user/getAll?status=${status}`,method:"GET",headers:getAuthHeaders(),success:function(answer){if(answer&&answer.data){window.allUsers=answer.data;renderUserTable(answer.data);}else{$("#userTableBody").html('<tr><td colspan="5">No users</td></tr>');}},error:function(xhr){console.error('User load error',xhr.status,xhr.responseText);if(xhr.status===401||xhr.status===403){$("#userTableBody").html('<tr><td colspan="5">Authentication required. Please login as admin.</td></tr>');} else {$("#userTableBody").html('<tr><td colspan="5">Failed to load users (see console)</td></tr>');}}})}
+    function renderUserTable(users){let html="";users.forEach(u=>{const status=u.status?u.status.toUpperCase():"ACTIVE";html+=`<tr><td>${u.name}</td><td>${u.email}</td><td><span class="badge-status">${u.role}</span></td><td><span class="badge-status">${status}</span></td><td><button class="btn btn-danger-lux btn-sm rounded-pill" onclick="deleteUser('${u.email}')"><i class="fas fa-trash"></i> Delete</button></td></tr>`;});$("#userTableBody").html(html||'<tr><td colspan="5">No users</td></tr>');}
+    window.searchUsers=function(){let term=$("#searchInput").val().toLowerCase();if(window.allUsers)renderUserTable(window.allUsers.filter(u=>u.name.toLowerCase().includes(term)||u.email.toLowerCase().includes(term)));};
+    $("#userStatusFilter").on('change', function(){const status=$(this).val();loadAllUsers(status);$("#searchInput").val('');});
+    window.deleteUser=function(email){if(confirm("Delete user?"))$.ajax({url:`http://localhost:8080/api/v1/user/delete/${email}`,method:"DELETE",headers:getAuthHeaders(),success:()=>{alert("Deleted");loadAllUsers($("#userStatusFilter").val());}});};
+    function loadAllReviews(){$.ajax({url:"http://localhost:8080/api/v1/review/all",method:"GET",success:function(r){if(r.data){window.allReviews=r.data;renderReviews(r.data);}}})}
+    function renderReviews(reviews){let html="";reviews.forEach(r=>{html+=`<tr><td>${r.id}</td><td>${r.userEmail}</td><td>${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</td><td>${r.comment}</td><td>${r.createdAt}</td><td><button class="btn btn-sm btn-danger-lux" onclick="deleteReview(${r.id})">Delete</button></td></tr>`;});$("#reviewTableBody").html(html||'<tr><td colspan="6">No reviews</td></tr>');}
+    window.deleteReview=function(id){if(confirm("Delete review?"))$.ajax({url:`http://localhost:8080/api/v1/review/delete/${id}`,method:"DELETE",success:()=>{alert("Deleted");loadAllReviews();}});};
+    function loadBookings(){$.ajax({url:"http://localhost:8080/api/v1/booking/getAll",method:"GET",success:function(r){let rows="";if(r.data)r.data.forEach(b=>{rows+=`<tr><td>${b.packageName}</td><td>${b.doctorEmail}</td><td>${b.accommodationName}</td><td>${b.userEmail}</td><td>${b.bookingDate}</td><td>${b.checkoutDate}</td><td>${b.estimateDays}</td><td>${b.doctorFee}</td><td>${b.packagePrice}</td><td class="fw-bold">LKR ${b.totalPrice}</td></tr>`;});$("#bookingTableBody").html(rows||'<tr><td colspan="10">No bookings</td></tr>');}});}
+    function loadAllPayments(){$.ajax({url:"http://localhost:8080/api/v1/payment/getAll",method:"GET",success:function(r){allPayments=r.data;renderPayments(allPayments);}});}
+    function renderPayments(payments){let h="";payments.forEach(p=>{h+=`<tr><td>${p.id}</td><td>${p.userEmail}</td><td>LKR ${p.amount.toFixed(2)}</td><td>${p.paymentDate}</td></tr>`;});$("#paymentTableBody").html(h);}
+    $("#searchEmail").on("input",function(){let q=$(this).val().toLowerCase();if(window.allPayments)renderPayments(window.allPayments.filter(p=>p.userEmail.toLowerCase().includes(q)));});
+    $("#searchReview").on("keyup",function(){let term=$(this).val().toLowerCase();if(window.allReviews)renderReviews(window.allReviews.filter(r=>r.userEmail?.toLowerCase().includes(term)||r.comment?.toLowerCase().includes(term)));});
+    $("#searchBooking").on("keyup",function(){let val=$(this).val().toLowerCase();$("#bookingTableBody tr").filter(function(){$(this).toggle($(this).text().toLowerCase().indexOf(val)>-1);});});
+    $("#searchDoctor").on("keyup",function(){let val=$(this).val().toLowerCase();$("#doctorTableBody tr").filter(function(){$(this).toggle($(this).text().toLowerCase().indexOf(val)>-1);});});
+    $("#searchInput").on("keyup",function(){let term=$(this).val().toLowerCase();if(window.allUsers)renderUserTable(window.allUsers.filter(u=>u.name.toLowerCase().includes(term)||u.email.toLowerCase().includes(term)));});
+</script>
 </body>
 </html>

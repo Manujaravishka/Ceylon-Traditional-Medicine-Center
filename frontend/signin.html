@@ -327,14 +327,10 @@
 
                     showMsg("#loginMsg", "✅ Login successful. Redirecting...", true);
 
+                    // Redirect directly to dashboard (user landing page)
                     setTimeout(() => {
-                        const chosenRole = role || localStorage.getItem("role") || "ROLE_USER";
-                        if (chosenRole === "ROLE_ADMIN") {
-                            window.location.href = "admin.html";
-                        } else {
-                            window.location.href = "index.html";
-                        }
-                    }, 700);
+                        window.location.href = "index.html";
+                    }, 300);
                 },
                 error: function (xhr) {
                     const msg = xhr?.responseJSON?.message || "Login failed.";

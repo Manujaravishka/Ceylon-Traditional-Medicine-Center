@@ -32,6 +32,9 @@ public class DashBoardController {
     @Autowired
     private DoctorService doctorService;
 
+    @Autowired
+    private org.example.ceylontraditionalmedicinecenter.service.UserService userService;
+
     @GetMapping("/counts")
     public ResponseEntity<ResponseDTO> getCounts() {
         try {
@@ -39,6 +42,7 @@ public class DashBoardController {
             dto.setTotalBookings(bookingService.getTotalBookings());
             dto.setTotalAccommodations(accommodationService.getTotalAccommodationCount());
             dto.setTotalDoctors(doctorService.getTotalDoctorCount());
+            dto.setTotalUsers((int) userService.getActiveUsersCount());
 
             return ResponseEntity.ok(
                     new ResponseDTO(VarList.Created, "Dashboard counts loaded successfully", dto)

@@ -75,8 +75,16 @@ public class UserController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<ResponseDTO> getAllUsers() {
-        List<UserDTO> users = userService.getAllUsers();
+    public ResponseEntity<ResponseDTO> getAllUsers(@RequestParam(required = false) String status) {
+        List<UserDTO> users;
+        if (status == null || status.isBlank()) {
+            users = userService.getActiveUsers();
+        } else if (status.equalsIgnoreCase("active")) {
+            users = userService.getActiveUsers();
+        } else {
+            users = userService.getAllUsers();
+        }
+
         if (users.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ResponseDTO(VarList.Not_Found, "No users found", null));

@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
             user.setRole(normalized);
         }
+
+        if (user.getStatus() == null || user.getStatus().isBlank()) {
+            user.setStatus("ACTIVE");
+        }
+
         userRepository.save(user);
         return VarList.Created;
     }
@@ -63,6 +68,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findAll().stream()
                 .map(u -> modelMapper.map(u, UserDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDTO> getActiveUsers() {
+        return userRepository.findActiveOrUnspecifiedStatusUsers().stream()
+                .map(u -> modelMapper.map(u, UserDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public long getTotalUsers() {
+        return userRepository.count();
+    }
+
+    @Override
+    public long getActiveUsersCount() {
+        return userRepository.countActiveOrUnspecifiedStatusUsers();
     }
 
     @Override
