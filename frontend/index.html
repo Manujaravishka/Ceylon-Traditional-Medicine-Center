@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ayurveda Wellness | Hela Suwaya</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEYLON MEDICAL CENTER | Sacred Ayurvedic Sanctuary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,1149 +14,981 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Custom CSS (keep existing) -->
-    <link href="css/index.css" rel="stylesheet">
-    <link href="css/about.css" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <style>
-        /* ---------- MODERN PROFESSIONAL UI ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --primary-dark: #1b3b2b;
-            --primary: #2c5f3a;
-            --primary-light: #e8f0e9;
-            --accent: #c9a66b;
-            --accent-dark: #a8864d;
-            --gray-light: #f9fafc;
-            --gray-medium: #eef2f3;
-            --text-dark: #2e3b3b;
-            --text-muted: #5b6e6e;
-            --shadow-sm: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
-            --border-radius-card: 16px;
-            --transition: all 0.25s ease;
+            --deep-teal: #0A2F2A;
+            --sage-green: #5A7B6E;
+            --soft-gold: #C9A87C;
+            --warm-ivory: #FDF7F0;
+            --charcoal-soft: #2C3E3A;
+            --pure-white: #FFFFFF;
+            --stone-gray: #7A8A85;
+            --shadow-elegant: 0 20px 40px -15px rgba(10, 47, 42, 0.08);
+            --shadow-lux: 0 30px 50px -20px rgba(10, 47, 42, 0.15);
+            --transition-silk: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
-            color: var(--text-dark);
-            background-color: #ffffff;
-            line-height: 1.6;
+            background: var(--warm-ivory);
+            color: var(--charcoal-soft);
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            color: var(--primary-dark);
-        }
-
-        .section-subtitle {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-dark);
-        }
-
-        /* Navbar (unchanged structure) */
-        .navbar {
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
-            padding: 1.2rem 0;
-        }
-        .navbar.bg-dark {
-            background-color: rgba(27, 59, 43, 0.92) !important;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            padding: 0.7rem 0;
-        }
-        .navbar-brand {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
+        h1, h2, h3, h4, h5, .brand-text, .section-title, .hero-title {
+            font-family: 'Playfair Display', serif;
             font-weight: 700;
-            color: var(--accent) !important;
+            letter-spacing: -0.02em;
+        }
+
+        /* ========== WORLD-CLASS NAVBAR ========== */
+        .navbar-premium {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: var(--transition-silk);
+            background: transparent;
+        }
+
+        .navbar-premium.scrolled {
+            background: rgba(10, 47, 42, 0.98);
+            backdrop-filter: blur(12px);
+            padding: 0.8rem 0;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(201, 168, 124, 0.2);
+        }
+
+        .navbar-premium .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .brand-sanskrit {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--soft-gold);
             letter-spacing: 1px;
         }
-        #main-icon {
-            color: var(--accent);
-            font-size: 2.2rem;
-            margin-right: 10px;
+
+        .brand-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--warm-ivory);
+            letter-spacing: 0.5px;
         }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
         .nav-link {
+            color: rgba(253, 247, 240, 0.9);
+            text-decoration: none;
             font-weight: 500;
-            font-size: 0.9rem;
-            text-transform: uppercase;
+            font-size: 0.85rem;
             letter-spacing: 0.8px;
-            margin: 0 0.2rem;
-            color: rgba(255,255,255,0.9) !important;
-            transition: var(--transition);
-            border-bottom: 2px solid transparent;
-            padding-bottom: 0.25rem;
+            text-transform: uppercase;
+            transition: var(--transition-silk);
+            position: relative;
         }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--soft-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
         .nav-link:hover,
         .nav-link.active {
-            color: var(--accent) !important;
-            border-bottom-color: var(--accent);
+            color: var(--soft-gold);
         }
-        #signInUpLink {
-            background-color: var(--accent);
-            color: var(--primary-dark) !important;
-            padding: 0.5rem 1.4rem;
+
+        /* Auth Button - Elegant */
+        .auth-btn {
+            background: transparent;
+            border: 1.5px solid var(--soft-gold);
+            color: var(--soft-gold);
+            padding: 8px 24px;
             border-radius: 40px;
             font-weight: 600;
-            border: none;
-            transition: var(--transition);
-            margin-left: 0.8rem;
+            font-size: 0.8rem;
+            transition: var(--transition-silk);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
         }
-        #signInUpLink:hover {
-            background-color: #b8925c;
+
+        .auth-btn:hover {
+            background: var(--soft-gold);
+            color: var(--deep-teal);
             transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-            color: #0f2a1d !important;
         }
 
-        /* Hero with new image */
-        .hero {
-            min-height: 90vh;
-            background: url('image/hero-ayurveda.jpg') center/cover no-repeat; /* NEW */
+        /* User Dropdown */
+        .user-dropdown {
             position: relative;
         }
-        .hero-overlay {
+
+        .user-menu {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(145deg, rgba(27, 59, 43, 0.85) 0%, rgba(44, 95, 58, 0.7) 100%);
-            z-index: 1;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-        }
-        .hero h1 {
-            font-size: clamp(2.8rem, 8vw, 5rem);
-            line-height: 1.2;
-            text-shadow: 2px 2px 15px rgba(0,0,0,0.3);
-            font-weight: 700;
-        }
-        .btn-outline-light {
-            border-width: 2px;
-            font-weight: 600;
-            padding: 0.9rem 2.5rem;
-            border-radius: 50px;
-            transition: var(--transition);
-            font-size: 1rem;
-        }
-        .btn-outline-light:hover {
-            background-color: var(--accent);
-            border-color: var(--accent);
-            color: var(--primary-dark);
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            top: 100%;
+            right: 0;
+            background: var(--pure-white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lux);
+            min-width: 220px;
+            padding: 0.6rem 0;
+            margin-top: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition-silk);
+            z-index: 1000;
+            border: 1px solid rgba(201, 168, 124, 0.2);
         }
 
-        /* Main content (welcome) */
+        .user-dropdown:hover .user-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: var(--charcoal-soft);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .user-menu-item:hover {
+            background: rgba(201, 168, 124, 0.1);
+            color: var(--deep-teal);
+        }
+
+        .user-menu-item i {
+            width: 20px;
+            color: var(--soft-gold);
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: rgba(201, 168, 124, 0.2);
+            margin: 0.5rem 0;
+        }
+
+        .logout-item {
+            color: #c97e5a;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--soft-gold);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(10, 47, 42, 0.88) 0%, rgba(10, 47, 42, 0.82) 100%), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            animation: fadeUp 0.9s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(35px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(201, 168, 124, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 6px 20px;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--soft-gold);
+            border: 1px solid rgba(201, 168, 124, 0.4);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 4.2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 248, 235, 0.85);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .btn-primary-lux {
+            background: var(--soft-gold);
+            color: var(--deep-teal);
+            padding: 12px 36px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: var(--transition-silk);
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary-lux:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(201, 168, 124, 0.3);
+            background: #b88f5a;
+            color: white;
+        }
+
+        /* Main Content */
         .main-content {
+            max-width: 1300px;
+            margin: 6rem auto;
+            padding: 0 2rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 4rem;
-            padding: 5rem 1.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
         }
+
         .content-left {
-            flex: 1 1 40%;
+            flex: 1;
         }
-        .ayurveda-illustration {
-            background: url('image/ayurveda-illustration.svg') no-repeat center/contain; /* NEW */
-            min-height: 450px;
-            width: 100%;
+
+        .illustration-box {
+            background: linear-gradient(145deg, #E8E2D9, #F5EFE6);
             border-radius: 40px;
-            box-shadow: var(--shadow-sm);
-        }
-        .content-right {
-            flex: 1 1 50%;
-        }
-        .luxury-badge {
+            min-height: 450px;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            background: var(--primary-light);
-            padding: 0.7rem 1.8rem;
+            justify-content: center;
+            box-shadow: var(--shadow-elegant);
+        }
+
+        .illustration-box i {
+            font-size: 7rem;
+            color: var(--soft-gold);
+            opacity: 0.7;
+        }
+
+        .content-right {
+            flex: 1;
+        }
+
+        .gold-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(201, 168, 124, 0.12);
+            padding: 6px 20px;
             border-radius: 60px;
-            width: fit-content;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
-        .luxury-icon i {
-            font-size: 2rem;
-            color: var(--accent);
+
+        .gold-badge i {
+            color: var(--soft-gold);
+            font-size: 1rem;
         }
-        .luxury-badge span {
-            font-weight: 500;
-            color: var(--primary);
-        }
+
         .main-heading {
-            font-size: 3.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-dark);
+            font-size: 2.8rem;
+            color: var(--deep-teal);
+            margin-bottom: 1.2rem;
         }
-        .description {
-            font-size: 1.05rem;
+
+        .description-text {
+            color: var(--stone-gray);
             line-height: 1.8;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
-        .learn-more-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1rem 2.8rem;
-            border-radius: 50px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            box-shadow: 0 10px 20px -8px rgba(44, 95, 58, 0.4);
-            margin-top: 1rem;
-        }
-        .learn-more-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 18px 30px -8px rgba(27, 59, 43, 0.5);
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
         }
 
-        /* About section */
-        .about-section {
-            background-color: var(--gray-light);
-            padding: 5rem 0;
-        }
-        .about-content {
-            margin: 4rem 0;
-        }
-        .about-image img {
-            border-radius: 30px;
-            box-shadow: var(--shadow-sm);
-        }
-        .about-text h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .about-text ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .about-text li {
-            margin-bottom: 0.8rem;
-            font-size: 1.05rem;
-        }
-        .about-text i {
-            color: var(--accent);
-            margin-right: 0.8rem;
-        }
-
-        /* Image scroller - new gallery images */
-        .about-images-scroll {
-            margin: 3rem 0;
-            padding: 2rem 0;
-            background: white;
+        .btn-outline-teal {
+            background: transparent;
+            border: 2px solid var(--sage-green);
+            color: var(--sage-green);
+            padding: 12px 36px;
             border-radius: 60px;
-            box-shadow: var(--shadow-sm);
+            font-weight: 600;
+            transition: var(--transition-silk);
         }
+
+        .btn-outline-teal:hover {
+            background: var(--sage-green);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        .section-light {
+            background: var(--pure-white);
+        }
+
+        .section-alt {
+            background: #F9F5EE;
+        }
+
+        .section-title {
+            font-size: 2.6rem;
+            color: var(--deep-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--soft-gold);
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card-lux {
+            background: var(--pure-white);
+            border: none;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition-silk);
+            box-shadow: var(--shadow-elegant);
+            height: 100%;
+        }
+
+        .card-lux:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lux);
+        }
+
+        .card-img-lux {
+            height: 240px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .card-body-lux {
+            padding: 1.5rem;
+        }
+
+        .card-title-lux {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--deep-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Service Cards */
+        .service-card {
+            background: var(--pure-white);
+            border-radius: 28px;
+            padding: 2.2rem;
+            text-align: center;
+            transition: var(--transition-silk);
+            box-shadow: var(--shadow-elegant);
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lux);
+        }
+
+        .service-card i {
+            font-size: 2.8rem;
+            color: var(--soft-gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .service-card h5 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Image Scroller */
+        .image-scroller {
+            background: var(--pure-white);
+            border-radius: 32px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: var(--shadow-elegant);
+        }
+
         .scroll-track {
-            overflow-x: auto;
+            display: flex;
             gap: 1.5rem;
-            padding: 0.5rem 2rem;
+            overflow-x: auto;
             scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            padding: 0.5rem 0;
         }
+
         .scroll-track::-webkit-scrollbar {
             display: none;
         }
+
         .scroll-track img {
             width: 280px;
-            height: 190px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 30px;
-            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.2);
-            transition: var(--transition);
+            border-radius: 20px;
+            transition: all 0.3s;
+            flex-shrink: 0;
         }
+
         .scroll-track img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.25);
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
+
         .scroll-arrow {
-            background: var(--accent);
-            color: var(--primary-dark);
+            background: var(--soft-gold);
             width: 44px;
             height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
             cursor: pointer;
-            transition: var(--transition);
-            opacity: 0.8;
+            transition: var(--transition-silk);
+            color: var(--deep-teal);
         }
+
         .scroll-arrow:hover {
-            opacity: 1;
-            background: var(--primary);
-            color: white;
+            transform: scale(1.08);
+            background: var(--deep-teal);
+            color: var(--soft-gold);
         }
 
-        /* Cards */
-        .card {
-            border: none !important;
-            border-radius: var(--border-radius-card) !important;
-            overflow: hidden;
-            background: white;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            height: 100%;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-        .card-img-top {
-            height: 220px;
-            object-fit: cover;
-            transition: transform 0.6s;
-        }
-        .card:hover .card-img-top {
-            transform: scale(1.03);
-        }
-        .card-body {
-            padding: 1.5rem 1.2rem 1.8rem;
-        }
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 0.75rem;
-            font-family: 'Cormorant Garamond', serif;
-        }
-        .card-text {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .star-rating {
-            color: var(--accent);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-        }
-        .empty-star {
-            color: #d4dad5;
-        }
-
-        /* Service items */
-        .service-item {
-            border-radius: 30px;
-            padding: 2.8rem 1.8rem !important;
-            background: white;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            height: 100%;
-        }
-        .service-item:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-        .service-item i {
-            color: var(--accent);
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-        .service-item h5 {
-            color: var(--primary-dark);
-            font-weight: 700;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-        .service-item p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Contact section */
-        .contact-container {
-            background: var(--gray-light);
-            padding: 5rem 2rem;
-        }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2.5rem;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
+        /* Contact Cards */
         .contact-card {
-            background: white;
-            border-radius: 40px;
-            padding: 2.8rem;
-            box-shadow: var(--shadow-sm);
+            background: var(--pure-white);
+            border-radius: 32px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-elegant);
+            transition: var(--transition-silk);
         }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lux);
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+
         .info-list li {
             display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
             align-items: flex-start;
         }
+
         .info-list i {
-            font-size: 1.8rem;
-            color: var(--accent);
-            width: 40px;
+            font-size: 1.3rem;
+            color: var(--soft-gold);
+            width: 32px;
+            margin-top: 3px;
         }
-        .info-list strong {
-            color: var(--primary-dark);
-            font-weight: 600;
-        }
-        .info-list a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        .info-list a:hover {
-            color: var(--primary);
-        }
-        .btn-action {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: var(--gray-medium);
-            padding: 0.6rem 1.5rem;
-            border-radius: 40px;
-            color: var(--primary-dark);
-            font-weight: 500;
-            text-decoration: none;
-            transition: var(--transition);
-            margin-right: 0.6rem;
-            margin-bottom: 0.6rem;
-            border: 1px solid transparent;
-        }
-        .btn-action:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-        .map-wrap {
-            border-radius: 24px;
-            overflow: hidden;
-            margin: 2rem 0 1.5rem;
-            box-shadow: var(--shadow-sm);
-        }
-        .contact-form .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .contact-form label {
-            font-weight: 600;
-            color: var(--primary-dark);
-            margin-bottom: 0.4rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .contact-form input,
-        .contact-form textarea {
+
+        .form-control-lux {
             width: 100%;
-            padding: 0.9rem 1.2rem;
-            border: 1px solid #d8e0db;
-            border-radius: 30px;
-            transition: var(--transition);
-            font-family: 'Montserrat', sans-serif;
+            padding: 14px 20px;
+            border: 1.5px solid #E8E2D9;
+            border-radius: 40px;
+            transition: var(--transition-silk);
+            background: var(--pure-white);
         }
-        .contact-form textarea {
-            border-radius: 20px;
-        }
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: var(--accent);
+
+        .form-control-lux:focus {
+            border-color: var(--soft-gold);
             outline: none;
-            box-shadow: 0 0 0 4px rgba(201, 166, 107, 0.2);
+            box-shadow: 0 0 0 3px rgba(201, 168, 124, 0.2);
         }
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin: 1.5rem 0;
-        }
-        .checkbox-group input {
-            width: auto;
-        }
-        .checkbox-group label {
-            font-weight: 400;
-            text-transform: none;
-            font-size: 0.9rem;
-        }
+
         .submit-btn {
-            background: var(--primary);
+            background: var(--deep-teal);
             color: white;
             border: none;
-            padding: 1rem 2.5rem;
+            padding: 14px;
             border-radius: 60px;
             font-weight: 700;
             width: 100%;
-            transition: var(--transition);
-            font-size: 1rem;
-            letter-spacing: 1px;
+            transition: var(--transition-silk);
         }
+
         .submit-btn:hover {
-            background: var(--primary-dark);
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px -8px var(--primary);
+            background: var(--sage-green);
+            transform: translateY(-2px);
         }
 
         /* Footer */
-        .footer {
-            background: #1d2f2a;
-            color: #cbd5d1;
-            padding: 4rem 2rem 1.5rem;
+        .footer-lux {
+            background: #0F2F2A;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
         }
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 3rem;
-            max-width: 1300px;
-            margin: 0 auto;
+
+        .footer-lux h4 {
+            color: var(--soft-gold);
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
         }
-        .footer h3 {
-            color: var(--accent);
-            font-size: 1.5rem;
-            margin-bottom: 1.8rem;
-        }
-        .footer h4 {
-            color: #e0e8e3;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.8rem;
-        }
-        .footer a {
-            color: #b0c4bc;
+
+        .footer-lux a {
+            color: #A8B9B2;
             text-decoration: none;
-            transition: var(--transition);
+            transition: var(--transition-silk);
+            font-size: 0.85rem;
         }
-        .footer a:hover {
-            color: var(--accent);
+
+        .footer-lux a:hover {
+            color: var(--soft-gold);
         }
-        .footer .menu-columns ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .footer .menu-columns li {
-            margin-bottom: 0.7rem;
-        }
-        .footer .social-icons {
-            display: flex;
-            gap: 0.8rem;
-            margin-top: 1.5rem;
-        }
-        .footer .social-icons a {
-            background: #2a4038;
-            width: 40px;
-            height: 40px;
+
+        .social-icon {
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
+            background: rgba(201, 168, 124, 0.15);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition);
-        }
-        .footer .social-icons a:hover {
-            background: var(--accent);
-            color: var(--primary-dark);
-        }
-        .footer-bottom {
-            border-top: 1px solid #345046;
-            padding-top: 2rem;
-            margin-top: 3rem;
-            text-align: center;
-            font-size: 0.9rem;
+            transition: var(--transition-silk);
+            color: var(--soft-gold);
         }
 
-        /* Back to top & WhatsApp */
+        .social-icon:hover {
+            background: var(--soft-gold);
+            color: var(--deep-teal);
+            transform: translateY(-3px);
+        }
+
         .back-to-top {
-            background: var(--accent);
-            color: var(--primary-dark);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
             position: fixed;
             bottom: 30px;
             right: 30px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--soft-gold);
+            color: var(--deep-teal);
+            border: none;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            transition: var(--transition);
+            transition: var(--transition-silk);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            opacity: 0.8;
+            font-size: 1.1rem;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 99;
         }
-        .back-to-top:hover {
+
+        .back-to-top.visible {
             opacity: 1;
-            background: var(--primary);
-            color: white;
+            visibility: visible;
         }
+
         .whatsapp-btn {
             position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: #25d366;
+            bottom: 30px;
+            left: 30px;
+            background: #25D366;
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-            transition: var(--transition);
+            font-size: 1.6rem;
+            transition: var(--transition-silk);
+            text-decoration: none;
             z-index: 99;
         }
+
         .whatsapp-btn:hover {
-            background: #20ba5a;
-            transform: scale(1.1);
-            color: white;
+            transform: scale(1.08);
+            background: #128C7E;
         }
 
-        @media (max-width: 768px) {
-            .section-title { font-size: 2rem; }
-            .main-heading { font-size: 2.2rem; }
-            .hero h1 { font-size: 2.5rem; }
-            .navbar-brand { font-size: 1.5rem; }
-            #main-icon { font-size: 1.8rem; }
+        .star-rating {
+            color: var(--soft-gold);
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--deep-teal);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .main-heading {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- Navbar (unchanged) -->
-<header class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="mainNavbar">
+<!-- Premium Navbar -->
+<nav class="navbar-premium" id="mainNavbar">
     <div class="container">
-        <i id="main-icon" class="fas fa-spa"></i>
-        <a class="navbar-brand" href="#">Ceylon Traditional Medicine Center</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <nav class="collapse navbar-collapse" id="navmenu">
-            <ul class="navbar-nav ms-auto align-items-lg-center">
-                <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#service">Service</a></li>
-                <li class="nav-item"><a class="nav-link" href="#packageSection">Packages</a></li>
-                <li class="nav-item"><a class="nav-link" href="#doctorSection">Doctor</a></li>
-                <li class="nav-item"><a class="nav-link" href="#accommodation">Accommodation</a></li>
-                <li class="nav-item"><a class="nav-link" href="#accommodation">Programmes</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                <li class="nav-item">
-                    <a href="signup.html" class="nav-link" id="signInUpLink">Sign in</a>
-                </li>
-                <li class="nav-item dropdown d-none" id="userDropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <span>Hi, User Name</span>
-                    </a>
-                    <ul class="dropdown-menu border-0 rounded-0 m-0">
-                        <li><a href="#" class="dropdown-item" onclick="loadPage('user-profile.html')">User Profile</a></li>
-                        <li><a href="#" class="dropdown-item" onclick="loadPage('booking.html')">Bookings</a></li>
-                        <li><a href="#" class="dropdown-item" onclick="loadPage('review.html')">Add Review</a></li>
-                        <li><a href="#" class="dropdown-item text-danger" id="logoutBtn">Log out</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+        <div class="brand-wrapper">
+            <span class="brand-sanskrit">හෙළ සුවය</span>
+            <span class="brand-text">| CEYLON MEDICAL CENTER</span>
+        </div>
+        <div class="mobile-toggle" id="mobileToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#service" class="nav-link">Services</a></li>
+            <li><a href="#packageSection" class="nav-link">Packages</a></li>
+            <li><a href="#doctorSection" class="nav-link">Doctors</a></li>
+            <li><a href="#accommodation" class="nav-link">Stays</a></li>
+            <li><a href="#activitySection" class="nav-link">Programmes</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li class="user-dropdown" id="authContainer">
+                <div id="authButton" class="auth-btn">Sign In <i class="fas fa-arrow-right"></i></div>
+                <div class="user-menu" id="userMenu">
+                    <div class="user-menu-item" id="userProfileBtn"><i class="fas fa-user-circle"></i> My Profile</div>
+                    <div class="user-menu-item" id="userBookingsBtn"><i class="fas fa-calendar-alt"></i> My Bookings</div>
+                    <div class="user-menu-item" id="userReviewsBtn"><i class="fas fa-star"></i> My Reviews</div>
+                    <div class="menu-divider"></div>
+                    <div class="user-menu-item logout-item" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</div>
+                </div>
+            </li>
+        </ul>
     </div>
-</header>
+</nav>
 
-<!-- Hero Section with new image -->
-<section id="home" class="hero d-flex align-items-center justify-content-center text-center text-white">
-    <div class="hero-overlay"></div>
-    <div class="container hero-content">
-        <h1 class="fw-bold">DISCOVER THE WONDERS <br> OF AYURVEDA AND HELA WEDAKAMA</h1>
-        <a href="article.html" target="_blank" class="btn btn-outline-light btn-lg mt-4">View Article</a>
+<!-- Hero Section -->
+<section id="home" class="hero-section">
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="900">
+        <div class="hero-badge"><i class="fas fa-leaf me-2"></i> ANCIENT CEYLON HEALING</div>
+        <h1 class="hero-title">Discover the Wonders<br>of Ayurveda & Hela Wedakama</h1>
+        <p class="hero-subtitle">Embark on a personalized restorative journey at Hela Suwaya — where ancient wisdom meets modern serenity.</p>
+        <a href="article.html" class="btn-primary-lux">Explore Wisdom <i class="fas fa-arrow-right ms-2"></i></a>
     </div>
 </section>
 
-<main class="container">
-    <section class="main-content">
-        <div class="content-left">
-            <!-- New illustration image -->
-            <div class="ayurveda-illustration"></div>
+<!-- Main Welcome Section -->
+<div class="main-content">
+    <div class="content-left" data-aos="fade-right">
+        <div class="illustration-box">
+            <i class="fas fa-feather-alt"></i>
         </div>
-        <div class="content-right">
-            <div class="luxury-badge">
-                <div class="luxury-icon">
-                    <i class="fas fa-spa"></i>
-                </div>
-                <span>Mindful Luxury in Sri Lanka</span>
-            </div>
-            <h1 class="main-heading">Welcome to Hela Suwaya</h1>
-            <p class="description">Uncover the incredible healing properties of the ancient arts of Ayurveda and Hela Wedakama (Sri Lankan Indigenous Medicine) as you embark on a personalised restorative journey at Hela Suwaya Ayurveda.</p>
-            <p class="description">Nestled in the former kingdom of Anuradhapura, our Ayurveda retreat in Sri Lanka is an oasis amidst the busy city. Under the guidance of renowned Ayurveda physician, Dr. Sarath Guanawardhana, our treatments programmes are designed to heal you from within and help you reconnect and rejuvenate mind, body and soul.</p>
-            <p class="description">Wherever you are on your lifelong journey, find personalised guidance and proven expertise to heal and inspire your way of life.</p>
-            <a href="#about"><button class="learn-more-btn">Learn More About Us</button></a>
+    </div>
+    <div class="content-right" data-aos="fade-left">
+        <div class="gold-badge">
+            <i class="fas fa-spa"></i>
+            <span>Mindful Luxury in Sri Lanka</span>
         </div>
-    </section>
-</main>
+        <h1 class="main-heading">Welcome to Hela Suwaya</h1>
+        <p class="description-text">Uncover the incredible healing properties of the ancient arts of Ayurveda and Hela Wedakama as you embark on a personalised restorative journey at Hela Suwaya Ayurveda.</p>
+        <p class="description-text">Nestled in the former kingdom of Anuradhapura, our Ayurveda retreat is an oasis amidst the busy city. Under the guidance of renowned Ayurveda physician, Dr. Sarath Guanawardhana, our treatments programmes are designed to heal you from within.</p>
+        <button class="btn-outline-teal" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Begin Your Journey →</button>
+    </div>
+</div>
 
 <!-- About Section -->
-<section id="about" class="about-section">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-subtitle">ABOUT US</span>
-            <h2 class="section-title">Begin your transformative journey</h2>
-            <p class="intro mx-auto" style="max-width: 700px;">We provide a completely personalised and immersive healing experience rooted in ancient wisdom.</p>
+<section id="about" class="py-5 section-light">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-subtitle">Sacred Lineage</span>
+            <h2 class="section-title">Begin Your Transformative Journey</h2>
         </div>
-
-        <div class="about-content row align-items-center mb-5">
-            <div class="about-image col-md-6">
-                <!-- New about image -->
-                <img src="image/ayurveda-concept.jpg" alt="Ayurveda Center" class="img-fluid rounded">
+        <div class="row align-items-center g-5">
+            <div class="col-md-6" data-aos="fade-right">
+                <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=2070&q=80" alt="Ayurveda" class="img-fluid rounded-4 shadow">
             </div>
-            <div class="about-text col-md-6">
-                <h2>OUR CONCEPT</h2>
-                <p class="mb-4">Hela Suwaya means ‘the rising sun’ in Sinhalese. Our concept of healing is rooted in holistic care for mind, body, and soul.</p>
-                <ul>
-                    <li><i class="fas fa-check-circle"></i> Holistic treatments to improve mental and physical wellbeing.</li>
-                    <li><i class="fas fa-check-circle"></i> Customised treatments by Ayurvedic physicians.</li>
-                    <li><i class="fas fa-check-circle"></i> Combining Ayurveda and Hela Wedakama practices.</li>
+            <div class="col-md-6" data-aos="fade-left">
+                <h3 style="color: var(--deep-teal);">Our Concept</h3>
+                <p>Hela Suwaya means 'the rising sun' in Sinhalese. Our concept of healing is rooted in holistic care for mind, body, and soul.</p>
+                <ul class="list-unstyled mt-4">
+                    <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: var(--soft-gold);"></i> Holistic treatments for wellbeing.</li>
+                    <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: var(--soft-gold);"></i> Customised treatments by Ayurvedic physicians.</li>
+                    <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: var(--soft-gold);"></i> Combining Ayurveda and Hela Wedakama.</li>
                 </ul>
             </div>
         </div>
 
-        <!-- Image Scroll Section with new gallery images -->
-        <div class="about-images-scroll position-relative">
-            <div class="scroll-arrow left">&#8592;</div>
-            <div class="scroll-arrow right">&#8594;</div>
-            <div class="scroll-track d-flex">
-                <img src="image/gallery1.jpg" alt="Ayurveda treatment">
-                <img src="image/gallery2.jpg" alt="Yoga and meditation">
-                <img src="image/gallery3.jpg" alt="Herbal therapy">
-                <img src="image/gallery4.jpg" alt="Ayurvedic massage">
-                <img src="image/gallery5.jpg" alt="Wellness retreat">
-                <img src="image/gallery6.jpg" alt="Organic herbs">
-                <img src="image/gallery7.jpg" alt="Peaceful surroundings">
-                <img src="image/gallery8.jpg" alt="Traditional medicine">
-                <img src="image/gallery9.jpg" alt="Ayurveda consultation">
-                <img src="image/gallery10.jpg" alt="Nature therapy">
+        <!-- Image Scroller -->
+        <div class="image-scroller position-relative mt-5" data-aos="zoom-in">
+            <div class="d-flex justify-content-between mb-3">
+                <div class="scroll-arrow left-arrow"><i class="fas fa-chevron-left"></i></div>
+                <div class="scroll-arrow right-arrow"><i class="fas fa-chevron-right"></i></div>
             </div>
-            <div class="scroll-dots text-center mt-3"></div>
+            <div class="scroll-track" id="scrollTrack">
+                <img src="https://images.unsplash.com/photo-1574968419792-7f83a3f4b7a8?auto=format&fit=crop&w=800&q=80" alt="Ayurveda">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80" alt="Therapy">
+                <img src="https://images.unsplash.com/photo-1545579133-99bb5ab189bd?auto=format&fit=crop&w=800&q=80" alt="Meditation">
+                <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&w=800&q=80" alt="Herbs">
+                <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=800&q=80" alt="Retreat">
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Accommodation Start (dynamic) -->
-<div class="container-fluid py-5" id="accommodation">
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-5">
-            <span class="section-subtitle">Accommodation</span>
-            <h2 class="section-title">Our Accommodation</h2>
-        </div>
-        <div class="row" id="destinationList">
-            <!-- Accommodation items loaded via AJAX -->
-        </div>
-    </div>
-</div>
-
-<!-- Service Start -->
-<div class="container-fluid py-5" id="service">
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-5">
-            <span class="section-subtitle">Services</span>
+<!-- Services Section -->
+<section id="service" class="py-5 section-alt">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-subtitle">Holistic Care</span>
             <h2 class="section-title">Treatment Services</h2>
         </div>
         <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item text-center">
-                    <i class="fa fa-spa"></i>
-                    <h5>Ayurvedic Doctor Consultation</h5>
-                    <p>Meet our experienced Ayurveda doctors for personalized health consultations and lifestyle.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item text-center">
-                    <i class="fa fa-leaf"></i>
-                    <h5>Herbal Treatments</h5>
-                    <p>Traditional therapies using natural herbs and oils to heal the body, mind, and soul.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item text-center">
-                    <i class="fa fa-hand-holding-heart"></i>
-                    <h5>Wellness Packages</h5>
-                    <p>Customized Ayurveda wellness programs for detox, stress relief, and overall rejuvenation.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Package Section Start (dynamic) -->
-<div class="container-fluid py-5" id="packageSection">
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-5">
-            <span class="section-subtitle">Packages</span>
-            <h2 class="section-title">Our Treatment Packages</h2>
-        </div>
-        <div class="row" id="packageList">
-            <!-- Packages loaded via AJAX -->
-        </div>
-    </div>
-</div>
-
-<!-- Doctor Section Start (dynamic) -->
-<div class="container-fluid py-5" id="doctorSection">
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-5">
-            <span class="section-subtitle">Doctors</span>
-            <h2 class="section-title">Our Doctors</h2>
-        </div>
-        <div class="row" id="doctorList">
-            <!-- Doctors loaded via AJAX -->
-        </div>
-    </div>
-</div>
-
-<!-- Activity Section Start (dynamic) -->
-<div class="container-fluid py-5" id="activitySection">
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-5">
-            <span class="section-subtitle">Activities</span>
-            <h2 class="section-title">Our Available Activities</h2>
-        </div>
-        <div class="row" id="activityList">
-            <!-- Activities loaded via AJAX -->
-        </div>
-    </div>
-</div>
-
-<!-- Reviews Section (dynamic) -->
-<section class="reviews-section" id="reviews">
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <span class="section-subtitle">Testimonials</span>
-            <h2 class="section-title">My Reviews</h2>
-        </div>
-        <div class="row" id="reviewCards">
-            <p class="text-center">Loading reviews...</p>
+            <div class="col-lg-4 col-md-6" data-aos="flip-left"><div class="service-card"><i class="fas fa-user-md"></i><h5>Ayurvedic Consultation</h5><p>Personalized health consultations with master physicians.</p></div></div>
+            <div class="col-lg-4 col-md-6" data-aos="flip-left" data-aos-delay="100"><div class="service-card"><i class="fas fa-leaf"></i><h5>Herbal Treatments</h5><p>Traditional therapies using natural herbs and oils.</p></div></div>
+            <div class="col-lg-4 col-md-6" data-aos="flip-left" data-aos-delay="200"><div class="service-card"><i class="fas fa-hand-holding-heart"></i><h5>Wellness Packages</h5><p>Customized detox and rejuvenation programs.</p></div></div>
         </div>
     </div>
 </section>
 
-<!-- Contact Section -->
-<section class="contact-container" id="contact">
-    <div class="contact-grid">
-        <!-- Left card: Contact details + Map -->
-        <div class="contact-card">
-            <h2 class="card-title mb-4" style="font-size: 2rem;">Contact Details</h2>
-            <ul class="info-list list-unstyled">
-                <li><i class="fa-solid fa-location-dot"></i> <div><strong>Address</strong><br>395/4, Harischandra Mawatha,<br>Anuradhapura, Sri Lanka</div></li>
-                <li><i class="fa-solid fa-phone"></i> <div><strong>General</strong> <a href="tel:+94769921134">+94 76 992 1134</a><br><strong>Reservations</strong> <a href="tel:+94769921134">+94 76 992 1134</a></div></li>
-                <li><i class="fa-solid fa-envelope"></i> <div><strong>Email</strong> <a href="mailto:reservations@helasuwaya.lk">reservations@helasuwaya.lk</a></div></li>
-            </ul>
-            <div class="social-row mb-4">
-                <a href="#" class="btn-action" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="btn-action" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="btn-action" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="btn-action" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="btn-action" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            </div>
-            <div class="map-wrap">
-                <iframe class="map-embed w-100" style="height: 200px;" src="https://www.google.com/maps?q=395/4%20Harischandra%20Mawatha,%20Anuradhapura,%20Sri%20Lanka&z=16&output=embed" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="quick-actions mt-4">
-                <a class="btn-action" href="https://www.google.com/maps/dir/?api=1&destination=395/4%20Harischandra%20Mawatha,%20Anuradhapura,%20Sri%20Lanka" target="_blank"><i class="fa-solid fa-route"></i> Directions</a>
-                <a class="btn-action" href="https://wa.me/94769921134" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                <a class="btn-action" href="mailto:reservations@helasuwaya.lk"><i class="fa-solid fa-paper-plane"></i> Email</a>
-            </div>
-        </div>
+<!-- Dynamic Sections -->
+<div class="container py-5" id="accommodation"><div class="text-center mb-5"><span class="section-subtitle">Sacred Stays</span><h2 class="section-title">Our Accommodation</h2></div><div class="row" id="destinationList"></div></div>
+<div class="container py-5 section-alt" id="packageSection"><div class="text-center mb-5"><span class="section-subtitle">Healing Journeys</span><h2 class="section-title">Our Treatment Packages</h2></div><div class="row" id="packageList"></div></div>
+<div class="container py-5" id="doctorSection"><div class="text-center mb-5"><span class="section-subtitle">Master Healers</span><h2 class="section-title">Our Doctors</h2></div><div class="row" id="doctorList"></div></div>
+<div class="container py-5 section-alt" id="activitySection"><div class="text-center mb-5"><span class="section-subtitle">Wellness Activities</span><h2 class="section-title">Our Available Activities</h2></div><div class="row" id="activityList"></div></div>
+<div class="container py-5" id="reviews"><div class="text-center mb-5"><span class="section-subtitle">Testimonials</span><h2 class="section-title">Sacred Voices</h2></div><div class="row" id="reviewCards"></div></div>
 
-        <!-- Right card: Contact form -->
-        <div class="contact-card">
-            <h2 class="card-title mb-4" style="font-size: 2rem;">Send us a message</h2>
-            <form id="contactForm" class="contact-form" novalidate>
-                <div class="form-row">
-                    <div class="form-group"><label for="from_name">Name</label><input type="text" id="from_name" name="from_name" required></div>
-                    <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" required></div>
+<!-- Contact Section -->
+<section id="contact" class="section-light">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="contact-card">
+                    <h2 style="font-size: 1.8rem; color: var(--deep-teal);">Connect With Us</h2>
+                    <ul class="info-list mt-4">
+                        <li><i class="fas fa-map-marker-alt"></i><div><strong>Sanctuary Address</strong><br>395/4, Harischandra Mawatha, Anuradhapura, Sri Lanka</div></li>
+                        <li><i class="fas fa-phone-alt"></i><div><strong>Inquiries</strong><br><a href="tel:+94769921134" style="color: var(--stone-gray);">+94 76 992 1134</a></div></li>
+                        <li><i class="fas fa-envelope"></i><div><strong>Email</strong><br><a href="mailto:reservations@helasuwaya.lk" style="color: var(--stone-gray);">reservations@helasuwaya.lk</a></div></li>
+                    </ul>
+                    <div class="d-flex gap-3 mt-3"><a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a><a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a></div>
+                    <div class="mt-4"><iframe width="100%" height="200" style="border-radius: 20px; border: none;" src="https://www.google.com/maps?q=395/4%20Harischandra%20Mawatha,%20Anuradhapura,%20Sri%20Lanka&z=14&output=embed" allowfullscreen></iframe></div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group"><label for="from_phone">Phone</label><input type="tel" id="from_phone" name="from_phone" required></div>
-                    <div class="form-group"><label for="from_email">Email</label><input type="email" id="from_email" name="from_email" required></div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="contact-card">
+                    <h2 style="font-size: 1.8rem; color: var(--deep-teal);">Send a Message</h2>
+                    <form id="contactForm" class="mt-4">
+                        <div class="mb-3"><input type="text" id="from_name" placeholder="Your Name" required class="form-control-lux"></div>
+                        <div class="mb-3"><input type="email" id="from_email" placeholder="Email Address" required class="form-control-lux"></div>
+                        <div class="mb-3"><textarea id="message" rows="4" placeholder="Your Message" required class="form-control-lux" style="border-radius: 24px;"></textarea></div>
+                        <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane ms-2"></i></button>
+                    </form>
                 </div>
-                <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="4" required></textarea></div>
-                <div class="checkbox-group"><input type="checkbox" id="terms" name="terms" required> <label for="terms">I confirm that I have read the <a href="#">Refund & Cancellation Policy</a>.</label></div>
-                <button type="submit" class="submit-btn">SUBMIT</button>
-            </form>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>CONTACT DETAILS</h3>
-            <div><h4>ADDRESS</h4><p>395/4, Harischandra Mawatha,<br>Anuradhapura, Sri Lanka</p></div>
-            <div><h4>GENERAL NUMBER</h4><p>+94 76 992 1134<br>+94 76 992 1134</p></div>
-            <div><h4>EMAIL ADDRESS</h4><p>reservations@helasuwaya.lk</p></div>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
+<footer class="footer-lux">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4"><h4>CEYLON MEDICAL CENTER</h4><p class="text-white-50 small">Authentic Ceylon Healing since generations</p><div class="d-flex gap-3"><a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a><a href="#" class="social-icon"><i class="fab fa-youtube"></i></a></div></div>
+            <div class="col-lg-4"><h4>Explore</h4><ul class="list-unstyled"><li><a href="#">Ayurveda Wisdom</a></li><li><a href="#">Our Physicians</a></li><li><a href="#">Wellness Packages</a></li><li><a href="#">Sacred Stays</a></li></ul></div>
+            <div class="col-lg-4"><h4>Contact</h4><p class="text-white-50 small mb-1">+94 76 992 1134</p><p class="text-white-50 small">reservations@helasuwaya.lk</p></div>
         </div>
-        <div class="footer-section">
-            <h3>Hela Suwaya MENU</h3>
-            <div class="menu-columns d-flex gap-5 flex-wrap">
-                <ul class="list-unstyled">
-                    <li><a href="#">HOME</a></li>
-                    <li><a href="#">OUR DOCTORS</a></li>
-                    <li><a href="#">OUR PACKAGES</a></li>
-                    <li><a href="#">OUR FACILITIES</a></li>
-                    <li><a href="#">AYURVEDA</a></li>
-                    <li><a href="#">OUR BLOG</a></li>
-                </ul>
-                <ul class="list-unstyled">
-                    <li><a href="#">ABOUT US</a></li>
-                    <li><a href="#">OUR TREATMENTS</a></li>
-                    <li><a href="#">ACCOMMODATION</a></li>
-                    <li><a href="#">DESTINATIONS</a></li>
-                    <li><a href="#">HELA WEDAKAMA</a></li>
-                    <li><a href="#">CONTACT US</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-section">
-            <div class="main-logo mb-4">
-                <i class="fas fa-leaf" style="font-size: 3rem; color: var(--accent);"></i>
-                <h4 class="text-white mt-2">Hela Suwaya<br>AYURVEDA</h4>
-            </div>
-            <div class="certification-logo">
-                <i class="fas fa-certificate" style="font-size: 2rem; color: var(--accent);"></i>
-                <small class="d-block text-white-50">Certification Partner</small>
-            </div>
-        </div>
+        <div class="border-top mt-4 pt-4 text-center"><p class="text-white-50 small">&copy; 2025 CEYLON MEDICAL CENTER — Preserving Ceylon's Healing Legacy</p></div>
     </div>
-    <div class="footer-bottom">
-        <p>&copy;2024 Hela Suwaya Ayurveda Private Limited</p>
-        <p>Website Design and Development by <a href="#">Athwa Solutions</a></p>
-    </div>
-    <button class="back-to-top" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></button>
-    <a href="https://wa.me/94769921134" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
 </footer>
 
-<!-- Scripts (unchanged) -->
+<button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
+<a href="https://wa.me/94769921134" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    // All AJAX functions remain exactly the same, except placeholder fallback now uses 'default-image.jpg'
-    $(document).ready(function () {
-        function loadAccommodations() {
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:8080/api/v1/accommodation/getAll",
-                success: function (response) {
-                    $('#destinationList').empty();
-                    response.data.forEach(function (accommodation) {
-                        const img = accommodation.imageUrl
-                            ? `<img src="/uploads/${accommodation.imageUrl}" class="card-img-top" alt="${accommodation.name || ''}">`
-                            : '<img src="/uploads/default-image.jpg" class="card-img-top" alt="Default">';  // NEW placeholder
-                        var accommodationItem = `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100">
-                                    ${img}
-                                    <div class="card-body">
-                                        <h5 class="card-title">${accommodation.name || 'Unnamed Accommodation'}</h5>
-                                        <p class="card-text">${accommodation.description || 'No description available.'}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        $('#destinationList').append(accommodationItem);
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error loading accommodations:", error);
-                }
-            });
-        }
-
-        function loadPackages() {
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:8080/api/v1/package/getAll",
-                success: function (response) {
-                    $('#packageList').empty();
-                    response.data.forEach(function (pkg) {
-                        const img = pkg.imageUrl
-                            ? `<img src="/uploads/${pkg.imageUrl}" class="card-img-top" alt="${pkg.name || ''}">`
-                            : '<img src="/uploads/default-image.jpg" class="card-img-top" alt="Default">';  // NEW placeholder
-                        const activitiesText = pkg.activities && pkg.activities.length
-                            ? `<p class="card-text">Activities: ${pkg.activities.join(', ')}</p>`
-                            : '';
-                        var packageItem = `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100">
-                                    ${img}
-                                    <div class="card-body">
-                                        <h5 class="card-title">${pkg.name || 'Unnamed Package'}</h5>
-                                        <p class="card-text">Price: RS:${pkg.price || 'N/A'}</p>
-                                        <p class="card-text">Est. Days: ${pkg.estimateDays || 'N/A'}</p>
-                                        ${activitiesText}
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        $('#packageList').append(packageItem);
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error loading packages:", error);
-                }
-            });
-        }
-
-        function loadDoctors() {
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:8080/api/v1/doctor/getAll",
-                success: function (response) {
-                    $('#doctorList').empty();
-                    response.data.forEach(function (doctor) {
-                        const img = doctor.imageUrl
-                            ? `<img src="/uploads/${doctor.imageUrl}" class="card-img-top" alt="${doctor.fullName || ''}">`
-                            : '<img src="/uploads/default-image.jpg" class="card-img-top" alt="Default">';  // NEW placeholder
-                        var doctorItem = `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100">
-                                    ${img}
-                                    <div class="card-body">
-                                        <h5 class="card-title">${doctor.fullName || 'Unnamed Doctor'}</h5>
-                                        <p class="card-text">${doctor.email || 'No email'}</p>
-                                        <p class="card-text">Fee: RS:${doctor.paymentPerDay || 'N/A'}</p>
-                                        <p class="card-text">${doctor.description || 'No description available.'}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        $('#doctorList').append(doctorItem);
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error loading doctors:", error);
-                }
-            });
-        }
-
-        function loadActivities() {
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:8080/api/v1/activity/getAll",
-                success: function (response) {
-                    $('#activityList').empty();
-                    response.data.forEach(function (activity) {
-                        const img = activity.imageUrl
-                            ? `<img src="/uploads/${activity.imageUrl}" class="card-img-top" alt="${activity.name || ''}">`
-                            : '<img src="/uploads/default-image.jpg" class="card-img-top" alt="Default">';  // NEW placeholder
-                        var activityItem = `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100">
-                                    ${img}
-                                    <div class="card-body">
-                                        <h5 class="card-title">${activity.name || 'Unnamed Activity'}</h5>
-                                        <p class="card-text">${activity.description || 'N/A'}</p>
-                                        <p class="card-text">Cost/Day: RS:${activity.costPerDay || 'N/A'}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        $('#activityList').append(activityItem);
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error loading activities:", error);
-                }
-            });
-        }
-
-        function loadReviews() {
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:8080/api/v1/review/all",
-                success: function (response) {
-                    const reviewContainer = $("#reviewCards");
-                    reviewContainer.empty();
-                    if (response.data && response.data.length > 0) {
-                        response.data.forEach(function (review) {
-                            const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-                            const reviewCard = `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${review.userEmail}</h5>
-                                        <p class="card-text star-rating">${stars}</p>
-                                        <p class="card-text">${review.comment || 'No comment provided'}</p>
-                                        <p class="card-text"><small class="text-muted">${review.createdAt || ''}</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                            reviewContainer.append(reviewCard);
-                        });
-                    } else {
-                        reviewContainer.html('<p class="text-center">No reviews available.</p>');
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error loading reviews:", error);
-                    $("#reviewCards").html('<p class="text-center text-danger">Failed to load reviews.</p>');
-                }
-            });
-        }
-
-        loadAccommodations();
-        loadPackages();
-        loadDoctors();
-        loadActivities();
-        loadReviews();
-    });
-
-    // Scroll handler for navbar background
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-            navbar.classList.add('bg-dark');
-            navbar.classList.remove('bg-transparent');
-        } else {
-            navbar.classList.remove('bg-dark');
-            navbar.classList.add('bg-transparent');
-        }
-    });
-
-    function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-</script>
-
-<!-- EmailJS and Bootstrap (unchanged) -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/index.js"></script>
-<script src="js/about.js"></script>
-<script src="js/load.js"></script>
-<script src="js/contact.js"></script>
+
+<script>
+    // ========== USER AUTHENTICATION ==========
+    function getFromLocalStorage(key) {
+        const data = localStorage.getItem(key);
+        if (!data) return null;
+        try {
+            const parsedData = JSON.parse(data);
+            if (parsedData?.expiry !== undefined) {
+                const now = new Date().getTime();
+                if (now > parsedData.expiry) { localStorage.removeItem(key); return null; }
+                return parsedData.value;
+            }
+            return data;
+        } catch (e) { return data; }
+    }
+
+    function isLoggedIn() { return !!getFromLocalStorage('email'); }
+    function getUserName() { return getFromLocalStorage('userName') || getFromLocalStorage('email')?.split('@')[0] || null; }
+    function clearUserSession() { localStorage.removeItem('email'); localStorage.removeItem('userName'); localStorage.removeItem('token'); localStorage.removeItem('role'); }
+    function logout() { clearUserSession(); window.location.reload(); }
+    function navigateTo(page) { window.location.href = page; }
+
+    function updateAuthButton() {
+        const authButton = document.getElementById('authButton');
+        if (isLoggedIn()) {
+            const userName = getUserName();
+            const displayName = userName ? (userName.length > 15 ? userName.substring(0, 12) + '...' : userName) : 'Guest';
+            authButton.innerHTML = `<i class="fas fa-user-circle"></i> ${displayName} <i class="fas fa-chevron-down ms-1"></i>`;
+        } else {
+            authButton.innerHTML = 'Sign In <i class="fas fa-arrow-right"></i>';
+        }
+    }
+
+    $(document).ready(function() {
+        AOS.init({ duration: 800, once: true, offset: 100 });
+        updateAuthButton();
+        
+        document.getElementById('authButton').addEventListener('click', function(e) {
+            if (!isLoggedIn()) { window.location.href = 'signin.html'; }
+        });
+        document.getElementById('userProfileBtn')?.addEventListener('click', () => navigateTo('user-profile.html'));
+        document.getElementById('userBookingsBtn')?.addEventListener('click', () => navigateTo('booking.html'));
+        document.getElementById('userReviewsBtn')?.addEventListener('click', () => navigateTo('review.html'));
+        document.getElementById('logoutBtn')?.addEventListener('click', logout);
+        
+        // ========== BACKEND DATA LOADING (PRESERVED) ==========
+        function loadAccommodations() {
+            $.ajax({ type: "GET", url: "http://localhost:8080/api/v1/accommodation/getAll", success: function(r) {
+                $('#destinationList').empty(); (r.data || []).forEach(a => {
+                    let img = a.imageUrl ? `<img src="/uploads/${a.imageUrl}" class="card-img-lux w-100">` : `<img src="https://via.placeholder.com/300x220?text=Serene+Stay" class="card-img-lux w-100">`;
+                    $('#destinationList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${a.name || 'Sacred Stay'}</h5><p class="text-muted small">${a.description?.substring(0,100) || ''}</p><p class="fw-bold" style="color: var(--soft-gold);">LKR ${a.costPerDay || 0}/night</p></div></div></div>`);
+                });
+            }});
+        }
+        function loadPackages() {
+            $.ajax({ type: "GET", url: "http://localhost:8080/api/v1/package/getAll", success: function(r) {
+                $('#packageList').empty(); (r.data || []).forEach(p => {
+                    let img = p.imageUrl ? `<img src="/uploads/${p.imageUrl}" class="card-img-lux w-100">` : `<img src="https://via.placeholder.com/300x220?text=Package" class="card-img-lux w-100">`;
+                    $('#packageList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${p.name || 'Package'}</h5><p class="fw-bold" style="color: var(--soft-gold);">LKR ${p.price || 0}</p><p class="small">${p.estimateDays || 0} days</p></div></div></div>`);
+                });
+            }});
+        }
+        function loadDoctors() {
+            $.ajax({ type: "GET", url: "http://localhost:8080/api/v1/doctor/getAll", success: function(r) {
+                $('#doctorList').empty(); (r.data || []).forEach(d => {
+                    if(d.status === "ACTIVE") {
+                        let img = d.imageUrl ? `<img src="/uploads/${d.imageUrl}" class="card-img-lux w-100">` : `<img src="https://via.placeholder.com/300x220?text=Doctor" class="card-img-lux w-100">`;
+                        $('#doctorList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${d.fullName || 'Doctor'}</h5><p class="text-muted small">${d.email || ''}</p><p class="fw-bold">LKR ${d.paymentPerDay || 0}/day</p></div></div></div>`);
+                    }
+                });
+            }});
+        }
+        function loadActivities() {
+            $.ajax({ type: "GET", url: "http://localhost:8080/api/v1/activity/getAll", success: function(r) {
+                $('#activityList').empty(); (r.data || []).forEach(a => {
+                    let img = a.imageUrl ? `<img src="/uploads/${a.imageUrl}" class="card-img-lux w-100">` : `<img src="https://via.placeholder.com/300x220?text=Activity" class="card-img-lux w-100">`;
+                    $('#activityList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${a.name || 'Activity'}</h5><p class="small text-muted">${a.description?.substring(0,80) || ''}</p><p class="fw-bold">LKR ${a.costPerDay || 0}/day</p></div></div></div>`);
+                });
+            }});
+        }
+        function loadReviews() {
+            $.ajax({ type: "GET", url: "http://localhost:8080/api/v1/review/all", success: function(r) {
+                $('#reviewCards').empty();
+                if(r.data && r.data.length) { r.data.forEach(rv => {
+                    let stars = '★'.repeat(rv.rating) + '☆'.repeat(5 - rv.rating);
+                    $('#reviewCards').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux"><div class="card-body-lux"><h6>${rv.userEmail}</h6><p class="star-rating">${stars}</p><p class="small">${rv.comment?.substring(0,100) || ''}</p><small class="text-muted">${rv.createdAt?.split('T')[0] || ''}</small></div></div></div>`);
+                }); } else $('#reviewCards').html('<p class="text-center">Sacred voices loading...</p>');
+            }});
+        }
+        loadAccommodations(); loadPackages(); loadDoctors(); loadActivities(); loadReviews();
+        
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-premium');
+            const backBtn = document.getElementById('backToTop');
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+            if (window.scrollY > 400) backBtn.classList.add('visible');
+            else backBtn.classList.remove('visible');
+        });
+        document.getElementById('mobileToggle')?.addEventListener('click', () => document.getElementById('navMenu').classList.toggle('active'));
+        document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => document.getElementById('navMenu')?.classList.remove('active')));
+        document.getElementById('backToTop')?.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+        const track = document.getElementById('scrollTrack');
+        document.querySelector('.left-arrow')?.addEventListener('click', () => track.scrollBy({left: -300, behavior:'smooth'}));
+        document.querySelector('.right-arrow')?.addEventListener('click', () => track.scrollBy({left: 300, behavior:'smooth'}));
+    });
+</script>
 </body>
 </html>

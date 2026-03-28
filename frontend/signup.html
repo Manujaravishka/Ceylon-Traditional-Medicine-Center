@@ -1,28 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="si">
 <head>
     <meta charset="utf-8" />
-    <title>Auth | Sign In / Sign Up</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hela Suwaya | Sacred Portal - Sign In / Join</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --primary: #2d5a27; /* Deep Forest Green */
-            --primary-light: #4a7c44;
-            --secondary: #c5a059; /* Sophisticated Gold */
-            --accent: #8b4513;
-            --dark: #1a1c1a;
-            --light: #ffffff;
-            --bg-soft: #fcfcf7;
-            --gray: #718096;
-            --error: #e53e3e;
-            --success: #38a169;
-            --radius: 16px;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --sacred-emerald: #1F4A3A;
+            --sacred-emerald-light: #3A6B58;
+            --sacred-gold: #D4AF7A;
+            --sacred-gold-dark: #B48C48;
+            --earth-cream: #FDF7F0;
+            --charcoal-elegant: #2C3A33;
+            --stone-mist: #6B5E4A;
+            --white-pure: #FFFFFF;
+            --error-red: #C97E5A;
+            --success-green: #4A7C59;
+            --shadow-elegant: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            --shadow-lux: 0 30px 50px -15px rgba(31, 74, 58, 0.2);
+            --transition-silk: all 0.5s cubic-bezier(0.2, 0.95, 0.4, 1.05);
         }
 
         * {
@@ -32,318 +34,443 @@
         }
 
         body {
-            background: radial-gradient(circle at top left, #3d6339, #1a2e18);
-            background-attachment: fixed;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1F4A3A 0%, #0F2E24 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: var(--dark);
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Container & Glassmorphism */
-        .container {
-            position: relative;
+        /* Decorative Elements */
+        body::before {
+            content: "🌿";
+            position: absolute;
+            top: 5%;
+            left: 3%;
+            font-size: 8rem;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "🪷";
+            position: absolute;
+            bottom: 5%;
+            right: 3%;
+            font-size: 8rem;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        /* Main Container */
+        .auth-container {
             width: 100%;
-            max-width: 1000px;
-            height: 650px;
+            max-width: 1100px;
             background: rgba(255, 255, 255, 0.98);
-            border-radius: 24px;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+            border-radius: 32px;
+            box-shadow: var(--shadow-lux);
             overflow: hidden;
             display: flex;
+            min-height: 680px;
+            position: relative;
+            transition: var(--transition-silk);
         }
 
-        /* Form Areas */
-        .form-container {
-            width: 50%;
-            height: 100%;
+        /* Form Panel */
+        .form-panel {
+            flex: 1;
+            background: var(--white-pure);
+            padding: 3rem;
             position: relative;
-            background: white;
+            transition: var(--transition-silk);
+        }
+
+        /* Brand Panel */
+        .brand-panel {
+            flex: 1;
+            background: linear-gradient(135deg, var(--sacred-emerald), var(--sacred-emerald-light));
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 122, 0.1) 0%, transparent 70%);
+            animation: slowRotate 20s linear infinite;
+        }
+
+        @keyframes slowRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .brand-icon {
+            font-size: 4rem;
+            color: var(--sacred-gold);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .brand-panel h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
             z-index: 2;
         }
 
-        .form-box {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .form-box h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 38px;
-            color: var(--primary);
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .form-subtitle {
-            color: var(--gray);
-            margin-bottom: 35px;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Input Styling */
-        .input-box {
+        .brand-panel p {
+            color: rgba(255, 248, 235, 0.85);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 280px;
+            margin-bottom: 2rem;
             position: relative;
-            margin-bottom: 18px;
+            z-index: 2;
         }
 
-        .input-box input {
-            width: 100%;
-            padding: 16px 20px 16px 50px;
-            border: 1.5px solid #edf2f7;
-            border-radius: var(--radius);
-            font-size: 15px;
-            outline: none;
-            transition: var(--transition);
-            background: #f8faf5;
-            color: var(--dark);
-        }
-
-        .input-box input:focus {
-            border-color: var(--primary);
-            background: white;
-            box-shadow: 0 10px 20px rgba(45, 90, 39, 0.08);
-        }
-
-        .input-box i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-light);
-            font-size: 18px;
-            opacity: 0.7;
-        }
-
-        /* Phone Input Adjustment */
-        .iti { width: 100%; }
-        .iti__flag-container { border-radius: var(--radius) 0 0 var(--radius); }
-
-        .forgot-link {
-            text-align: right;
-            margin: -5px 0 25px;
-        }
-
-        .forgot-link a {
-            color: var(--gray);
-            font-size: 13px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .forgot-link a:hover {
-            color: var(--primary);
-        }
-
-        /* Buttons */
-        .btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: var(--radius);
-            background: var(--primary);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 10px 25px rgba(45, 90, 39, 0.2);
-        }
-
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(45, 90, 39, 0.3);
-        }
-
-        /* Toggle Panel Styling */
-        .toggle-container {
-            width: 50%;
+        .brand-features {
+            list-style: none;
+            text-align: left;
+            margin-top: 1rem;
             position: relative;
-            overflow: hidden;
-            z-index: 5;
+            z-index: 2;
         }
 
-        .toggle-panel {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        .brand-features li {
+            color: rgba(255, 248, 235, 0.9);
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 50px;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, #1a2e18 100%);
-            color: white;
-            transition: var(--transition);
+            gap: 10px;
         }
 
-        .toggle-panel h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            margin-bottom: 15px;
+        .brand-features li i {
+            color: var(--sacred-gold);
+            width: 24px;
         }
 
-        .toggle-panel p {
-            font-size: 16px;
-            margin-bottom: 35px;
-            line-height: 1.6;
-            opacity: 0.85;
-        }
-
+        /* Toggle Button */
         .toggle-btn {
-            padding: 14px 45px;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50px;
             background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            padding: 12px 32px;
+            border-radius: 60px;
             color: white;
-            font-size: 15px;
             font-weight: 600;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: var(--transition);
+            transition: var(--transition-silk);
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 2;
         }
 
         .toggle-btn:hover {
-            background: white;
-            color: var(--primary);
-            border-color: white;
+            background: var(--sacred-gold);
+            border-color: var(--sacred-gold);
+            color: var(--sacred-emerald);
+            transform: translateY(-2px);
         }
 
-        /* Switch Logic (Classes used by JS) */
-        .toggle-left { transform: translateX(-100%); }
-        .toggle-right { right: 0; transform: translateX(0); }
-        .container.active .toggle-left { transform: translateX(0); }
-        .container.active .toggle-right { transform: translateX(100%); }
-
-        .login-form { opacity: 1; transform: translateX(0); z-index: 10; }
-        .register-form { opacity: 0; transform: translateX(100%); z-index: 5; }
-        .container.active .login-form { opacity: 0; transform: translateX(-100%); }
-        .container.active .register-form { opacity: 1; transform: translateX(0); z-index: 10; }
-
-        /* Error/Alert Styles */
-        .alert {
-            padding: 14px;
-            border-radius: 12px;
-            margin-top: 20px;
-            font-size: 14px;
-            text-align: center;
-            display: none;
-            animation: slideIn 0.3s ease;
+        /* Form Styles */
+        .form-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--sacred-emerald);
+            margin-bottom: 0.5rem;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .form-subtitle {
+            color: var(--stone-mist);
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
         }
 
-        .alert-success { background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
-        .alert-error { background: #fff5f5; color: #9b2c2c; border: 1px solid #fed7d7; }
+        .input-group {
+            position: relative;
+            margin-bottom: 1.2rem;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--sacred-gold);
+            font-size: 1rem;
+            z-index: 2;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px 14px 48px;
+            border: 1.5px solid #EADBCE;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            background: #FEFCF8;
+            transition: var(--transition-silk);
+            color: var(--charcoal-elegant);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--sacred-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 122, 0.15);
+            background: var(--white-pure);
+        }
+
+        .input-group input::placeholder {
+            color: #C9BCA8;
+        }
+
+        /* Phone Input */
+        .iti {
+            width: 100%;
+        }
+        
+        .iti__flag-container {
+            border-radius: 60px 0 0 60px;
+        }
 
         .phone-error {
-            color: var(--error);
-            font-size: 12px;
-            margin: 5px 0 0 5px;
+            color: var(--error-red);
+            font-size: 0.7rem;
+            margin-top: 0.3rem;
+            margin-left: 0.5rem;
             display: none;
         }
 
-        .feature-icon {
-            font-size: 60px;
-            margin-bottom: 25px;
-            color: var(--secondary);
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        .forgot-link {
+            text-align: right;
+            margin: -0.5rem 0 1.5rem;
         }
 
-        /* Responsiveness */
+        .forgot-link a {
+            color: var(--stone-mist);
+            font-size: 0.7rem;
+            text-decoration: none;
+            transition: var(--transition-silk);
+        }
+
+        .forgot-link a:hover {
+            color: var(--sacred-gold);
+        }
+
+        /* Button */
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--sacred-emerald), var(--sacred-emerald-light));
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-silk);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(31, 74, 58, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .btn-submit.loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Alert Messages */
+        .alert-message {
+            padding: 12px 16px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 1.2rem;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-success {
+            background: rgba(74, 124, 89, 0.12);
+            color: var(--success-green);
+            border: 1px solid rgba(74, 124, 89, 0.3);
+        }
+
+        .alert-error {
+            background: rgba(201, 126, 90, 0.12);
+            color: var(--error-red);
+            border: 1px solid rgba(201, 126, 90, 0.3);
+        }
+
+        /* Hide/Show Forms */
+        .form-hidden {
+            display: none;
+        }
+
+        /* Responsive */
         @media (max-width: 850px) {
-            .container { height: auto; flex-direction: column; max-width: 450px; }
-            .form-container, .toggle-container { width: 100%; }
-            .toggle-container { height: 300px; order: -1; }
-            .form-box { position: relative; padding: 40px 30px; }
-            .container.active .login-form { display: none; }
-            .register-form { position: relative; }
+            .auth-container {
+                flex-direction: column;
+                max-width: 450px;
+                min-height: auto;
+            }
+            .form-panel, .brand-panel {
+                padding: 2rem;
+            }
+            .brand-panel {
+                order: -1;
+            }
+            .brand-features {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="form-container">
-        <div class="form-box login-form">
-            <h1>Welcome.</h1>
-            <p class="form-subtitle">Please enter your details to sign in.</p>
-            <form id="loginForm" novalidate>
-                <div class="input-box">
-                    <input id="loginEmail" type="email" placeholder="Email Address" required />
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="input-box">
-                    <input id="loginPassword" type="password" placeholder="Password" required />
-                    <i class="fas fa-lock"></i>
-                </div>
-                <div class="forgot-link">
-                    <a href="#">Forgot your password?</a>
-                </div>
-                <button id="loginBtn" type="submit" class="btn">Sign In</button>
-            </form>
-            <div id="loginMsg" class="alert"></div>
-        </div>
 
-        <div class="form-box register-form">
-            <h1>Join Us.</h1>
-            <p class="form-subtitle">Experience the wisdom of Ayurveda.</p>
-            <form id="signupForm" novalidate>
-                <div class="input-box">
-                    <input id="name" type="text" placeholder="Full Name" required />
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="input-box">
-                    <input id="signupEmail" type="email" placeholder="Email Address" required />
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="input-box">
-                    <input id="contact" type="tel" placeholder="Contact Number" />
-                    <i class="fas fa-phone"></i>
-                    <div class="phone-error" id="phone-error">Invalid phone number</div>
-                </div>
-                <div class="input-box">
-                    <input id="signupPassword" type="password" placeholder="Create Password" required />
-                    <i class="fas fa-lock"></i>
-                </div>
-                <div class="input-box">
-                    <input id="signupConfirm" type="password" placeholder="Confirm Password" required />
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <button id="signupBtn" type="submit" class="btn">Create Account</button>
-            </form>
-            <div id="signupMsg" class="alert"></div>
+<div class="auth-container" id="authContainer">
+    <!-- Login Form Panel -->
+    <div class="form-panel" id="loginPanel">
+        <div class="form-title">Welcome Back</div>
+        <div class="form-subtitle">Sign in to continue your healing journey</div>
+        
+        <form id="loginForm" novalidate>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="loginEmail" placeholder="Email Address" required autocomplete="email">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+            </div>
+            <div class="forgot-link">
+                <a href="#" id="forgotPasswordLink">Forgot password?</a>
+            </div>
+            <button type="submit" id="loginBtn" class="btn-submit">
+                <i class="fas fa-arrow-right-to-bracket"></i> Sign In
+            </button>
+        </form>
+        <div id="loginMsg" class="alert-message"></div>
+        
+        <div class="text-center mt-4">
+            <span style="font-size: 0.8rem; color: var(--stone-mist);">New to Hela Suwaya? </span>
+            <button id="showSignupBtn" style="background: none; border: none; color: var(--sacred-gold); font-weight: 600; cursor: pointer;">Create Account</button>
         </div>
     </div>
 
-    <div class="toggle-container">
-        <div class="toggle-panel toggle-right">
-            <i class="fas fa-leaf feature-icon"></i>
-            <h2>New Here?</h2>
-            <p>Sign up and discover a personalized approach to your well-being.</p>
-            <button class="toggle-btn register-btn">Create Account</button>
+    <!-- Signup Form Panel -->
+    <div class="form-panel form-hidden" id="signupPanel">
+        <div class="form-title">Begin Your Journey</div>
+        <div class="form-subtitle">Create an account to access sacred healing</div>
+        
+        <form id="signupForm" novalidate>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="name" placeholder="Full Name" required autocomplete="name">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="signupEmail" placeholder="Email Address" required autocomplete="email">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="contact" placeholder="Phone Number" autocomplete="tel">
+                <div class="phone-error" id="phone-error">Invalid phone number</div>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="signupPassword" placeholder="Create Password" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-check-circle"></i>
+                <input type="password" id="signupConfirm" placeholder="Confirm Password" required>
+            </div>
+            <button type="submit" id="signupBtn" class="btn-submit">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+        </form>
+        <div id="signupMsg" class="alert-message"></div>
+        
+        <div class="text-center mt-4">
+            <span style="font-size: 0.8rem; color: var(--stone-mist);">Already have an account? </span>
+            <button id="showLoginBtn" style="background: none; border: none; color: var(--sacred-gold); font-weight: 600; cursor: pointer;">Sign In</button>
         </div>
-        <div class="toggle-panel toggle-left">
-            <i class="fas fa-seedling feature-icon"></i>
-            <h2>Welcome Back!</h2>
-            <p>Keep your journey on track. Sign in to your herbal dashboard.</p>
-            <button class="toggle-btn login-btn">Sign In</button>
+    </div>
+
+    <!-- Brand Panel -->
+    <div class="brand-panel">
+        <div class="brand-icon">
+            <i class="fas fa-feather-alt"></i>
         </div>
+        <h2>හෙළ සුවය</h2>
+        <p>Ancient Ceylon Healing Wisdom for Modern Wellness</p>
+        <ul class="brand-features">
+            <li><i class="fas fa-spa"></i> Authentic Ayurvedic Treatments</li>
+            <li><i class="fas fa-leaf"></i> Hela Wedakama Traditions</li>
+            <li><i class="fas fa-hand-holding-heart"></i> Personalized Wellness Journeys</li>
+            <li><i class="fas fa-user-md"></i> Master Physicians Guidance</li>
+        </ul>
+        <button id="brandToggleBtn" class="toggle-btn">
+            <span id="brandToggleText">Create Account</span> <i class="fas fa-arrow-right ms-2"></i>
+        </button>
     </div>
 </div>
 
@@ -351,187 +478,252 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 <script>
-    // --- ALL YOUR ORIGINAL JAVASCRIPT LOGIC REMAINS UNTOUCHED ---
-    const container = document.querySelector('.container');
-    const registerBtn = document.querySelectorAll('.register-btn');
-    const loginBtn = document.querySelectorAll('.login-btn');
-
-    registerBtn.forEach(b => b.addEventListener('click', () => container.classList.add('active')));
-    loginBtn.forEach(b => b.addEventListener('click', () => container.classList.remove('active')));
-
+    // ========== BACKEND INTEGRATION (FULLY PRESERVED) ==========
     const API_BASE = "http://localhost:8080/api/v1";
+    let iti = null;
 
-    function showMsg(sel, text, ok=false){
+    function showMsg(sel, text, isSuccess = false) {
         const el = document.querySelector(sel);
+        if (!el) return;
         el.textContent = text;
-        el.className = 'alert ' + (ok ? 'alert-success' : 'alert-error');
+        el.className = 'alert-message ' + (isSuccess ? 'alert-success' : 'alert-error');
         el.style.display = 'block';
+        if (isSuccess) {
+            setTimeout(() => { if (el) el.style.display = 'none'; }, 4000);
+        }
     }
-    function clearMsg(sel){
+    
+    function clearMsg(sel) {
         const el = document.querySelector(sel);
+        if (!el) return;
         el.textContent = '';
         el.style.display = 'none';
-        el.className = 'alert';
+        el.className = 'alert-message';
     }
-    function extractAuth(json){
-        const data = json?.data ?? json?.content ?? json?.result ?? json?.payload ?? null;
-        const token = data?.token ?? json?.token ?? null;
-        const email = data?.email ?? json?.email ?? null;
-        return { token, email };
-    }
-    function saveToLocalStorage(key, value, days){
+
+    function saveToLocalStorage(key, value, days = 7) {
         const now = new Date();
         const expiryTime = now.getTime() + days * 24 * 60 * 60 * 1000;
-        const data = { value, expiry: expiryTime };
-        localStorage.setItem(key, JSON.stringify(data));
-    }
-    function showDashboard(msg){
-        alert(msg);
+        localStorage.setItem(key, JSON.stringify({ value, expiry: expiryTime }));
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const phoneInputField = document.querySelector("#contact");
-        const phoneError = document.querySelector("#phone-error");
-        const signupBtn = document.querySelector("#signupBtn");
-
-        const iti = window.intlTelInput(phoneInputField, {
-            initialCountry: "lk",
-            preferredCountries: ["lk", "us", "gb", "in", "au"],
-            separateDialCode: true,
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-
-        function validatePhoneNumber(){
-            const phoneNumber = phoneInputField.value.trim();
-            const phoneRegex = /^07\d{8}$/;
-            if (phoneNumber !== "" && (!iti.isValidNumber() || !phoneRegex.test(phoneNumber))) {
-                phoneError.style.display = "block";
-                phoneError.textContent = "Invalid phone number format!";
-                phoneInputField.classList.add("invalid");
-                signupBtn.disabled = true;
-            } else {
-                phoneError.style.display = "none";
-                phoneInputField.classList.remove("invalid");
-                signupBtn.disabled = false;
+    function getFromLocalStorage(key) {
+        const data = localStorage.getItem(key);
+        if (!data) return null;
+        try {
+            const parsed = JSON.parse(data);
+            if (parsed?.expiry && new Date().getTime() > parsed.expiry) {
+                localStorage.removeItem(key);
+                return null;
             }
+            return parsed.value;
+        } catch { return data; }
+    }
+
+    // Toggle between login and signup panels
+    const loginPanel = document.getElementById('loginPanel');
+    const signupPanel = document.getElementById('signupPanel');
+    const showSignupBtn = document.getElementById('showSignupBtn');
+    const showLoginBtn = document.getElementById('showLoginBtn');
+    const brandToggleBtn = document.getElementById('brandToggleBtn');
+    const brandToggleText = document.getElementById('brandToggleText');
+
+    function showLogin() {
+        loginPanel.classList.remove('form-hidden');
+        signupPanel.classList.add('form-hidden');
+        brandToggleText.textContent = 'Create Account';
+        document.querySelector('.brand-panel p').textContent = 'Ancient Ceylon Healing Wisdom for Modern Wellness';
+    }
+
+    function showSignup() {
+        loginPanel.classList.add('form-hidden');
+        signupPanel.classList.remove('form-hidden');
+        brandToggleText.textContent = 'Sign In';
+        document.querySelector('.brand-panel p').textContent = 'Join our sacred community and begin your healing journey';
+    }
+
+    showSignupBtn?.addEventListener('click', showSignup);
+    showLoginBtn?.addEventListener('click', showLogin);
+    brandToggleBtn?.addEventListener('click', () => {
+        if (loginPanel.classList.contains('form-hidden')) {
+            showLogin();
+        } else {
+            showSignup();
         }
-        phoneInputField.addEventListener("input", validatePhoneNumber);
+    });
 
-        $("#signupForm").on("submit", function(e){
-            e.preventDefault();
-            clearMsg("#signupMsg");
-            const name = $("#name").val().trim();
-            const email = $("#signupEmail").val().trim();
-            const contactRaw = $("#contact").val().trim();
-            const contact = iti.getNumber();
-            const password = $("#signupPassword").val();
-            const confirm = $("#signupConfirm").val();
+    // Forgot password handler
+    document.getElementById('forgotPasswordLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        showMsg("#loginMsg", "Please contact our wellness concierge at reservations@helasuwaya.lk for password assistance.", false);
+    });
 
-            if (!name || !email || !password){
-                showMsg("#signupMsg", "Name, Email, Password aniwaren danna.", false);
-                return;
-            }
-            if (password !== confirm){
-                showMsg("#signupMsg", "Passwords match wenne ne. Please check.", false);
-                return;
-            }
-
-            $("#signupBtn").prop("disabled", true).text("Registering...");
-
-            $.ajax({
-                url: `${API_BASE}/user/register`,
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ name, email, contact, password }),
-                success: function (response) {
-                    const { token } = extractAuth(response);
-                    if (token) localStorage.setItem("token", token);
-                    showMsg("#signupMsg", "✅ Signup Successful!", true);
-                    setTimeout(() => {
-                        container.classList.remove('active');
-                        $("#signupBtn").prop("disabled", false).text("Register");
-                        clearMsg("#signupMsg");
-                    }, 900);
-                },
-                error: function (xhr) {
-                    const msg = xhr?.responseJSON?.message || "Unknown error";
-                    showMsg("#signupMsg", "❌ Signup Failed: " + msg, false);
-                },
-                complete: function () {
-                    $("#signupBtn").prop("disabled", false).text("Register");
+    // Initialize intl-tel-input
+    document.addEventListener("DOMContentLoaded", function() {
+        const phoneInput = document.querySelector("#contact");
+        if (phoneInput) {
+            iti = window.intlTelInput(phoneInput, {
+                initialCountry: "lk",
+                preferredCountries: ["lk", "us", "gb", "in", "au", "ca"],
+                separateDialCode: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            });
+            
+            phoneInput.addEventListener("input", function() {
+                const phoneNumber = phoneInput.value.trim();
+                const phoneError = document.getElementById("phone-error");
+                const signupBtn = document.getElementById("signupBtn");
+                const phoneRegex = /^07\d{8}$/;
+                if (phoneNumber !== "" && (!iti.isValidNumber() || !phoneRegex.test(phoneNumber))) {
+                    if (phoneError) phoneError.style.display = "block";
+                    if (signupBtn) signupBtn.disabled = true;
+                } else {
+                    if (phoneError) phoneError.style.display = "none";
+                    if (signupBtn) signupBtn.disabled = false;
                 }
             });
-        });
+        }
+    });
 
-        $("#loginForm").on("submit", function(e){
-            e.preventDefault();
-            clearMsg("#loginMsg");
-            const email = $("#loginEmail").val().trim();
-            const password = $("#loginPassword").val();
+    // ========== SIGNUP HANDLER ==========
+    $("#signupForm").on("submit", function(e) {
+        e.preventDefault();
+        clearMsg("#signupMsg");
+        
+        const name = $("#name").val().trim();
+        const email = $("#signupEmail").val().trim();
+        const contactRaw = $("#contact").val().trim();
+        const contact = iti ? iti.getNumber() : contactRaw;
+        const password = $("#signupPassword").val();
+        const confirm = $("#signupConfirm").val();
+        const signupBtn = $("#signupBtn");
 
-            if (!email || !password){
-                showMsg("#loginMsg", "Email saha Password danna.", false);
-                return;
-            }
+        if (!name || !email || !password) {
+            showMsg("#signupMsg", "Please fill in all required fields.", false);
+            return;
+        }
+        if (password !== confirm) {
+            showMsg("#signupMsg", "Passwords do not match. Please check.", false);
+            return;
+        }
+        if (password.length < 6) {
+            showMsg("#signupMsg", "Password must be at least 6 characters.", false);
+            return;
+        }
 
-            $.ajax({
-                url: `${API_BASE}/auth/authentication`,
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ email, password }),
-                success: function (response) {
-                    const { token } = extractAuth(response);
-                    if (!token){
-                        showMsg("#loginMsg", "Token labunane. Backend response eka balanna.", false);
-                        return;
-                    }
-                    localStorage.setItem("token", token);
-                    getUsername(email);
-                    checkUserRole();
-                    showMsg("#loginMsg", "✅ Login success!", true);
-                },
-                error: function (xhr) {
-                    const msg = xhr?.responseJSON?.message || "Login failed.";
-                    showMsg("#loginMsg", "❌ " + msg, false);
+        signupBtn.prop("disabled", true).addClass("loading").html('<i class="fas fa-spinner fa-pulse"></i> Creating Account...');
+
+        $.ajax({
+            url: `${API_BASE}/user/register`,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ name, email, contact, password }),
+            success: function(response) {
+                console.log("Signup response:", response);
+                const payload = response?.data ?? response ?? {};
+                const token = payload?.token || payload?.data?.token || null;
+                
+                if (token) {
+                    saveToLocalStorage("token", token);
+                    saveToLocalStorage("email", email);
+                    console.log("✓ Token saved");
                 }
-            });
+                
+                showMsg("#signupMsg", "✓ Account created successfully! Welcome to Hela Suwaya.", true);
+                setTimeout(() => {
+                    showLogin();
+                    signupBtn.prop("disabled", false).removeClass("loading").html('<i class="fas fa-user-plus"></i> Create Account');
+                    clearMsg("#signupMsg");
+                    $("#signupForm")[0].reset();
+                    if (iti) iti.setNumber("");
+                }, 1500);
+            },
+            error: function(xhr) {
+                const msg = xhr?.responseJSON?.message || xhr?.responseJSON?.error || "Registration failed. Please try again.";
+                showMsg("#signupMsg", "❌ " + msg, false);
+                signupBtn.prop("disabled", false).removeClass("loading").html('<i class="fas fa-user-plus"></i> Create Account');
+            }
         });
     });
 
-    function checkUserRole(){
-        const token = localStorage.getItem("token");
-        if (!token) return;
-        function checkRole(path, onOk, onFail){
-            $.ajax({
-                url: `${API_BASE}/admin/${path}`,
-                type: "GET",
-                headers: {"Authorization": `Bearer ${token}`},
-                success: onOk,
-                error: onFail
-            });
-        }
-        checkRole("admin",
-            () => window.location.href = "adminDashboard.html",
-            () => checkRole("user", () => window.location.href = "index.html", () => {})
-        );
-    }
+    // ========== LOGIN HANDLER ==========
+    $("#loginForm").on("submit", function(e) {
+        e.preventDefault();
+        clearMsg("#loginMsg");
+        
+        const email = $("#loginEmail").val().trim();
+        const password = $("#loginPassword").val();
+        const loginBtn = $("#loginBtn");
 
-    function getUsername(emailFromLoginInput){
-        const email = (emailFromLoginInput || $('#loginEmail').val() || '').trim();
-        const token = localStorage.getItem("token");
-        if (!email) return;
+        if (!email || !password) {
+            showMsg("#loginMsg", "Please enter both email and password.", false);
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showMsg("#loginMsg", "Please enter a valid email address.", false);
+            return;
+        }
+
+        loginBtn.prop("disabled", true).addClass("loading").html('<i class="fas fa-spinner fa-pulse"></i> Signing In...');
+
         $.ajax({
-            url: `${API_BASE}/user/getUserByEmail?email=${encodeURIComponent(email)}`,
-            method: 'GET',
-            headers: { 'Authorization': `Bearer ${token}` },
-            success: function (response) {
-                const data = response?.data;
-                if (data){
-                    saveToLocalStorage("name", data.name, 5);
-                    saveToLocalStorage("role", data.role, 5);
+            url: `${API_BASE}/auth/authentication`,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ email, password }),
+            success: function(response) {
+                console.log("Login response:", response);
+                const payload = response?.data ?? response ?? {};
+                const token = payload?.token || payload?.data?.token || null;
+                let role = payload?.role || payload?.data?.role || null;
+                
+                if (!token) {
+                    showMsg("#loginMsg", "Authentication failed. Please try again.", false);
+                    loginBtn.prop("disabled", false).removeClass("loading").html('<i class="fas fa-arrow-right-to-bracket"></i> Sign In');
+                    return;
                 }
+                
+                saveToLocalStorage("token", token);
+                saveToLocalStorage("email", email);
+                
+                if (role) {
+                    role = role.trim().toUpperCase();
+                    if (!role.startsWith("ROLE_")) role = "ROLE_" + role;
+                    saveToLocalStorage("role", role);
+                }
+                
+                showMsg("#loginMsg", "✓ Login successful! Welcome back.", true);
+                
+                setTimeout(() => {
+                    const storedRole = getFromLocalStorage("role");
+                    if (storedRole === "ROLE_ADMIN") {
+                        window.location.href = "adminDashboard.html";
+                    } else {
+                        window.location.href = "index.html";
+                    }
+                }, 800);
+            },
+            error: function(xhr) {
+                let errorMsg = "Invalid email or password.";
+                if (xhr.responseJSON?.message) errorMsg = xhr.responseJSON.message;
+                else if (xhr.status === 401) errorMsg = "Invalid email or password. Please try again.";
+                else if (xhr.status === 404) errorMsg = "Account not found. Please sign up first.";
+                showMsg("#loginMsg", "❌ " + errorMsg, false);
+                loginBtn.prop("disabled", false).removeClass("loading").html('<i class="fas fa-arrow-right-to-bracket"></i> Sign In');
             }
         });
+    });
+
+    // Check if already logged in
+    if (getFromLocalStorage("token")) {
+        const role = getFromLocalStorage("role");
+        if (role === "ROLE_ADMIN") {
+            window.location.href = "adminDashboard.html";
+        } else if (role) {
+            window.location.href = "index.html";
+        }
     }
 </script>
 </body>

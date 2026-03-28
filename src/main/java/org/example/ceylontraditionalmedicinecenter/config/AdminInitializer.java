@@ -37,32 +37,34 @@ public class AdminInitializer implements CommandLineRunner {
             // Check if admin user already exists
             var existingAdmin = userRepository.findByEmail(ADMIN_EMAIL);
 
+            User adminUser;
             if (existingAdmin.isPresent()) {
-                System.out.println("\n✓ ADMIN USER ALREADY EXISTS");
-                System.out.println("  Email: " + ADMIN_EMAIL);
-                printSeparator();
-                return;
+                // Update existing admin user with correct password
+                adminUser = existingAdmin.get();
+                adminUser.setPassword(passwordEncoder.encode(ADMIN_PASSWORD));
+                adminUser.setRole(ADMIN_ROLE);
+                userRepository.save(adminUser);
+                System.out.println("\n✓ ADMIN USER UPDATED");
+            } else {
+                // Create new admin user
+                adminUser = User.builder()
+                        .name("Administrator")
+                        .email(ADMIN_EMAIL)
+                        .contact("+1-000-000-0000")
+                        .password(passwordEncoder.encode(ADMIN_PASSWORD))
+                        .role(ADMIN_ROLE)
+                        .build();
+
+                userRepository.save(adminUser);
+                System.out.println("\n✓ ADMIN USER CREATED");
             }
 
-            // Create new admin user
-            User adminUser = User.builder()
-                    .name("Administrator")
-                    .email(ADMIN_EMAIL)
-                    .contact("+1-000-000-0000")
-                    .password(passwordEncoder.encode(ADMIN_PASSWORD))
-                    .role(ADMIN_ROLE)
-                    .build();
-
-            userRepository.save(adminUser);
-
             // Print success message with credentials
-            System.out.println("\n" + "=".repeat(50));
-            System.out.println("  ✓ ADMIN USER CREATED SUCCESSFULLY");
-            System.out.println("=".repeat(50));
+            System.out.println("==================================================");
             System.out.println("  Email: " + ADMIN_EMAIL);
             System.out.println("  Password: " + ADMIN_PASSWORD);
             System.out.println("  Role: " + ADMIN_ROLE);
-            System.out.println("=".repeat(50) + "\n");
+            System.out.println("==================================================\n");
 
         } catch (Exception e) {
             System.err.println("ERROR: Failed to initialize admin user: " + e.getMessage());
