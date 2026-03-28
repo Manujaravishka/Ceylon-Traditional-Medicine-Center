@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CEYLON MEDICAL CENTER | Sacred Ayurvedic Sanctuary</title>
+    <title>CEYLON TRADITIONAL MEDICAL CENTER | Sacred Ayurvedic Sanctuary</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
     <!-- Premium Fonts -->
@@ -13,6 +13,11 @@
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="assets/traditonal medical center.ico" type="image/x-icon">
+
+    <!-- SweetAlert2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -51,13 +56,75 @@
             letter-spacing: -0.02em;
         }
 
+        /* ========== PREMIUM LOGO STYLES ========== */
+        .premium-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-emblem {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--soft-gold), #B48C48);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(201, 168, 124, 0.3);
+        }
+
+        .logo-emblem i {
+            font-size: 2rem;
+            color: var(--deep-teal);
+        }
+
+        .logo-emblem::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border: 1px solid rgba(201, 168, 124, 0.5);
+            border-radius: 50%;
+            top: -5px;
+            left: -5px;
+        }
+
+        .logo-text-main {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--warm-ivory);
+            letter-spacing: 1.5px;
+            line-height: 1.2;
+        }
+
+        .logo-text-main small {
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            display: block;
+        }
+
+        .est-badge {
+            background: rgba(201, 168, 124, 0.2);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            font-weight: 500;
+            color: var(--soft-gold);
+            margin-left: 8px;
+        }
+
         /* ========== WORLD-CLASS NAVBAR ========== */
         .navbar-premium {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            padding: 1.2rem 0;
+            padding: 1rem 0;
             transition: var(--transition-silk);
             background: transparent;
         }
@@ -65,9 +132,22 @@
         .navbar-premium.scrolled {
             background: rgba(10, 47, 42, 0.98);
             backdrop-filter: blur(12px);
-            padding: 0.8rem 0;
+            padding: 0.6rem 0;
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
             border-bottom: 1px solid rgba(201, 168, 124, 0.2);
+        }
+
+        .navbar-premium.scrolled .logo-emblem {
+            width: 50px;
+            height: 50px;
+        }
+
+        .navbar-premium.scrolled .logo-emblem i {
+            font-size: 1.6rem;
+        }
+
+        .navbar-premium.scrolled .logo-text-main {
+            font-size: 1.1rem;
         }
 
         .navbar-premium .container {
@@ -79,30 +159,9 @@
             align-items: center;
         }
 
-        .brand-wrapper {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-        }
-
-        .brand-sanskrit {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--soft-gold);
-            letter-spacing: 1px;
-        }
-
-        .brand-text {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--warm-ivory);
-            letter-spacing: 0.5px;
-        }
-
         .nav-menu {
             display: flex;
-            gap: 2rem;
+            gap: 1.8rem;
             align-items: center;
             margin: 0;
             padding: 0;
@@ -141,7 +200,7 @@
             color: var(--soft-gold);
         }
 
-        /* Auth Button - Elegant */
+        /* Auth Button */
         .auth-btn {
             background: transparent;
             border: 1.5px solid var(--soft-gold);
@@ -297,6 +356,7 @@
             text-decoration: none;
             display: inline-block;
             border: none;
+            cursor: pointer;
         }
 
         .btn-primary-lux:hover {
@@ -377,6 +437,7 @@
             border-radius: 60px;
             font-weight: 600;
             transition: var(--transition-silk);
+            cursor: pointer;
         }
 
         .btn-outline-teal:hover {
@@ -587,6 +648,23 @@
             transform: translateY(-2px);
         }
 
+        /* SweetAlert Custom Theme */
+        .swal2-popup {
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 28px !important;
+        }
+        .swal2-title {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 700 !important;
+            color: var(--deep-teal) !important;
+        }
+        .swal2-confirm {
+            background: linear-gradient(135deg, var(--deep-teal), var(--sage-green)) !important;
+            border-radius: 60px !important;
+            font-weight: 600 !important;
+            padding: 12px 28px !important;
+        }
+
         /* Footer */
         .footer-lux {
             background: #0F2F2A;
@@ -706,18 +784,34 @@
             .main-heading {
                 font-size: 2rem;
             }
+            .logo-text-main {
+                font-size: 1rem;
+            }
+            .logo-emblem {
+                width: 45px;
+                height: 45px;
+            }
+            .logo-emblem i {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- Premium Navbar -->
+<!-- Premium Navbar with Custom Logo -->
 <nav class="navbar-premium" id="mainNavbar">
     <div class="container">
-        <div class="brand-wrapper">
-            <span class="brand-sanskrit">හෙළ සුවය</span>
-            <span class="brand-text">| CEYLON MEDICAL CENTER</span>
-        </div>
+        <a href="#" class="premium-logo">
+            <div class="logo-emblem">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="logo-text-main">
+                CEYLON TRADITIONAL<br>
+                <small>MEDICAL CENTER</small>
+                <span class="est-badge">EST. 1928</span>
+            </div>
+        </a>
         <div class="mobile-toggle" id="mobileToggle">
             <i class="fas fa-bars"></i>
         </div>
@@ -747,10 +841,10 @@
 <!-- Hero Section -->
 <section id="home" class="hero-section">
     <div class="hero-content" data-aos="fade-up" data-aos-duration="900">
-        <div class="hero-badge"><i class="fas fa-leaf me-2"></i> ANCIENT CEYLON HEALING</div>
+        <div class="hero-badge"><i class="fas fa-leaf me-2"></i> NATURE'S HEALING TOUCH</div>
         <h1 class="hero-title">Discover the Wonders<br>of Ayurveda & Hela Wedakama</h1>
         <p class="hero-subtitle">Embark on a personalized restorative journey at Hela Suwaya — where ancient wisdom meets modern serenity.</p>
-        <a href="article.html" class="btn-primary-lux">Explore Wisdom <i class="fas fa-arrow-right ms-2"></i></a>
+        <button class="btn-primary-lux" id="exploreWisdomBtn">Explore Wisdom <i class="fas fa-arrow-right ms-2"></i></button>
     </div>
 </section>
 
@@ -769,7 +863,7 @@
         <h1 class="main-heading">Welcome to Hela Suwaya</h1>
         <p class="description-text">Uncover the incredible healing properties of the ancient arts of Ayurveda and Hela Wedakama as you embark on a personalised restorative journey at Hela Suwaya Ayurveda.</p>
         <p class="description-text">Nestled in the former kingdom of Anuradhapura, our Ayurveda retreat is an oasis amidst the busy city. Under the guidance of renowned Ayurveda physician, Dr. Sarath Guanawardhana, our treatments programmes are designed to heal you from within.</p>
-        <button class="btn-outline-teal" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Begin Your Journey →</button>
+        <button class="btn-outline-teal" id="beginJourneyBtn">Begin Your Journey →</button>
     </div>
 </div>
 
@@ -857,7 +951,7 @@
                         <div class="mb-3"><input type="text" id="from_name" placeholder="Your Name" required class="form-control-lux"></div>
                         <div class="mb-3"><input type="email" id="from_email" placeholder="Email Address" required class="form-control-lux"></div>
                         <div class="mb-3"><textarea id="message" rows="4" placeholder="Your Message" required class="form-control-lux" style="border-radius: 24px;"></textarea></div>
-                        <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane ms-2"></i></button>
+                        <button type="submit" class="submit-btn" id="sendMessageBtn">Send Message <i class="fas fa-paper-plane ms-2"></i></button>
                     </form>
                 </div>
             </div>
@@ -869,11 +963,11 @@
 <footer class="footer-lux">
     <div class="container">
         <div class="row g-4">
-            <div class="col-lg-4"><h4>CEYLON MEDICAL CENTER</h4><p class="text-white-50 small">Authentic Ceylon Healing since generations</p><div class="d-flex gap-3"><a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a><a href="#" class="social-icon"><i class="fab fa-youtube"></i></a></div></div>
+            <div class="col-lg-4"><h4>CEYLON TRADITIONAL MEDICAL CENTER</h4><p class="text-white-50 small">Authentic Ceylon Healing since 1928</p><div class="d-flex gap-3"><a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a><a href="#" class="social-icon"><i class="fab fa-youtube"></i></a></div></div>
             <div class="col-lg-4"><h4>Explore</h4><ul class="list-unstyled"><li><a href="#">Ayurveda Wisdom</a></li><li><a href="#">Our Physicians</a></li><li><a href="#">Wellness Packages</a></li><li><a href="#">Sacred Stays</a></li></ul></div>
             <div class="col-lg-4"><h4>Contact</h4><p class="text-white-50 small mb-1">+94 76 992 1134</p><p class="text-white-50 small">reservations@helasuwaya.lk</p></div>
         </div>
-        <div class="border-top mt-4 pt-4 text-center"><p class="text-white-50 small">&copy; 2025 CEYLON MEDICAL CENTER — Preserving Ceylon's Healing Legacy</p></div>
+        <div class="border-top mt-4 pt-4 text-center"><p class="text-white-50 small">&copy; 2025 CEYLON TRADITIONAL MEDICAL CENTER — Preserving Ceylon's Healing Legacy Since 1928</p></div>
     </div>
 </footer>
 
@@ -884,7 +978,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    // ========== USER AUTHENTICATION ==========
+    // ========== USER AUTHENTICATION with SweetAlert ==========
     function getFromLocalStorage(key) {
         const data = localStorage.getItem(key);
         if (!data) return null;
@@ -902,7 +996,50 @@
     function isLoggedIn() { return !!getFromLocalStorage('email'); }
     function getUserName() { return getFromLocalStorage('userName') || getFromLocalStorage('email')?.split('@')[0] || null; }
     function clearUserSession() { localStorage.removeItem('email'); localStorage.removeItem('userName'); localStorage.removeItem('token'); localStorage.removeItem('role'); }
-    function logout() { clearUserSession(); window.location.reload(); }
+    
+    function showSweetAlert(type, title, message, timer = null) {
+        const config = {
+            icon: type,
+            title: title,
+            text: message,
+            confirmButtonText: type === 'success' ? 'Continue' : 'Okay',
+            confirmButtonColor: '#0A2F2A',
+            background: '#FFFFFF',
+            customClass: { popup: 'swal2-popup', title: 'swal2-title', confirmButton: 'swal2-confirm' }
+        };
+        if (type === 'success' && timer) {
+            config.timer = timer;
+            config.showConfirmButton = false;
+        }
+        Swal.fire(config);
+    }
+    
+    function showConfirmDialog(title, message, confirmText = 'Yes, Logout', cancelText = 'Stay') {
+        return Swal.fire({
+            title: title,
+            text: message,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#c97e5a',
+            cancelButtonColor: '#0A2F2A',
+            confirmButtonText: confirmText,
+            cancelButtonText: cancelText,
+            background: '#FFFFFF',
+            customClass: { popup: 'swal2-popup', confirmButton: 'swal2-confirm', cancelButton: 'swal2-cancel' }
+        });
+    }
+    
+    function logout() {
+        showConfirmDialog('🌿 Pause Your Journey?', 'Are you sure you want to sign out? Your healing path awaits your return.', 'Yes, Logout', 'Stay')
+            .then((result) => {
+                if (result.isConfirmed) {
+                    clearUserSession();
+                    showSweetAlert('success', 'Farewell, Seeker', 'You have been signed out. May peace follow you.', 1500);
+                    setTimeout(() => window.location.reload(), 1500);
+                }
+            });
+    }
+    
     function navigateTo(page) { window.location.href = page; }
 
     function updateAuthButton() {
@@ -921,19 +1058,62 @@
         updateAuthButton();
         
         document.getElementById('authButton').addEventListener('click', function(e) {
-            if (!isLoggedIn()) { window.location.href = 'signin.html'; }
+            if (!isLoggedIn()) { 
+                window.location.href = 'signin.html'; 
+            }
         });
-        document.getElementById('userProfileBtn')?.addEventListener('click', () => navigateTo('user-profile.html'));
-        document.getElementById('userBookingsBtn')?.addEventListener('click', () => navigateTo('booking.html'));
-        document.getElementById('userReviewsBtn')?.addEventListener('click', () => navigateTo('review.html'));
+        document.getElementById('userProfileBtn')?.addEventListener('click', () => {
+            if (isLoggedIn()) navigateTo('user-profile.html');
+            else showSweetAlert('warning', 'Sign In Required', 'Please sign in to view your profile.');
+        });
+        document.getElementById('userBookingsBtn')?.addEventListener('click', () => {
+            if (isLoggedIn()) navigateTo('booking.html');
+            else showSweetAlert('warning', 'Sign In Required', 'Please sign in to view your bookings.');
+        });
+        document.getElementById('userReviewsBtn')?.addEventListener('click', () => {
+            if (isLoggedIn()) navigateTo('review.html');
+            else showSweetAlert('warning', 'Sign In Required', 'Please sign in to view your reviews.');
+        });
         document.getElementById('logoutBtn')?.addEventListener('click', logout);
+        
+        // Hero and Journey buttons with SweetAlert
+        document.getElementById('exploreWisdomBtn')?.addEventListener('click', () => {
+            showSweetAlert('info', 'Sacred Wisdom', 'Explore our curated collection of Ayurvedic articles and healing practices.', 2000);
+            setTimeout(() => window.location.href = 'article.html', 2000);
+        });
+        
+        document.getElementById('beginJourneyBtn')?.addEventListener('click', () => {
+            if (isLoggedIn()) {
+                showSweetAlert('success', 'Welcome Back', `Namaste, ${getUserName()}. Your healing journey continues.`, 2000);
+                setTimeout(() => document.getElementById('service').scrollIntoView({ behavior: 'smooth' }), 2000);
+            } else {
+                showSweetAlert('info', 'Begin Your Journey', 'Sign in to access personalized wellness recommendations and booking.', 2000);
+                setTimeout(() => window.location.href = 'signin.html', 2000);
+            }
+        });
+        
+        // Contact form with SweetAlert
+        $('#contactForm').on('submit', function(e) {
+            e.preventDefault();
+            const name = $('#from_name').val().trim();
+            const email = $('#from_email').val().trim();
+            const message = $('#message').val().trim();
+            
+            if (!name || !email || !message) {
+                showSweetAlert('warning', 'Incomplete', 'Please fill all fields to send your message.');
+                return;
+            }
+            
+            showSweetAlert('success', '✨ Message Sent ✨', 'Our wellness concierge will respond within 24 hours.', 2000);
+            $('#contactForm')[0].reset();
+        });
         
         // ========== BACKEND DATA LOADING (PRESERVED) ==========
         function loadAccommodations() {
             $.ajax({ type: "GET", url: "http://localhost:8080/api/v1/accommodation/getAll", success: function(r) {
                 $('#destinationList').empty(); (r.data || []).forEach(a => {
                     let img = a.imageUrl ? `<img src="/uploads/${a.imageUrl}" class="card-img-lux w-100">` : `<img src="https://via.placeholder.com/300x220?text=Serene+Stay" class="card-img-lux w-100">`;
-                    $('#destinationList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${a.name || 'Sacred Stay'}</h5><p class="text-muted small">${a.description?.substring(0,100) || ''}</p><p class="fw-bold" style="color: var(--soft-gold);">LKR ${a.costPerDay || 0}/night</p></div></div></div>`);
+                    $('#destinationList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${escapeHtml(a.name || 'Sacred Stay')}</h5><p class="text-muted small">${escapeHtml(a.description?.substring(0,100) || '')}</p><p class="fw-bold" style="color: var(--soft-gold);">LKR ${a.costPerDay || 0}/night</p></div></div></div>`);
                 });
             }});
         }
@@ -941,7 +1121,7 @@
             $.ajax({ type: "GET", url: "http://localhost:8080/api/v1/package/getAll", success: function(r) {
                 $('#packageList').empty(); (r.data || []).forEach(p => {
                     let img = p.imageUrl ? `<img src="/uploads/${p.imageUrl}" class="card-img-lux w-100">` : `<img src="https://via.placeholder.com/300x220?text=Package" class="card-img-lux w-100">`;
-                    $('#packageList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${p.name || 'Package'}</h5><p class="fw-bold" style="color: var(--soft-gold);">LKR ${p.price || 0}</p><p class="small">${p.estimateDays || 0} days</p></div></div></div>`);
+                    $('#packageList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${escapeHtml(p.name || 'Package')}</h5><p class="fw-bold" style="color: var(--soft-gold);">LKR ${p.price || 0}</p><p class="small">${p.estimateDays || 0} days</p></div></div></div>`);
                 });
             }});
         }
@@ -950,7 +1130,7 @@
                 $('#doctorList').empty(); (r.data || []).forEach(d => {
                     if(d.status === "ACTIVE") {
                         let img = d.imageUrl ? `<img src="/uploads/${d.imageUrl}" class="card-img-lux w-100">` : `<img src="https://via.placeholder.com/300x220?text=Doctor" class="card-img-lux w-100">`;
-                        $('#doctorList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${d.fullName || 'Doctor'}</h5><p class="text-muted small">${d.email || ''}</p><p class="fw-bold">LKR ${d.paymentPerDay || 0}/day</p></div></div></div>`);
+                        $('#doctorList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${escapeHtml(d.fullName || 'Doctor')}</h5><p class="text-muted small">${escapeHtml(d.email || '')}</p><p class="fw-bold">LKR ${d.paymentPerDay || 0}/day</p></div></div></div>`);
                     }
                 });
             }});
@@ -959,19 +1139,32 @@
             $.ajax({ type: "GET", url: "http://localhost:8080/api/v1/activity/getAll", success: function(r) {
                 $('#activityList').empty(); (r.data || []).forEach(a => {
                     let img = a.imageUrl ? `<img src="/uploads/${a.imageUrl}" class="card-img-lux w-100">` : `<img src="https://via.placeholder.com/300x220?text=Activity" class="card-img-lux w-100">`;
-                    $('#activityList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${a.name || 'Activity'}</h5><p class="small text-muted">${a.description?.substring(0,80) || ''}</p><p class="fw-bold">LKR ${a.costPerDay || 0}/day</p></div></div></div>`);
+                    $('#activityList').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux">${img}<div class="card-body-lux"><h5 class="card-title-lux">${escapeHtml(a.name || 'Activity')}</h5><p class="small text-muted">${escapeHtml(a.description?.substring(0,80) || '')}</p><p class="fw-bold">LKR ${a.costPerDay || 0}/day</p></div></div></div>`);
                 });
             }});
         }
         function loadReviews() {
             $.ajax({ type: "GET", url: "http://localhost:8080/api/v1/review/all", success: function(r) {
                 $('#reviewCards').empty();
-                if(r.data && r.data.length) { r.data.forEach(rv => {
-                    let stars = '★'.repeat(rv.rating) + '☆'.repeat(5 - rv.rating);
-                    $('#reviewCards').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux"><div class="card-body-lux"><h6>${rv.userEmail}</h6><p class="star-rating">${stars}</p><p class="small">${rv.comment?.substring(0,100) || ''}</p><small class="text-muted">${rv.createdAt?.split('T')[0] || ''}</small></div></div></div>`);
-                }); } else $('#reviewCards').html('<p class="text-center">Sacred voices loading...</p>');
+                if(r.data && r.data.length) { 
+                    r.data.slice(0, 6).forEach(rv => {
+                        let stars = '★'.repeat(rv.rating) + '☆'.repeat(5 - rv.rating);
+                        $('#reviewCards').append(`<div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up"><div class="card-lux"><div class="card-body-lux"><h6>${escapeHtml(rv.userEmail)}</h6><p class="star-rating">${stars}</p><p class="small">${escapeHtml(rv.comment?.substring(0,100) || '')}</p><small class="text-muted">${rv.createdAt?.split('T')[0] || ''}</small></div></div></div>`);
+                    });
+                } else $('#reviewCards').html('<p class="text-center text-muted">Sacred voices loading...</p>');
             }});
         }
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
         loadAccommodations(); loadPackages(); loadDoctors(); loadActivities(); loadReviews();
         
         window.addEventListener('scroll', function() {
@@ -989,6 +1182,8 @@
         document.querySelector('.left-arrow')?.addEventListener('click', () => track.scrollBy({left: -300, behavior:'smooth'}));
         document.querySelector('.right-arrow')?.addEventListener('click', () => track.scrollBy({left: 300, behavior:'smooth'}));
     });
+    
+    console.log("%c🌿 CEYLON TRADITIONAL MEDICAL CENTER - Sacred Healing Sanctuary 🌿", "color: #C9A87C; font-size: 14px; font-weight: bold;");
 </script>
 </body>
 </html>

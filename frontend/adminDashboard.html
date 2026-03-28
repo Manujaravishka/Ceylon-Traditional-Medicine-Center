@@ -8,6 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" href="assets/traditonal medical center.ico" type="image/x-icon">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -75,6 +81,7 @@
             color: #D1E6E1;
             transition: all 0.25s ease;
             text-decoration: none;
+            cursor: pointer;
         }
 
         .sidebar a i {
@@ -229,6 +236,28 @@
             box-shadow: 0 6px 14px rgba(0,0,0,0.03);
         }
 
+        /* SweetAlert Custom Theme */
+        .swal2-popup {
+            font-family: 'Inter', sans-serif;
+            border-radius: 28px !important;
+        }
+        .swal2-title {
+            font-family: 'Inter', sans-serif !important;
+            font-weight: 600 !important;
+            color: #153E38 !important;
+        }
+        .swal2-confirm {
+            background: linear-gradient(135deg, #1F6E58, #0E5442) !important;
+            border-radius: 60px !important;
+            font-weight: 600 !important;
+            padding: 12px 28px !important;
+        }
+        .swal2-cancel {
+            border-radius: 60px !important;
+            border-color: #DD5A4C !important;
+            color: #DD5A4C !important;
+        }
+
         /* responsive */
         @media (max-width: 992px) {
             .sidebar {
@@ -270,7 +299,6 @@
 <div class="sidebar d-flex flex-column">
     <h2 class="text-center"><i class="fas fa-leaf me-2"></i> CEYLON MED</h2>
     <div class="flex-grow-1">
-        
         <a onclick="showPanel('dashboard')" class="active"><i class="fas fa-chart-line"></i> Dashboard</a>
         <a onclick="showPanel('users')"><i class="fas fa-users"></i> Users</a>
         <a onclick="showPanel('activities')"><i class="fas fa-spa"></i> Wellness Program</a>
@@ -285,7 +313,7 @@
     <div class="admin-profile mt-auto">
         <div class="d-flex align-items-center gap-3">
             <div class="bg-white bg-opacity-25 rounded-circle p-2"><i class="fas fa-user-circle fa-lg"></i></div>
-            <div><span class="fw-bold">Admin</span><br><small class="opacity-75">Master Healer</small></div>
+            <div><span class="fw-bold" id="adminNameDisplay">Admin</span><br><small class="opacity-75">Master Healer</small></div>
         </div>
         <button id="logoutBtn" class="btn btn-outline-light w-100 mt-3 rounded-pill" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Log Out</button>
     </div>
@@ -313,28 +341,23 @@
     </div>
 
     <!-- Users Panel -->
-    <div id="users" class="hidden"><div class="d-flex flex-wrap justify-content-between align-items-center mb-4"><div><h3><i class="fas fa-users me-2"></i>User Registry</h3><small class="text-muted">Showing active users. Toggle to load all.</small></div><div class="d-flex gap-2 align-items-center"><input type="text" id="searchInput" class="search-glass" placeholder="Search by name or email..."><select id="userStatusFilter" class="form-select" style="width:auto;"><option value="active" selected>Active</option><option value="all">All</option><option value="inactive">Inactive</option></select></div></div><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Full Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="userTableBody"></tbody></table></div></div>
-    <div id="reviews" class="hidden"><h3><i class="fas fa-star me-2"></i>Guest Reviews</h3><input type="text" id="searchReview" class="search-glass my-3" placeholder="Filter by user or comment..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>ID</th><th>User Email</th><th>Rating</th><th>Comment</th><th>Date</th><th>Action</th></tr></thead><tbody id="reviewTableBody"></tbody></table></div></div>
-    <div id="bookings" class="hidden"><h3><i class="fas fa-calendar-check me-2"></i>Booking Logs</h3><input type="text" id="searchBooking" class="search-glass my-3" placeholder="Search by email or package..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Package</th><th>Doctor</th><th>Accommodation</th><th>User</th><th>Booking Date</th><th>Checkout</th><th>Days</th><th>Doctor Fee</th><th>Package Price</th><th>Total (LKR)</th></tr></thead><tbody id="bookingTableBody"></tbody></table></div></div>
-    <div id="doctors" class="hidden"><div class="d-flex justify-content-between align-items-center mb-3"><h3><i class="fas fa-user-md me-2"></i>Ayurvedic Practitioners</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addDoctorModal"><i class="fas fa-plus me-2"></i>Add Doctor</button><input type="text" id="searchDoctor" class="search-glass" placeholder="Search doctor..."></div><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Name</th><th>Email</th><th>Image</th><th>Description</th><th>Fee/Day</th><th>LinkedIn</th><th>Booked</th><th>Status</th><th>Actions</th></tr></thead><tbody id="doctorTableBody"></tbody></table></div></div>
-    <div id="packages" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-gift me-2"></i>Healing Packages</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addPackageModal"><i class="fas fa-plus"></i> Add Package</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Name</th><th>Days</th><th>Price(LKR)</th><th>Activities</th><th>Image</th><th>Actions</th></tr></thead><tbody id="packageTableBody"></tbody></table></div></div>
-    <div id="payments" class="hidden"><h3><i class="fas fa-credit-card me-2"></i>Secure Transactions</h3><input type="text" id="searchEmail" class="search-glass my-3" placeholder="Search by user email..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>ID</th><th>User Email</th><th>Amount (LKR)</th><th>Date</th></tr></thead><tbody id="paymentTableBody"></tbody></table></div></div>
-    <div id="articles" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-newspaper"></i> Wisdom Articles</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addArticleModal"><i class="fas fa-plus"></i> Add Article</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Image</th><th>Actions</th></tr></thead><tbody id="articleTableBody"></tbody></table></div></div>
-    <div id="accommodations" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-bed"></i> Serene Stays</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addAccommodationModal"><i class="fas fa-plus"></i> Add Accommodation</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Name</th><th>Description</th><th>Location</th><th>Category</th><th>Cost/Day</th><th>Image</th><th>Actions</th></tr></thead><tbody id="accommodationTableBody"></tbody></table></div></div>
-    <div id="activities" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-heartbeat"></i> Wellness Activities</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addActivityModal"><i class="fas fa-plus"></i> Add Activity</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Activity Name</th><th>Description</th><th>Cost/Day</th><th>Image</th><th>Actions</th></tr></thead><tbody id="activityTableBody"></tbody></table></div></div>
+    <div id="users" class="hidden"><div class="d-flex flex-wrap justify-content-between align-items-center mb-4"><div><h3><i class="fas fa-users me-2"></i>User Registry</h3><small class="text-muted">Showing active users. Toggle to load all.</small></div><div class="d-flex gap-2 align-items-center"><input type="text" id="searchInput" class="search-glass" placeholder="Search by name or email..."><select id="userStatusFilter" class="form-select" style="width:auto;"><option value="active" selected>Active</option><option value="all">All</option><option value="inactive">Inactive</option></select></div></div><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Full Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></thead><tbody id="userTableBody"></tbody></table></div></div>
+    <div id="reviews" class="hidden"><h3><i class="fas fa-star me-2"></i>Guest Reviews</h3><input type="text" id="searchReview" class="search-glass my-3" placeholder="Filter by user or comment..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>ID</th><th>User Email</th><th>Rating</th><th>Comment</th><th>Date</th><th>Action</th></thead><tbody id="reviewTableBody"></tbody></table></div></div>
+    <div id="bookings" class="hidden"><h3><i class="fas fa-calendar-check me-2"></i>Booking Logs</h3><input type="text" id="searchBooking" class="search-glass my-3" placeholder="Search by email or package..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Package</th><th>Doctor</th><th>Accommodation</th><th>User</th><th>Booking Date</th><th>Checkout</th><th>Days</th><th>Doctor Fee</th><th>Package Price</th><th>Total (LKR)</th></thead><tbody id="bookingTableBody"></tbody></table></div></div>
+    <div id="doctors" class="hidden"><div class="d-flex justify-content-between align-items-center mb-3"><h3><i class="fas fa-user-md me-2"></i>Ayurvedic Practitioners</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addDoctorModal"><i class="fas fa-plus me-2"></i>Add Doctor</button><input type="text" id="searchDoctor" class="search-glass" placeholder="Search doctor..."></div><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Name</th><th>Email</th><th>Image</th><th>Description</th><th>Fee/Day</th><th>LinkedIn</th><th>Booked</th><th>Status</th><th>Actions</th></thead><tbody id="doctorTableBody"></tbody></table></div></div>
+    <div id="packages" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-gift me-2"></i>Healing Packages</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addPackageModal"><i class="fas fa-plus"></i> Add Package</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Name</th><th>Days</th><th>Price(LKR)</th><th>Activities</th><th>Image</th><th>Actions</th></thead><tbody id="packageTableBody"></tbody></table></div></div>
+    <div id="payments" class="hidden"><h3><i class="fas fa-credit-card me-2"></i>Secure Transactions</h3><input type="text" id="searchEmail" class="search-glass my-3" placeholder="Search by user email..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>ID</th><th>User Email</th><th>Amount (LKR)</th><th>Date</th></thead><tbody id="paymentTableBody"></tbody></table></div></div>
+    <div id="articles" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-newspaper"></i> Wisdom Articles</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addArticleModal"><i class="fas fa-plus"></i> Add Article</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Image</th><th>Actions</th></thead><tbody id="articleTableBody"></tbody></table></div></div>
+    <div id="accommodations" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-bed"></i> Serene Stays</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addAccommodationModal"><i class="fas fa-plus"></i> Add Accommodation</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Name</th><th>Description</th><th>Location</th><th>Category</th><th>Cost/Day</th><th>Image</th><th>Actions</th></thead><tbody id="accommodationTableBody"></tbody></table></div></div>
+    <div id="activities" class="hidden"><div class="d-flex justify-content-between"><h3><i class="fas fa-heartbeat"></i> Wellness Activities</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addActivityModal"><i class="fas fa-plus"></i> Add Activity</button></div><div class="table-responsive mt-3"><table class="table custom-table"><thead><tr><th>ID</th><th>Activity Name</th><th>Description</th><th>Cost/Day</th><th>Image</th><th>Actions</th></thead><tbody id="activityTableBody"></tbody></table></div></div>
 </div>
 
-<!-- MODALS (exactly same structure but with refined classes) -->
+<!-- MODALS (Refined) -->
 <div class="modal fade modal-modern" id="addDoctorModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5><i class="fas fa-user-md me-2"></i>Register New Doctor</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addDoctorForm" enctype="multipart/form-data"><div class="mb-3"><label>Full Name</label><input type="text" id="doctorName" class="form-control" required></div><div class="mb-3"><label>Email</label><input type="email" id="doctorEmail" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="doctorDescription" rows="2" class="form-control" required></textarea></div><div class="mb-3"><label>Payment/day (LKR)</label><input type="number" id="doctorPayment" class="form-control" required></div><div class="mb-3"><label>LinkedIn</label><input type="url" id="doctorLinkedIn" class="form-control"></div><div class="mb-3"><label>Profile Image</label><input type="file" id="doctorImage" class="form-control" accept="image/*"><img id="addImagePreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Create Doctor</button></form></div></div></div></div>
-<div class="modal fade modal-modern" id="editDoctorModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Doctor Profile</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editDoctorForm" enctype="multipart/form-data"><input type="hidden" id="editDoctorEmail"><div class="mb-3"><label>Name</label><input type="text" id="editDoctorName" class="form-control"></div><div class="mb-3"><label>Description</label><textarea id="editDoctorDescription" class="form-control" rows="2"></textarea></div><div class="mb-3"><label>Payment/day</label><input type="text" id="editDoctorPayment" class="form-control"></div><div class="mb-3"><label>LinkedIn</label><input type="text" id="editDoctorLinkedIn" class="form-control"></div><div class="mb-3"><label>New Image</label><input type="file" id="editDoctorImage" class="form-control"><img id="editImagePreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Update</button></form></div></div></div></div>
 <div class="modal fade modal-modern" id="addPackageModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Create New Package</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addPackageForm" enctype="multipart/form-data"><div class="mb-3"><label>Name</label><input type="text" name="name" class="form-control" required></div><div class="mb-3"><label>Price (LKR)</label><input type="number" name="price" class="form-control" required></div><div class="mb-3"><label>Estimate Days</label><input type="number" name="estimateDays" class="form-control" required></div><div class="mb-3"><label>Select Activities</label><select multiple class="form-control" name="activity" id="packageActivities" required></select></div><div class="mb-3"><label>Image</label><input type="file" name="imageUrl" id="packageImage" class="form-control"><img id="PackageImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Save Package</button></form></div></div></div></div>
-<div class="modal fade modal-modern" id="editPackageModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Package</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editPackageForm" enctype="multipart/form-data"><input type="hidden" id="editPackageId"><div class="mb-3"><label>Name</label><input type="text" id="editPackageName" class="form-control"></div><div class="mb-3"><label>Price</label><input type="number" id="editPackagePrice" class="form-control"></div><div class="mb-3"><label>Days</label><input type="number" id="editPackageDays" class="form-control"></div><div class="mb-3"><label>Activities</label><select multiple id="editPackageActivities" class="form-control"></select></div><div class="mb-3"><label>New Image</label><input type="file" name="imageUrl" id="editPackageImage" class="form-control"><img id="editPackageImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Update</button></form></div></div></div></div>
 <div class="modal fade modal-modern" id="addArticleModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Publish Article</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addArticleForm" enctype="multipart/form-data"><div class="mb-3"><label>Title</label><input type="text" id="articleTitle" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="articleDescription" rows="2" class="form-control" required></textarea></div><div class="mb-3"><label>Image</label><input type="file" id="articleImage" class="form-control"><img id="addArticleImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Create</button></form></div></div></div></div>
-<div class="modal fade modal-modern" id="editArticleModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Article</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editArticleForm" enctype="multipart/form-data"><input type="hidden" id="editArticleId"><div class="mb-3"><label>Title</label><input type="text" id="editArticleTitle" class="form-control"></div><div class="mb-3"><label>Description</label><textarea id="editArticleDescription" class="form-control" rows="2"></textarea></div><div class="mb-3"><label>New Image</label><input type="file" id="editArticleImage" class="form-control"><img id="editArticleImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Save</button></form></div></div></div></div>
 <div class="modal fade modal-modern" id="addAccommodationModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Add Accommodation</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addAccommodationForm" enctype="multipart/form-data"><div class="mb-3"><label>Name</label><input type="text" id="accommodationName" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="accommodationDescription" class="form-control" rows="2"></textarea></div><div class="mb-3"><label>Location</label><input type="text" id="accommodationLocation" class="form-control" required></div><div class="mb-3"><label>Category</label><select id="accommodationCategory" class="form-control"><option>A/C</option><option>Non A/C</option><option>Luxary</option><option>City</option></select></div><div class="mb-3"><label>Cost/Day</label><input type="text" id="accommodationCost" class="form-control" required></div><div class="mb-3"><label>Image</label><input type="file" id="accommodationImage" class="form-control"><img id="addImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Save</button></form></div></div></div></div>
-<div class="modal fade modal-modern" id="editAccommodationModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Accommodation</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editAccommodationForm" enctype="multipart/form-data"><input type="hidden" id="editAccommodationId"><div class="mb-3"><label>Name</label><input type="text" id="editAccommodationName" class="form-control"></div><div class="mb-3"><label>Description</label><textarea id="editAccommodationDescription" class="form-control"></textarea></div><div class="mb-3"><label>Location</label><input type="text" id="editAccommodationLocation" class="form-control"></div><div class="mb-3"><label>Category</label><select id="editAccommodationCategory" class="form-control"><option>A/C</option><option>Non A/C</option><option>Luxary</option><option>City</option></select></div><div class="mb-3"><label>Cost/Day</label><input type="text" id="editAccommodationCostPerDay" class="form-control"></div><div class="mb-3"><label>Image</label><input type="file" id="editAccommodationImage" class="form-control"><img id="editImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Update</button></form></div></div></div></div>
 <div class="modal fade modal-modern" id="addActivityModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Add Wellness Activity</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addActivityForm" enctype="multipart/form-data"><div class="mb-3"><label>Name</label><input type="text" id="activityName" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="activityDescription" class="form-control" rows="2"></textarea></div><div class="mb-3"><label>Cost/Day</label><input type="text" id="activityCost" class="form-control" required></div><div class="mb-3"><label>Image</label><input type="file" id="activityImage" class="form-control"><img id="addActivityImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Add Activity</button></form></div></div></div></div>
-<div class="modal fade modal-modern" id="editActivityModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Edit Activity</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editActivityForm" enctype="multipart/form-data"><input type="hidden" id="editActivityId"><div class="mb-3"><label>Name</label><input type="text" id="editActivityName" class="form-control"></div><div class="mb-3"><label>Description</label><textarea id="editActivityDescription" class="form-control"></textarea></div><div class="mb-3"><label>Cost/Day</label><input type="text" id="editActivityCost" class="form-control"></div><div class="mb-3"><label>Image</label><input type="file" id="editActivityImage" class="form-control"><img id="editActivityImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Save</button></form></div></div></div></div>
 
 <script src="js/doctor.js"></script>
 <script src="js/accommodation.js"></script>
@@ -342,30 +365,379 @@
 <script src="js/tpackage.js"></script>
 <script src="js/article.js"></script>
 <script>
-    function getAuthHeaders(){const token=localStorage.getItem("token");return token?{Authorization:`Bearer ${token}`}:{};}
-    function showPanel(panelId){$('.content > div').addClass('hidden');$('#'+panelId).removeClass('hidden');$('.sidebar a').removeClass('active');$(`.sidebar a[onclick*='${panelId}']`).addClass('active');}
-    function logout(){localStorage.clear();window.location.href="index.html";}
-    function checkAdminAccess(){const token=localStorage.getItem("token");const role=localStorage.getItem("role");console.log("===== ADMIN ACCESS CHECK =====");console.log("Token present:",!!token);console.log("Role from localStorage:",role);console.log("Role type:",typeof role);if(!token){console.error("No token found. Redirecting to signin.");setTimeout(()=>window.location.href="signin.html",500);return false;}if(role!=="ROLE_ADMIN"){console.error("Not ROLE_ADMIN. User role is:",role,". Redirecting to signin.");setTimeout(()=>window.location.href="signin.html",500);return false;}console.log("✓ Admin access verified");return true;}
-    $(document).ready(function(){console.log("===== ADMIN DASHBOARD LOADED =====");if(!checkAdminAccess()){console.log("Admin access check failed. Waiting for redirect...");return;}console.log("Access granted. Loading dashboard...");loadDashboardCounts();loadBookingsPerDayChart();loadTotalPricePerBookingChart();loadAllUsers();loadAllReviews();loadAllPayments();loadBookings();showPanel('dashboard');});
-    function loadDashboardCounts(){$.ajax({url:"http://localhost:8080/api/v1/dashboard/counts",method:"GET",headers:getAuthHeaders(),success:function(r){$('#totalBookings').text(r.data.totalBookings||0);$('#totalVehicles').text(r.data.totalAccommodations||0);$('#totalGuides').text(r.data.totalDoctors||0);$('#totalUsers').text(r.data.totalUsers||0);},error:()=>alert("Failed dashboard data")});}
-    function loadBookingsPerDayChart(){$.ajax({url:"http://localhost:8080/api/v1/dashboard/chart/booking-per-day",method:"GET",headers:getAuthHeaders(),success:function(res){if(res.data&&res.data.length){new Chart(document.getElementById('bookingsPerDayChart'),{type:'bar',data:{labels:res.data.map(i=>i.date),datasets:[{label:'Bookings',data:res.data.map(i=>i.count),backgroundColor:'#2C8C74',borderRadius:8}]},options:{responsive:true,maintainAspectRatio:true}});}}})}
-    function loadTotalPricePerBookingChart(){$.ajax({url:"http://localhost:8080/api/v1/dashboard/chart/total-price-per-booking",method:"GET",headers:getAuthHeaders(),success:function(res){if(res.data&&res.data.length){new Chart(document.getElementById('totalPricePerBookingChart'),{type:'line',data:{labels:res.data.map(i=>"Booking#"+i.bookingId),datasets:[{label:'Revenue (LKR)',data:res.data.map(i=>i.total),borderColor:'#E67E22',tension:0.2,fill:false}]}});}}})}
-    function loadAllUsers(status='active'){const token=localStorage.getItem('token');if(!token){$('#userTableBody').html('<tr><td colspan="5">Login required: go to signin page and login as admin.</td></tr>');return;}$.ajax({url:`http://localhost:8080/api/v1/user/getAll?status=${status}`,method:"GET",headers:getAuthHeaders(),success:function(answer){if(answer&&answer.data){window.allUsers=answer.data;renderUserTable(answer.data);}else{$("#userTableBody").html('<tr><td colspan="5">No users</td></tr>');}},error:function(xhr){console.error('User load error',xhr.status,xhr.responseText);if(xhr.status===401||xhr.status===403){$("#userTableBody").html('<tr><td colspan="5">Authentication required. Please login as admin.</td></tr>');} else {$("#userTableBody").html('<tr><td colspan="5">Failed to load users (see console)</td></tr>');}}})}
-    function renderUserTable(users){let html="";users.forEach(u=>{const status=u.status?u.status.toUpperCase():"ACTIVE";html+=`<tr><td>${u.name}</td><td>${u.email}</td><td><span class="badge-status">${u.role}</span></td><td><span class="badge-status">${status}</span></td><td><button class="btn btn-danger-lux btn-sm rounded-pill" onclick="deleteUser('${u.email}')"><i class="fas fa-trash"></i> Delete</button></td></tr>`;});$("#userTableBody").html(html||'<tr><td colspan="5">No users</td></tr>');}
-    window.searchUsers=function(){let term=$("#searchInput").val().toLowerCase();if(window.allUsers)renderUserTable(window.allUsers.filter(u=>u.name.toLowerCase().includes(term)||u.email.toLowerCase().includes(term)));};
-    $("#userStatusFilter").on('change', function(){const status=$(this).val();loadAllUsers(status);$("#searchInput").val('');});
-    window.deleteUser=function(email){if(confirm("Delete user?"))$.ajax({url:`http://localhost:8080/api/v1/user/delete/${email}`,method:"DELETE",headers:getAuthHeaders(),success:()=>{alert("Deleted");loadAllUsers($("#userStatusFilter").val());}});};
-    function loadAllReviews(){$.ajax({url:"http://localhost:8080/api/v1/review/all",method:"GET",success:function(r){if(r.data){window.allReviews=r.data;renderReviews(r.data);}}})}
-    function renderReviews(reviews){let html="";reviews.forEach(r=>{html+=`<tr><td>${r.id}</td><td>${r.userEmail}</td><td>${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</td><td>${r.comment}</td><td>${r.createdAt}</td><td><button class="btn btn-sm btn-danger-lux" onclick="deleteReview(${r.id})">Delete</button></td></tr>`;});$("#reviewTableBody").html(html||'<tr><td colspan="6">No reviews</td></tr>');}
-    window.deleteReview=function(id){if(confirm("Delete review?"))$.ajax({url:`http://localhost:8080/api/v1/review/delete/${id}`,method:"DELETE",success:()=>{alert("Deleted");loadAllReviews();}});};
-    function loadBookings(){$.ajax({url:"http://localhost:8080/api/v1/booking/getAll",method:"GET",success:function(r){let rows="";if(r.data)r.data.forEach(b=>{rows+=`<tr><td>${b.packageName}</td><td>${b.doctorEmail}</td><td>${b.accommodationName}</td><td>${b.userEmail}</td><td>${b.bookingDate}</td><td>${b.checkoutDate}</td><td>${b.estimateDays}</td><td>${b.doctorFee}</td><td>${b.packagePrice}</td><td class="fw-bold">LKR ${b.totalPrice}</td></tr>`;});$("#bookingTableBody").html(rows||'<tr><td colspan="10">No bookings</td></tr>');}});}
-    function loadAllPayments(){$.ajax({url:"http://localhost:8080/api/v1/payment/getAll",method:"GET",success:function(r){allPayments=r.data;renderPayments(allPayments);}});}
-    function renderPayments(payments){let h="";payments.forEach(p=>{h+=`<tr><td>${p.id}</td><td>${p.userEmail}</td><td>LKR ${p.amount.toFixed(2)}</td><td>${p.paymentDate}</td></tr>`;});$("#paymentTableBody").html(h);}
-    $("#searchEmail").on("input",function(){let q=$(this).val().toLowerCase();if(window.allPayments)renderPayments(window.allPayments.filter(p=>p.userEmail.toLowerCase().includes(q)));});
-    $("#searchReview").on("keyup",function(){let term=$(this).val().toLowerCase();if(window.allReviews)renderReviews(window.allReviews.filter(r=>r.userEmail?.toLowerCase().includes(term)||r.comment?.toLowerCase().includes(term)));});
-    $("#searchBooking").on("keyup",function(){let val=$(this).val().toLowerCase();$("#bookingTableBody tr").filter(function(){$(this).toggle($(this).text().toLowerCase().indexOf(val)>-1);});});
-    $("#searchDoctor").on("keyup",function(){let val=$(this).val().toLowerCase();$("#doctorTableBody tr").filter(function(){$(this).toggle($(this).text().toLowerCase().indexOf(val)>-1);});});
-    $("#searchInput").on("keyup",function(){let term=$(this).val().toLowerCase();if(window.allUsers)renderUserTable(window.allUsers.filter(u=>u.name.toLowerCase().includes(term)||u.email.toLowerCase().includes(term)));});
+    // ========== HELPER FUNCTIONS with SweetAlert ==========
+    function saveToLocalStorage(key, value, days = 7) {
+        const now = new Date();
+        const expiryTime = now.getTime() + days * 24 * 60 * 60 * 1000;
+        localStorage.setItem(key, JSON.stringify({ value, expiry: expiryTime }));
+    }
+
+    function getFromLocalStorage(key) {
+        const data = localStorage.getItem(key);
+        if (!data) return null;
+        try {
+            const parsed = JSON.parse(data);
+            const now = new Date().getTime();
+            if (parsed.expiry && parsed.expiry < now) {
+                localStorage.removeItem(key);
+                return null;
+            }
+            return parsed.value;
+        } catch {
+            return data;
+        }
+    }
+
+    function showSweetAlert(type, title, message, timer = null) {
+        const config = {
+            icon: type,
+            title: title,
+            text: message,
+            confirmButtonText: type === 'success' ? 'Continue' : 'Okay',
+            confirmButtonColor: '#1F6E58',
+            background: '#FFFFFF',
+            customClass: { popup: 'swal2-popup', title: 'swal2-title', confirmButton: 'swal2-confirm' }
+        };
+        if (type === 'success' && timer) {
+            config.timer = timer;
+            config.showConfirmButton = false;
+        }
+        Swal.fire(config);
+    }
+
+    function showConfirmDialog(title, message, confirmText = 'Yes, Delete', cancelText = 'Cancel') {
+        return Swal.fire({
+            title: title,
+            text: message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD5A4C',
+            cancelButtonColor: '#1F6E58',
+            confirmButtonText: confirmText,
+            cancelButtonText: cancelText,
+            background: '#FFFFFF',
+            customClass: { popup: 'swal2-popup', confirmButton: 'swal2-confirm', cancelButton: 'swal2-cancel' }
+        });
+    }
+
+    function getAuthHeaders() {
+        const token = getFromLocalStorage("token");
+        return token ? { Authorization: `Bearer ${token}` } : {};
+    }
+    
+    function showPanel(panelId) {
+        $('.content > div').addClass('hidden');
+        $('#' + panelId).removeClass('hidden');
+        $('.sidebar a').removeClass('active');
+        $(`.sidebar a[onclick*='${panelId}']`).addClass('active');
+    }
+    
+    function logout() {
+        showConfirmDialog('🌿 Depart from Sacred Space?', 'Are you sure you want to logout from the Admin Suite?', 'Yes, Logout', 'Stay')
+            .then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.clear();
+                    showSweetAlert('success', 'Farewell, Guardian', 'You have been logged out. May your healing work continue.', 1500);
+                    setTimeout(() => window.location.href = "index.html", 1500);
+                }
+            });
+    }
+    
+    function checkAdminAccess() {
+        const token = getFromLocalStorage("token");
+        const role = getFromLocalStorage("role");
+        console.log("===== ADMIN ACCESS CHECK =====");
+        console.log("Token present:", !!token);
+        console.log("Role from localStorage:", role);
+        
+        if (!token) {
+            showSweetAlert('warning', 'Access Denied', 'Please sign in as an administrator to access this portal.');
+            setTimeout(() => window.location.href = "signin.html", 2000);
+            return false;
+        }
+        if (role !== "ROLE_ADMIN") {
+            showSweetAlert('error', 'Unauthorized', 'You do not have administrative privileges.');
+            setTimeout(() => window.location.href = "index.html", 2000);
+            return false;
+        }
+        console.log("✓ Admin access verified");
+        
+        // Set admin name display
+        const adminEmail = getFromLocalStorage("email");
+        if (adminEmail) {
+            $("#adminNameDisplay").text(adminEmail.split('@')[0]);
+        }
+        return true;
+    }
+    
+    $(document).ready(function() {
+        console.log("===== ADMIN DASHBOARD LOADED =====");
+        if (!checkAdminAccess()) {
+            console.log("Admin access check failed. Waiting for redirect...");
+            return;
+        }
+        console.log("Access granted. Loading dashboard...");
+        loadDashboardCounts();
+        loadBookingsPerDayChart();
+        loadTotalPricePerBookingChart();
+        loadAllUsers();
+        loadAllReviews();
+        loadAllPayments();
+        loadBookings();
+        showPanel('dashboard');
+    });
+    
+    function loadDashboardCounts() {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/dashboard/counts",
+            method: "GET",
+            headers: getAuthHeaders(),
+            success: function(r) {
+                $('#totalBookings').text(r.data.totalBookings || 0);
+                $('#totalVehicles').text(r.data.totalAccommodations || 0);
+                $('#totalGuides').text(r.data.totalDoctors || 0);
+                $('#totalUsers').text(r.data.totalUsers || 0);
+            },
+            error: () => showSweetAlert('error', 'Dashboard Error', 'Unable to load analytics data.')
+        });
+    }
+    
+    function loadBookingsPerDayChart() {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/dashboard/chart/booking-per-day",
+            method: "GET",
+            headers: getAuthHeaders(),
+            success: function(res) {
+                if (res.data && res.data.length) {
+                    new Chart(document.getElementById('bookingsPerDayChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: res.data.map(i => i.date),
+                            datasets: [{ label: 'Bookings', data: res.data.map(i => i.count), backgroundColor: '#2C8C74', borderRadius: 8 }]
+                        },
+                        options: { responsive: true, maintainAspectRatio: true }
+                    });
+                }
+            }
+        });
+    }
+    
+    function loadTotalPricePerBookingChart() {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/dashboard/chart/total-price-per-booking",
+            method: "GET",
+            headers: getAuthHeaders(),
+            success: function(res) {
+                if (res.data && res.data.length) {
+                    new Chart(document.getElementById('totalPricePerBookingChart'), {
+                        type: 'line',
+                        data: {
+                            labels: res.data.map(i => "Booking#" + i.bookingId),
+                            datasets: [{ label: 'Revenue (LKR)', data: res.data.map(i => i.total), borderColor: '#E67E22', tension: 0.2, fill: false }]
+                        }
+                    });
+                }
+            }
+        });
+    }
+    
+    function loadAllUsers(status = 'active') {
+        const token = getFromLocalStorage('token');
+        if (!token) {
+            $('#userTableBody').html('<tr><td colspan="5">Login required: go to signin page and login as admin.</td></tr>');
+            return;
+        }
+        $.ajax({
+            url: `http://localhost:8080/api/v1/user/getAll?status=${status}`,
+            method: "GET",
+            headers: getAuthHeaders(),
+            success: function(answer) {
+                if (answer && answer.data) {
+                    window.allUsers = answer.data;
+                    renderUserTable(answer.data);
+                } else {
+                    $("#userTableBody").html('<tr><td colspan="5">No users</td></tr>');
+                }
+            },
+            error: function(xhr) {
+                console.error('User load error', xhr.status, xhr.responseText);
+                if (xhr.status === 401 || xhr.status === 403) {
+                    $("#userTableBody").html('<tr><td colspan="5">Authentication required. Please login as admin.</td></tr>');
+                } else {
+                    $("#userTableBody").html('<tr><td colspan="5">Failed to load users</td></tr>');
+                }
+            }
+        });
+    }
+    
+    function renderUserTable(users) {
+        let html = "";
+        users.forEach(u => {
+            const status = u.status ? u.status.toUpperCase() : "ACTIVE";
+            html += `<tr>
+                <td>${escapeHtml(u.name)}</td>
+                <td>${escapeHtml(u.email)}</td>
+                <td><span class="badge-status">${escapeHtml(u.role)}</span></td>
+                <td><span class="badge-status">${status}</span></td>
+                <td><button class="btn btn-danger-lux btn-sm rounded-pill" onclick="deleteUser('${escapeHtml(u.email)}')"><i class="fas fa-trash"></i> Delete</button></td>
+            </tr>`;
+        });
+        $("#userTableBody").html(html || '<tr><td colspan="5">No users</td></tr>');
+    }
+    
+    window.deleteUser = function(email) {
+        showConfirmDialog('Remove User', `Are you sure you want to delete user: ${email}? This action cannot be undone.`, 'Yes, Delete', 'Cancel')
+            .then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `http://localhost:8080/api/v1/user/delete/${encodeURIComponent(email)}`,
+                        method: "DELETE",
+                        headers: getAuthHeaders(),
+                        success: () => {
+                            showSweetAlert('success', 'User Removed', 'The user has been deleted from the registry.', 1500);
+                            loadAllUsers($("#userStatusFilter").val());
+                        },
+                        error: () => showSweetAlert('error', 'Deletion Failed', 'Unable to delete user. Please try again.')
+                    });
+                }
+            });
+    };
+    
+    function loadAllReviews() {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/review/all",
+            method: "GET",
+            success: function(r) {
+                if (r.data) {
+                    window.allReviews = r.data;
+                    renderReviews(r.data);
+                }
+            }
+        });
+    }
+    
+    function renderReviews(reviews) {
+        let html = "";
+        reviews.forEach(r => {
+            html += `<tr>
+                <td>${r.id}</td>
+                <td>${escapeHtml(r.userEmail)}</td>
+                <td>${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</td>
+                <td>${escapeHtml(r.comment)}</td>
+                <td>${r.createdAt || 'N/A'}</td>
+                <td><button class="btn btn-sm btn-danger-lux" onclick="deleteReview(${r.id})">Delete</button></td>
+            </tr>`;
+        });
+        $("#reviewTableBody").html(html || '<tr><td colspan="6">No reviews</td></tr>');
+    }
+    
+    window.deleteReview = function(id) {
+        showConfirmDialog('Remove Review', 'Are you sure you want to delete this guest review?', 'Yes, Delete', 'Cancel')
+            .then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `http://localhost:8080/api/v1/review/delete/${id}`,
+                        method: "DELETE",
+                        success: () => {
+                            showSweetAlert('success', 'Review Removed', 'The review has been deleted.', 1500);
+                            loadAllReviews();
+                        },
+                        error: () => showSweetAlert('error', 'Deletion Failed', 'Unable to delete review.')
+                    });
+                }
+            });
+    };
+    
+    function loadBookings() {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/booking/getAll",
+            method: "GET",
+            success: function(r) {
+                let rows = "";
+                if (r.data) r.data.forEach(b => {
+                    rows += `<tr>
+                        <td>${escapeHtml(b.packageName)}</td>
+                        <td>${escapeHtml(b.doctorEmail)}</td>
+                        <td>${escapeHtml(b.accommodationName)}</td>
+                        <td>${escapeHtml(b.userEmail)}</td>
+                        <td>${b.bookingDate}</td>
+                        <td>${b.checkoutDate}</td>
+                        <td>${b.estimateDays}</td>
+                        <td>${b.doctorFee}</td>
+                        <td>${b.packagePrice}</td>
+                        <td class="fw-bold">LKR ${b.totalPrice}</td>
+                    </tr>`;
+                });
+                $("#bookingTableBody").html(rows || '<tr><td colspan="10">No bookings</td></tr>');
+            }
+        });
+    }
+    
+    function loadAllPayments() {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/payment/getAll",
+            method: "GET",
+            success: function(r) {
+                window.allPayments = r.data;
+                renderPayments(r.data);
+            }
+        });
+    }
+    
+    function renderPayments(payments) {
+        let h = "";
+        payments.forEach(p => {
+            h += `<tr><td>${p.id}</td><td>${escapeHtml(p.userEmail)}</td><td>LKR ${p.amount.toFixed(2)}</td><td>${p.paymentDate}</td></tr>`;
+        });
+        $("#paymentTableBody").html(h);
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    $("#searchEmail").on("input", function() {
+        let q = $(this).val().toLowerCase();
+        if (window.allPayments) renderPayments(window.allPayments.filter(p => p.userEmail.toLowerCase().includes(q)));
+    });
+    
+    $("#searchReview").on("keyup", function() {
+        let term = $(this).val().toLowerCase();
+        if (window.allReviews) renderReviews(window.allReviews.filter(r => r.userEmail?.toLowerCase().includes(term) || r.comment?.toLowerCase().includes(term)));
+    });
+    
+    $("#searchBooking").on("keyup", function() {
+        let val = $(this).val().toLowerCase();
+        $("#bookingTableBody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(val) > -1);
+        });
+    });
+    
+    $("#searchDoctor").on("keyup", function() {
+        let val = $(this).val().toLowerCase();
+        $("#doctorTableBody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(val) > -1);
+        });
+    });
+    
+    $("#searchInput").on("keyup", function() {
+        let term = $(this).val().toLowerCase();
+        if (window.allUsers) renderUserTable(window.allUsers.filter(u => u.name.toLowerCase().includes(term) || u.email.toLowerCase().includes(term)));
+    });
+    
+    $("#userStatusFilter").on('change', function() {
+        const status = $(this).val();
+        loadAllUsers(status);
+        $("#searchInput").val('');
+    });
+    
+    console.log("%c🌿 CEYLON TRADITIONAL MEDICINE - Admin Suite 🌿", "color: #C9A87C; font-size: 14px; font-weight: bold;");
 </script>
 </body>
 </html>

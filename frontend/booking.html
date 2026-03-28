@@ -13,6 +13,11 @@
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="assets/traditonal medical center.ico" type="image/x-icon">
+
+    <!-- SweetAlert2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         /* ============================================
@@ -332,7 +337,29 @@
             box-shadow: 0 10px 20px rgba(201, 168, 124, 0.4);
         }
 
-        /* Footer (Preserved but enhanced) */
+        /* SweetAlert Custom Theme */
+        .swal2-popup {
+            font-family: 'Inter', sans-serif;
+            border-radius: 28px !important;
+        }
+        .swal2-title {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: 700 !important;
+            color: var(--sacred-green) !important;
+        }
+        .swal2-confirm {
+            background: linear-gradient(135deg, var(--sacred-green), var(--sacred-green-light)) !important;
+            border-radius: 60px !important;
+            font-weight: 600 !important;
+            padding: 12px 28px !important;
+        }
+        .swal2-cancel {
+            border-radius: 60px !important;
+            border-color: var(--sacred-gold) !important;
+            color: var(--sacred-gold-dark) !important;
+        }
+
+        /* Footer */
         .footer {
             background: #17231C !important;
             margin-top: 4rem;
@@ -383,7 +410,6 @@
             }
         }
 
-        /* Animation */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(25px); }
             to { opacity: 1; transform: translateY(0); }
@@ -606,8 +632,40 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    // ========== BACKEND INTEGRATION (FULLY PRESERVED) ==========
-    // All original API endpoints and logic unchanged — only UI transformed
+    // ========== BACKEND INTEGRATION with SweetAlert ==========
+    const API_BASE = "http://localhost:8080/api/v1";
+    
+    function getFromLocalStorage(key) {
+        const data = localStorage.getItem(key);
+        if (!data) return null;
+        try {
+            const parsedData = JSON.parse(data);
+            const now = new Date().getTime();
+            if (now > parsedData.expiry) {
+                localStorage.removeItem(key);
+                return null;
+            }
+            return parsedData.value;
+        } catch(e) { return data; }
+    }
+    
+    function showSweetAlert(type, title, message, timer = null) {
+        const config = {
+            icon: type,
+            title: title,
+            text: message,
+            confirmButtonText: type === 'success' ? 'Continue' : 'Okay',
+            confirmButtonColor: '#1F4E3F',
+            background: '#FFFFFF',
+            backdrop: 'rgba(31, 78, 63, 0.4)',
+            customClass: { popup: 'swal2-popup', title: 'swal2-title', confirmButton: 'swal2-confirm' }
+        };
+        if (type === 'success' && timer) {
+            config.timer = timer;
+            config.showConfirmButton = false;
+        }
+        Swal.fire(config);
+    }
 
     $(document).ready(function() {
         let bookingData = null;
@@ -615,26 +673,17 @@
         let basePrice = 0;
         let selectedAccommodationCost = 0;
 
-        // Helper: get from localStorage (same as original)
-        function getFromLocalStorage(key) {
-            const data = localStorage.getItem(key);
-            if (!data) return null;
-            try {
-                const parsedData = JSON.parse(data);
-                const now = new Date().getTime();
-                if (now > parsedData.expiry) {
-                    localStorage.removeItem(key);
-                    return null;
-                }
-                return parsedData.value;
-            } catch(e) { return null; }
+        const userEmail = getFromLocalStorage("email");
+        
+        if (!userEmail) {
+            showSweetAlert('warning', 'Sacred Journey Awaits', 'Please sign in to begin your healing journey and reserve your sanctuary.');
+            setTimeout(() => { window.location.href = "signin.html"; }, 2000);
+            $("#summaryUserEmail").text("Please sign in");
+        } else {
+            $("#summaryUserEmail").text(userEmail);
+            $("#paymentEmail").text(userEmail);
         }
 
-        const userEmail = getFromLocalStorage("email") || "Guest";
-        $("#summaryUserEmail").text(userEmail);
-        $("#paymentEmail").text(userEmail);
-
-        // Update checkout date based on booking date + package days
         function updateCheckoutDate() {
             const bookingDate = $("#bookingDate").val();
             if (bookingDate && packageDays > 0) {
@@ -656,26 +705,28 @@
         }
 
         $("#bookingDate").on('change', function() {
-            $("#summaryBookingDate").text($(this).val());
-            updateCheckoutDate();
+            if ($(this).val()) {
+                $("#summaryBookingDate").text($(this).val());
+                updateCheckoutDate();
+            }
         });
 
-        // Load Packages (API preserved)
+        // Load Packages
         function loadPackages() {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/api/v1/package/getAll",
+                url: `${API_BASE}/package/getAll`,
                 success: function (response) {
                     if (response && response.data) {
                         $("#packageCards").empty();
                         response.data.forEach(function (pkg) {
-                            const imgSrc = pkg.imageUrl ? `/uploads/${pkg.imageUrl}` : 'https://via.placeholder.com/300x180?text=Wellness+Package';
+                            const imgSrc = pkg.imageUrl ? `/uploads/${pkg.imageUrl}` : 'https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&w=800&q=80';
                             const card = `
                                 <div class="col-md-6 col-lg-4">
-                                    <div class="selection-card" data-price="${pkg.price || 0}" data-days="${pkg.estimateDays || 0}" data-name="${pkg.name || 'Package'}">
+                                    <div class="selection-card" data-price="${pkg.price || 0}" data-days="${pkg.estimateDays || 0}" data-name="${escapeHtml(pkg.name || 'Package')}">
                                         <img src="${imgSrc}" class="card-img-top-lux w-100" alt="${pkg.name}">
                                         <div class="card-body-lux">
-                                            <h5 class="card-title-lux">${pkg.name || 'Wellness Journey'}</h5>
+                                            <h5 class="card-title-lux">${escapeHtml(pkg.name || 'Wellness Journey')}</h5>
                                             <p class="small text-muted mb-2">${pkg.estimateDays || 0} days of rejuvenation</p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="price-tag">LKR ${pkg.price || 0}</span>
@@ -712,23 +763,23 @@
             });
         }
 
-        // Load Accommodations (API preserved)
+        // Load Accommodations
         function loadAccommodations() {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/api/v1/accommodation/getAll",
+                url: `${API_BASE}/accommodation/getAll`,
                 success: function (response) {
                     if (response && response.data) {
                         $("#availableVehicles").empty();
                         response.data.forEach(function (acc) {
-                            const imgSrc = acc.imageUrl ? `/uploads/${acc.imageUrl}` : 'https://via.placeholder.com/300x180?text=Serene+Stay';
+                            const imgSrc = acc.imageUrl ? `/uploads/${acc.imageUrl}` : 'https://images.unsplash.com/photo-1544168190-79c17527004f?auto=format&fit=crop&w=800&q=80';
                             const card = `
                                 <div class="col-md-6 col-lg-4">
-                                    <div class="selection-card" data-cost="${acc.costPerDay || 0}" data-name="${acc.name || 'Accommodation'}">
+                                    <div class="selection-card" data-cost="${acc.costPerDay || 0}" data-name="${escapeHtml(acc.name || 'Accommodation')}">
                                         <img src="${imgSrc}" class="card-img-top-lux w-100" alt="${acc.name}">
                                         <div class="card-body-lux">
-                                            <h5 class="card-title-lux">${acc.name || 'Sacred Stay'}</h5>
-                                            <p class="small text-muted">${acc.location || 'Anuradhapura'} • ${acc.category || 'Villa'}</p>
+                                            <h5 class="card-title-lux">${escapeHtml(acc.name || 'Sacred Stay')}</h5>
+                                            <p class="small text-muted">${escapeHtml(acc.location || 'Anuradhapura')} • ${escapeHtml(acc.category || 'Villa')}</p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="price-tag">LKR ${acc.costPerDay || 0}/night</span>
                                                 <button class="btn-select-lux select-acc">Select</button>
@@ -761,24 +812,24 @@
             });
         }
 
-        // Load Doctors (API preserved)
+        // Load Doctors
         function loadDoctors() {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/api/v1/doctor/getAll",
+                url: `${API_BASE}/doctor/getAll`,
                 success: function (response) {
                     if (response && response.data) {
                         $("#guideCards").empty();
                         response.data.forEach(function (doc) {
                             if (doc.status === "ACTIVE") {
-                                const imgSrc = doc.imageUrl ? `/uploads/${doc.imageUrl}` : 'https://via.placeholder.com/300x180?text=Master+Physician';
+                                const imgSrc = doc.imageUrl ? `/uploads/${doc.imageUrl}` : 'https://images.unsplash.com/photo-1559839734-2b71c1974e7b?auto=format&fit=crop&w=800&q=80';
                                 const card = `
                                     <div class="col-md-6 col-lg-4">
-                                        <div class="selection-card" data-fee="${doc.paymentPerDay || 0}" data-name="${doc.fullName || 'Doctor'}" data-email="${doc.email || ''}">
+                                        <div class="selection-card" data-fee="${doc.paymentPerDay || 0}" data-name="${escapeHtml(doc.fullName || 'Doctor')}" data-email="${escapeHtml(doc.email || '')}">
                                             <img src="${imgSrc}" class="card-img-top-lux w-100" alt="${doc.fullName}">
                                             <div class="card-body-lux">
-                                                <h5 class="card-title-lux">${doc.fullName || 'Ayurvedic Doctor'}</h5>
-                                                <p class="small text-muted">${doc.email || ''}</p>
+                                                <h5 class="card-title-lux">${escapeHtml(doc.fullName || 'Ayurvedic Doctor')}</h5>
+                                                <p class="small text-muted">${escapeHtml(doc.email || '')}</p>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <span class="price-tag">LKR ${doc.paymentPerDay || 0}/day</span>
                                                     <button class="btn-select-lux select-doctor">Select</button>
@@ -804,7 +855,6 @@
                 parent.addClass('selected');
                 const feePerDay = parseFloat(parent.data('fee'));
                 const name = parent.data('name');
-                const email = parent.data('email');
                 $("#summaryGuide").text(name);
                 const totalDoctorFee = feePerDay * (packageDays || 1);
                 $("#summaryGuideFee").text(`LKR ${totalDoctorFee.toFixed(2)}`);
@@ -812,16 +862,21 @@
             });
         }
 
-        // Confirm Booking
+        // Confirm Booking with SweetAlert validation
         $("#confirmBookingBtn").click(function() {
+            const userEmailVal = $("#summaryUserEmail").text().trim();
+            if (userEmailVal === "Please sign in" || !getFromLocalStorage("email")) {
+                showSweetAlert('warning', 'Authentication Required', 'Please sign in to reserve your sacred journey.');
+                return;
+            }
+            
             const packageName = $("#summaryPackage").text().trim();
             const doctorEmail = $(".selection-card.selected").filter(function() { return $(this).find('.select-doctor').length > 0; }).data('email');
             const accommodationName = $("#summaryVehicle").text().trim();
-            const userEmailVal = $("#summaryUserEmail").text().trim();
             const bookingDateVal = $("#summaryBookingDate").text().trim();
 
             if (!packageName || packageName === "—" || !doctorEmail || !accommodationName || accommodationName === "—" || !bookingDateVal) {
-                alert("Please complete your selection: Package, Accommodation, Doctor, and Arrival Date.");
+                showSweetAlert('warning', 'Incomplete Selection', 'Please complete your selection: Package, Accommodation, Physician, and Arrival Date.');
                 return;
             }
 
@@ -843,15 +898,27 @@
 
         $("#makePaymentBtn").click(function(e) {
             e.preventDefault();
-            if (!bookingData) { alert("No booking data"); return; }
+            if (!bookingData) { showSweetAlert('error', 'Error', 'No booking data found.'); return; }
+            
             const cardHolder = $("#cardHolderName").val().trim();
             const cardNum = $("#cardNumber").val().trim();
             const expiry = $("#expiryDate").val().trim();
             const cvvVal = $("#cvv").val().trim();
-            if (!cardHolder || !cardNum || !expiry || !cvvVal) { alert("Please fill payment details"); return; }
+            
+            if (!cardHolder || !cardNum || !expiry || !cvvVal) { 
+                showSweetAlert('warning', 'Payment Details', 'Please fill all payment details to complete your sacred transaction.');
+                return; 
+            }
+
+            Swal.fire({
+                title: '✨ Confirming Your Sacred Journey ✨',
+                text: 'Please wait while we prepare your wellness sanctuary...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
 
             $.ajax({
-                url: "http://localhost:8080/api/v1/booking/save",
+                url: `${API_BASE}/booking/save`,
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(bookingData),
@@ -870,27 +937,62 @@
                         bookingId: booking.id
                     };
                     $.ajax({
-                        url: "http://localhost:8080/api/v1/payment/save",
+                        url: `${API_BASE}/payment/save`,
                         type: "POST",
                         contentType: "application/json",
                         data: JSON.stringify(paymentDTO),
                         success: function() {
-                            alert("✓ Booking Confirmed! Your healing journey awaits.");
+                            Swal.fire({
+                                icon: 'success',
+                                title: '🌿 Journey Confirmed 🌿',
+                                html: `<p>Your healing sanctuary has been reserved.</p><p class="small text-muted">A confirmation email has been sent to your sacred inbox.</p>`,
+                                confirmButtonText: 'Embrace the Journey',
+                                confirmButtonColor: '#1F4E3F'
+                            }).then(() => {
+                                $("#paymentModal").modal("hide");
+                                location.reload();
+                            });
+                        },
+                        error: () => {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Booking Saved',
+                                text: 'Your booking is confirmed, but payment processing encountered an issue. Our team will contact you.',
+                                confirmButtonColor: '#1F4E3F'
+                            });
                             $("#paymentModal").modal("hide");
                             location.reload();
-                        },
-                        error: () => alert("Payment failed but booking saved.")
+                        }
                     });
                 },
-                error: () => alert("Booking failed. Please try again.")
+                error: () => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Unable to Reserve',
+                        text: 'Please check your connection and try again.',
+                        confirmButtonColor: '#1F4E3F'
+                    });
+                }
             });
         });
 
-        // Initialize all
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // Initialize
         loadPackages();
         loadAccommodations();
         loadDoctors();
     });
+    
+    console.log("%c🌿 Hela Suwaya - Begin Your Sacred Journey 🌿", "color: #C9A87C; font-size: 14px; font-weight: bold;");
 </script>
 </body>
 </html>

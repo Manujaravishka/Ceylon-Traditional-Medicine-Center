@@ -9,6 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="icon" href="assets/traditonal medical center.ico" type="image/x-icon">
+
+
+    <!-- SweetAlert2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         * {
@@ -132,6 +139,7 @@
             transition: var(--transition-smooth);
             text-decoration: none;
             border: none;
+            cursor: pointer;
         }
 
         .btn-signin:hover {
@@ -410,6 +418,23 @@
             margin-bottom: 1rem;
         }
 
+        /* SweetAlert Custom Theme */
+        .swal2-popup {
+            font-family: 'Inter', sans-serif;
+            border-radius: 28px !important;
+        }
+        .swal2-title {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: 700 !important;
+            color: var(--sacred-green) !important;
+        }
+        .swal2-confirm {
+            background: linear-gradient(135deg, var(--sacred-green), var(--sacred-green-light)) !important;
+            border-radius: 60px !important;
+            font-weight: 600 !important;
+            padding: 12px 28px !important;
+        }
+
         /* ========== FOOTER ========== */
         .footer-lux {
             background: #17231C;
@@ -562,7 +587,7 @@
             <a href="#" class="nav-link">Treatments</a>
             <a href="#" class="nav-link active">Articles</a>
             <a href="#" class="nav-link">Contact</a>
-            <a href="#" class="btn-signin">Sign In <i class="fas fa-arrow-right ms-1"></i></a>
+            <a href="#" class="btn-signin" id="signInBtn">Sign In <i class="fas fa-arrow-right ms-1"></i></a>
         </div>
     </div>
 </nav>
@@ -596,7 +621,7 @@
         <!-- Dynamic content loads here -->
         <div class="loading-container">
             <div class="loading-spinner"></div>
-            <p class="text-gray-500">Loading sacred wisdom...</p>
+            <p class="text-gray-500">Awakening ancient wisdom...</p>
         </div>
     </div>
 </main>
@@ -649,8 +674,65 @@
 </footer>
 
 <script>
-    // ========== BACKEND INTEGRATION (FULLY PRESERVED - NO CHANGES) ==========
-    // All API endpoints and logic remain exactly as original, only UI transformed
+    // ========== BACKEND INTEGRATION with SweetAlert ==========
+    const API_BASE = "http://localhost:8080/api/v1";
+    
+    function getFromLocalStorage(key) {
+        const data = localStorage.getItem(key);
+        if (!data) return null;
+        try {
+            const parsedData = JSON.parse(data);
+            if (parsedData?.expiry && new Date().getTime() > parsedData.expiry) {
+                localStorage.removeItem(key);
+                return null;
+            }
+            return parsedData.value;
+        } catch (e) {
+            return data;
+        }
+    }
+    
+    // SweetAlert helper
+    function showSweetAlert(type, title, message, timer = null) {
+        const config = {
+            icon: type,
+            title: title,
+            text: message,
+            confirmButtonText: 'Continue',
+            confirmButtonColor: '#1F4E3F',
+            background: '#FFFFFF',
+            backdrop: 'rgba(31, 78, 63, 0.4)',
+            customClass: { popup: 'swal2-popup', title: 'swal2-title', confirmButton: 'swal2-confirm' }
+        };
+        if (type === 'success' && timer) {
+            config.timer = timer;
+            config.showConfirmButton = false;
+        }
+        Swal.fire(config);
+    }
+    
+    function showArticleDetail(article) {
+        const title = article.title || 'Sacred Wisdom';
+        const description = article.description || 'Explore the profound benefits of traditional Ayurvedic practices.';
+        const specialty = article.specialty || 'Ayurveda';
+        
+        Swal.fire({
+            icon: 'info',
+            title: title,
+            html: `
+                <div class="text-start">
+                    <p class="mb-2"><span class="badge" style="background: #C9A87C; color: #1F4E3F; padding: 4px 12px; border-radius: 30px;">${escapeHtml(specialty)}</span></p>
+                    <p class="mt-3" style="color: #6B5E4A; line-height: 1.6;">${escapeHtml(description)}</p>
+                    <hr style="border-color: #EADBCE;">
+                    <p class="small text-muted"><i class="fas fa-feather-alt me-1" style="color: #C9A87C;"></i> This sacred knowledge is part of our ongoing wellness library.</p>
+                </div>
+            `,
+            confirmButtonText: 'Embrace Wisdom',
+            confirmButtonColor: '#1F4E3F',
+            background: '#FDF8F0',
+            customClass: { popup: 'swal2-popup', confirmButton: 'swal2-confirm' }
+        });
+    }
 
     $(document).ready(function () {
         // Mobile menu toggle
@@ -662,9 +744,34 @@
         $('.nav-link, .btn-signin').click(function() {
             $('#navMenu').removeClass('active');
         });
+        
+        // Sign In button handler with SweetAlert
+        $('#signInBtn').click(function(e) {
+            e.preventDefault();
+            const userEmail = getFromLocalStorage("email");
+            const token = getFromLocalStorage("token");
+            
+            if (userEmail && token) {
+                showSweetAlert('success', 'Welcome Back', `You are already signed in as ${userEmail}`, 2000);
+            } else {
+                Swal.fire({
+                    icon: 'question',
+                    title: 'Sacred Journey Awaits',
+                    text: 'Sign in to access personalized wellness recommendations and save your favorite articles.',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sign In',
+                    cancelButtonText: 'Browse as Guest',
+                    confirmButtonColor: '#1F4E3F',
+                    cancelButtonColor: '#C9A87C'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "signin.html";
+                    }
+                });
+            }
+        });
 
         function loadArticles(specialty = 'All Specialists') {
-            // Show loading state with elegant spinner
             $('#articleList').html(`
                 <div class="loading-container">
                     <div class="loading-spinner"></div>
@@ -674,11 +781,10 @@
 
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/api/v1/article/getAll",
+                url: `${API_BASE}/article/getAll`,
                 success: function (response) {
                     $('#articleList').empty();
 
-                    // Handle different response structures (preserving original logic)
                     let articles = [];
                     if (response.code === '201' || response.code === 200 || response.code === 201) {
                         articles = response.content || response.data || [];
@@ -694,14 +800,13 @@
                         $('#articleList').html(`
                             <div class="empty-state">
                                 <i class="fas fa-leaf"></i>
-                                <h3 class="text-xl font-semibold text-gray-700 mb-2">No articles found</h3>
-                                <p class="text-gray-500">New wisdom is being prepared. Please check back soon.</p>
+                                <h3>No articles found</h3>
+                                <p>New wisdom is being prepared. Please check back soon.</p>
                             </div>
                         `);
                         return;
                     }
 
-                    // Filter by specialty (original logic preserved)
                     const filteredArticles = specialty === 'All Specialists'
                         ? articles
                         : articles.filter(article => article.specialty === specialty);
@@ -710,38 +815,33 @@
                         $('#articleList').html(`
                             <div class="empty-state">
                                 <i class="fas fa-search"></i>
-                                <h3 class="text-xl font-semibold text-gray-700 mb-2">No articles in this category</h3>
-                                <p class="text-gray-500">Explore other categories to discover Ayurvedic wisdom.</p>
+                                <h3>No articles in this category</h3>
+                                <p>Explore other categories to discover Ayurvedic wisdom.</p>
                             </div>
                         `);
                         return;
                     }
 
-                    // Render each article with world-class card design
                     filteredArticles.forEach(function (article) {
-                        // Fix image URL (same as original logic)
                         let imgUrl = article.imageUrl 
-                            ? (article.imageUrl.startsWith('http') ? article.imageUrl : `http://localhost:8080/uploads/${article.imageUrl}`)
+                            ? (article.imageUrl.startsWith('http') ? article.imageUrl : `${API_BASE}/uploads/${article.imageUrl}`)
                             : 'https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&w=800&q=80';
                         
-                        // Format description with fallback
                         const description = article.description 
                             ? (article.description.length > 140 ? article.description.substring(0, 140) + '...' : article.description)
                             : 'Explore the profound benefits of traditional Ayurvedic practices in this detailed guide to holistic wellness and natural healing.';
                         
-                        // Format title with fallback
                         const title = article.title || 'Sacred Healing Wisdom';
-                        const specialty = article.specialty || 'Ayurveda';
+                        const specialtyName = article.specialty || 'Ayurveda';
                         
-                        // Format date (original preserved)
                         const formattedDate = article.createdAt 
                             ? new Date(article.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
                             : new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
                         const articleHTML = `
-                            <article class="article-card" data-article-id="${article.id || ''}">
+                            <article class="article-card" data-article-id="${article.id || ''}" data-article-title="${escapeHtml(title)}" data-article-desc="${escapeHtml(article.description || '')}" data-article-specialty="${escapeHtml(specialtyName)}">
                                 <div class="article-img-wrapper">
-                                    <span class="category-badge">${escapeHtml(specialty)}</span>
+                                    <span class="category-badge">${escapeHtml(specialtyName)}</span>
                                     <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(title)}" class="article-img" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&w=800&q=80'">
                                 </div>
                                 <div class="article-content">
@@ -760,32 +860,64 @@
                         $('#articleList').append(articleHTML);
                     });
 
-                    // Add click handler for article cards (preserving original behavior)
+                    // Add click handler for article cards with SweetAlert
                     $('.article-card').click(function(e) {
                         if (!$(e.target).closest('.read-more').length) {
                             const articleId = $(this).data('article-id');
-                            if (articleId) {
-                                alert(`Article details for ID: ${articleId}\nFull content available in the complete version.`);
-                            } else {
-                                alert('Discover more about this sacred wisdom in our full library.');
-                            }
+                            const articleTitle = $(this).data('article-title');
+                            const articleDesc = $(this).data('article-desc');
+                            const articleSpecialty = $(this).data('article-specialty');
+                            
+                            Swal.fire({
+                                icon: 'info',
+                                title: articleTitle,
+                                html: `
+                                    <div class="text-start">
+                                        <p class="mb-2"><span style="background: #C9A87C; color: #1F4E3F; padding: 4px 12px; border-radius: 30px; display: inline-block; font-size: 0.7rem;">${escapeHtml(articleSpecialty)}</span></p>
+                                        <p class="mt-3" style="color: #6B5E4A; line-height: 1.6;">${escapeHtml(articleDesc || 'This sacred knowledge is part of our ongoing wellness library.')}</p>
+                                        <hr style="border-color: #EADBCE;">
+                                        <p class="small text-muted"><i class="fas fa-feather-alt me-1" style="color: #C9A87C;"></i> Full article available to signed-in members.</p>
+                                    </div>
+                                `,
+                                confirmButtonText: 'Embrace Wisdom',
+                                confirmButtonColor: '#1F4E3F',
+                                background: '#FDF8F0',
+                                showCancelButton: true,
+                                cancelButtonText: 'Sign In',
+                                cancelButtonColor: '#C9A87C'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // User clicked Embrace Wisdom - close modal
+                                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                    const userEmail = getFromLocalStorage("email");
+                                    if (!userEmail) {
+                                        window.location.href = "signin.html";
+                                    }
+                                }
+                            });
                         }
                     });
                 },
                 error: function(xhr, status, error) {
                     console.error("Error loading articles:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Unable to Load Wisdom',
+                        text: 'Please ensure your connection to the Ayurveda Knowledge API is active. Refresh to try again.',
+                        confirmButtonColor: '#1F4E3F'
+                    });
                     $('#articleList').html(`
                         <div class="empty-state">
                             <i class="fas fa-exclamation-triangle" style="color: #e74c3c;"></i>
-                            <h3 class="text-xl font-semibold text-gray-700 mb-2">Unable to Load Wisdom</h3>
-                            <p class="text-gray-500">Please ensure your connection to the Ayurveda Knowledge API is active. Refresh to try again.</p>
+                            <h3>Unable to Load Wisdom</h3>
+                            <p>Please check your connection and refresh the page.</p>
+                            <button onclick="location.reload()" style="margin-top: 1rem; background: #C9A87C; border: none; padding: 10px 24px; border-radius: 60px; color: #1F4E3F; font-weight: 600; cursor: pointer;">Refresh</button>
                         </div>
                     `);
                 }
             });
         }
 
-        // Helper function to escape HTML (security)
         function escapeHtml(str) {
             if (!str) return '';
             return String(str).replace(/[&<>]/g, function(m) {
@@ -796,7 +928,7 @@
             });
         }
 
-        // Filter button click handlers (original functionality preserved)
+        // Filter button click handlers
         $('.filter-btn').click(function() {
             $('.filter-btn').removeClass('active');
             $(this).addClass('active');
@@ -807,6 +939,8 @@
         // Initialize with all articles
         loadArticles();
     });
+    
+    console.log("%c🌿 Hela Suwaya - Sacred Knowledge Library 🌿", "color: #C9A87C; font-size: 14px; font-weight: bold;");
 </script>
 </body>
 </html>

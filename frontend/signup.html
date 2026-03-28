@@ -9,6 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="assets/traditonal medical center.ico" type="image/x-icon">
+
+
+    <!-- SweetAlert2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         :root {
@@ -326,7 +332,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Alert Messages */
+        /* Alert Messages - fallback */
         .alert-message {
             padding: 12px 16px;
             border-radius: 60px;
@@ -363,6 +369,54 @@
         /* Hide/Show Forms */
         .form-hidden {
             display: none;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+        
+        .ms-2 {
+            margin-left: 0.5rem;
+        }
+
+        /* SweetAlert Custom Theme */
+        .swal2-popup {
+            font-family: 'Inter', sans-serif;
+            border-radius: 28px !important;
+            backdrop-filter: blur(2px);
+        }
+        .swal2-title {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: 700 !important;
+            color: var(--sacred-emerald) !important;
+        }
+        .swal2-confirm {
+            background: linear-gradient(135deg, var(--sacred-emerald), var(--sacred-emerald-light)) !important;
+            border-radius: 60px !important;
+            font-weight: 600 !important;
+            padding: 12px 28px !important;
+            box-shadow: 0 4px 12px rgba(31, 74, 58, 0.3) !important;
+        }
+        .swal2-cancel {
+            border-radius: 60px !important;
+            border-color: var(--sacred-gold) !important;
+            color: var(--sacred-gold-dark) !important;
+        }
+        .swal2-icon.swal2-success {
+            border-color: var(--success-green) !important;
+        }
+        .swal2-icon.swal2-success .swal2-success-ring {
+            border-color: rgba(74, 124, 89, 0.3) !important;
+        }
+        .swal2-icon.swal2-error {
+            border-color: var(--error-red) !important;
+        }
+        .swal2-icon.swal2-info {
+            border-color: var(--sacred-gold) !important;
         }
 
         /* Responsive */
@@ -411,7 +465,7 @@
         <div id="loginMsg" class="alert-message"></div>
         
         <div class="text-center mt-4">
-            <span style="font-size: 0.8rem; color: var(--stone-mist);">New to Hela Suwaya? </span>
+            <span style="font-size: 0.8rem; color: var(--stone-mist);">New to CEYLON TRADITIONAL MEDICINE? </span>
             <button id="showSignupBtn" style="background: none; border: none; color: var(--sacred-gold); font-weight: 600; cursor: pointer;">Create Account</button>
         </div>
     </div>
@@ -460,11 +514,11 @@
         <div class="brand-icon">
             <i class="fas fa-feather-alt"></i>
         </div>
-        <h2>හෙළ සුවය</h2>
+        <h2>CEYLON TRADITIONAL MEDICINE</h2>
         <p>Ancient Ceylon Healing Wisdom for Modern Wellness</p>
         <ul class="brand-features">
             <li><i class="fas fa-spa"></i> Authentic Ayurvedic Treatments</li>
-            <li><i class="fas fa-leaf"></i> Hela Wedakama Traditions</li>
+            <li><i class="fas fa-leaf"></i> Ceylon Traditional Medicine</li>
             <li><i class="fas fa-hand-holding-heart"></i> Personalized Wellness Journeys</li>
             <li><i class="fas fa-user-md"></i> Master Physicians Guidance</li>
         </ul>
@@ -478,27 +532,55 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 <script>
-    // ========== BACKEND INTEGRATION (FULLY PRESERVED) ==========
+    // ========== BACKEND INTEGRATION with SweetAlert ==========
     const API_BASE = "http://localhost:8080/api/v1";
     let iti = null;
 
+    // Beautiful SweetAlert helper
+    function showSweetAlert(type, title, message, timer = null) {
+        const config = {
+            icon: type,
+            title: title,
+            text: message,
+            confirmButtonText: type === 'success' ? 'Continue' : 'Okay',
+            confirmButtonColor: '#1F4A3A',
+            background: '#FEFCF8',
+            backdrop: 'rgba(31, 74, 58, 0.5)',
+            customClass: {
+                popup: 'swal2-popup',
+                title: 'swal2-title',
+                confirmButton: 'swal2-confirm'
+            }
+        };
+        
+        if (type === 'success' && timer) {
+            config.timer = timer;
+            config.showConfirmButton = false;
+        }
+        
+        Swal.fire(config);
+    }
+
     function showMsg(sel, text, isSuccess = false) {
+        // Fallback for inline messages (though we primarily use SweetAlert)
         const el = document.querySelector(sel);
-        if (!el) return;
-        el.textContent = text;
-        el.className = 'alert-message ' + (isSuccess ? 'alert-success' : 'alert-error');
-        el.style.display = 'block';
-        if (isSuccess) {
-            setTimeout(() => { if (el) el.style.display = 'none'; }, 4000);
+        if (el) {
+            el.textContent = text;
+            el.className = 'alert-message ' + (isSuccess ? 'alert-success' : 'alert-error');
+            el.style.display = 'block';
+            if (isSuccess) {
+                setTimeout(() => { if (el) el.style.display = 'none'; }, 4000);
+            }
         }
     }
     
     function clearMsg(sel) {
         const el = document.querySelector(sel);
-        if (!el) return;
-        el.textContent = '';
-        el.style.display = 'none';
-        el.className = 'alert-message';
+        if (el) {
+            el.textContent = '';
+            el.style.display = 'none';
+            el.className = 'alert-message';
+        }
     }
 
     function saveToLocalStorage(key, value, days = 7) {
@@ -552,10 +634,19 @@
         }
     });
 
-    // Forgot password handler
+    // Forgot password handler with elegant SweetAlert
     document.getElementById('forgotPasswordLink')?.addEventListener('click', (e) => {
         e.preventDefault();
-        showMsg("#loginMsg", "Please contact our wellness concierge at reservations@helasuwaya.lk for password assistance.", false);
+        Swal.fire({
+            icon: 'info',
+            title: '🌿 Sacred Support',
+            html: `<p style="font-size: 1rem; color: #2C3A33;">Please contact our wellness concierge at<br><strong style="color: #D4AF7A;">reservations@helasuwaya.lk</strong><br>for password assistance.</p>
+                   <p style="font-size: 0.85rem; margin-top: 1rem;">Your healing journey matters to us. 🙏</p>`,
+            confirmButtonText: 'Thank You',
+            confirmButtonColor: '#1F4A3A',
+            background: '#FDF7F0',
+            customClass: { popup: 'swal2-popup', confirmButton: 'swal2-confirm' }
+        });
     });
 
     // Initialize intl-tel-input
@@ -585,7 +676,7 @@
         }
     });
 
-    // ========== SIGNUP HANDLER ==========
+    // ========== SIGNUP HANDLER with SweetAlert ==========
     $("#signupForm").on("submit", function(e) {
         e.preventDefault();
         clearMsg("#signupMsg");
@@ -599,15 +690,15 @@
         const signupBtn = $("#signupBtn");
 
         if (!name || !email || !password) {
-            showMsg("#signupMsg", "Please fill in all required fields.", false);
+            showSweetAlert('warning', 'Incomplete Details', 'Please fill in all required fields to begin your journey.');
             return;
         }
         if (password !== confirm) {
-            showMsg("#signupMsg", "Passwords do not match. Please check.", false);
+            showSweetAlert('error', 'Passwords Mismatch', 'The passwords you entered do not match. Please try again.');
             return;
         }
         if (password.length < 6) {
-            showMsg("#signupMsg", "Password must be at least 6 characters.", false);
+            showSweetAlert('warning', 'Password Too Short', 'Password must be at least 6 characters for security.');
             return;
         }
 
@@ -626,27 +717,37 @@
                 if (token) {
                     saveToLocalStorage("token", token);
                     saveToLocalStorage("email", email);
-                    console.log("✓ Token saved");
                 }
                 
-                showMsg("#signupMsg", "✓ Account created successfully! Welcome to Hela Suwaya.", true);
+                // Beautiful success alert
+                Swal.fire({
+                    icon: 'success',
+                    title: '✨ Welcome to Hela Suwaya ✨',
+                    html: `<span style="font-size: 1.1rem;">Namaste, <strong style="color: #D4AF7A;">${name}</strong></span><br/>
+                           <span style="font-size: 0.9rem;">Your sacred healing journey begins now.</span>`,
+                    timer: 2000,
+                    showConfirmButton: false,
+                    background: '#FEFCF8',
+                    backdrop: 'rgba(31, 74, 58, 0.5)'
+                });
+                
                 setTimeout(() => {
                     showLogin();
                     signupBtn.prop("disabled", false).removeClass("loading").html('<i class="fas fa-user-plus"></i> Create Account');
-                    clearMsg("#signupMsg");
                     $("#signupForm")[0].reset();
                     if (iti) iti.setNumber("");
-                }, 1500);
+                    showSweetAlert('success', 'Account Created', 'Your account has been created successfully! Please sign in to continue.', 1500);
+                }, 2000);
             },
             error: function(xhr) {
                 const msg = xhr?.responseJSON?.message || xhr?.responseJSON?.error || "Registration failed. Please try again.";
-                showMsg("#signupMsg", "❌ " + msg, false);
+                showSweetAlert('error', 'Signup Failed', msg);
                 signupBtn.prop("disabled", false).removeClass("loading").html('<i class="fas fa-user-plus"></i> Create Account');
             }
         });
     });
 
-    // ========== LOGIN HANDLER ==========
+    // ========== LOGIN HANDLER with SweetAlert ==========
     $("#loginForm").on("submit", function(e) {
         e.preventDefault();
         clearMsg("#loginMsg");
@@ -656,13 +757,13 @@
         const loginBtn = $("#loginBtn");
 
         if (!email || !password) {
-            showMsg("#loginMsg", "Please enter both email and password.", false);
+            showSweetAlert('warning', 'Missing Information', 'Please enter both email and password to sign in.');
             return;
         }
         
         const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            showMsg("#loginMsg", "Please enter a valid email address.", false);
+            showSweetAlert('warning', 'Invalid Email', 'Please enter a valid email address.');
             return;
         }
 
@@ -680,7 +781,7 @@
                 let role = payload?.role || payload?.data?.role || null;
                 
                 if (!token) {
-                    showMsg("#loginMsg", "Authentication failed. Please try again.", false);
+                    showSweetAlert('error', 'Authentication Failed', 'Unable to authenticate. Please try again.');
                     loginBtn.prop("disabled", false).removeClass("loading").html('<i class="fas fa-arrow-right-to-bracket"></i> Sign In');
                     return;
                 }
@@ -694,7 +795,15 @@
                     saveToLocalStorage("role", role);
                 }
                 
-                showMsg("#loginMsg", "✓ Login successful! Welcome back.", true);
+                // Elegant success notification
+                Swal.fire({
+                    icon: 'success',
+                    title: '🌸 Welcome Back 🌸',
+                    html: `<span style="font-size: 1rem;">You have successfully signed in to your sacred wellness portal.</span>`,
+                    timer: 1500,
+                    showConfirmButton: false,
+                    background: '#FEFCF8'
+                });
                 
                 setTimeout(() => {
                     const storedRole = getFromLocalStorage("role");
@@ -703,14 +812,15 @@
                     } else {
                         window.location.href = "index.html";
                     }
-                }, 800);
+                }, 1500);
             },
             error: function(xhr) {
-                let errorMsg = "Invalid email or password.";
+                let errorMsg = "Invalid email or password. Please try again.";
                 if (xhr.responseJSON?.message) errorMsg = xhr.responseJSON.message;
                 else if (xhr.status === 401) errorMsg = "Invalid email or password. Please try again.";
-                else if (xhr.status === 404) errorMsg = "Account not found. Please sign up first.";
-                showMsg("#loginMsg", "❌ " + errorMsg, false);
+                else if (xhr.status === 404) errorMsg = "Account not found. Please sign up first to join our community.";
+                
+                showSweetAlert('error', 'Sign In Failed', errorMsg);
                 loginBtn.prop("disabled", false).removeClass("loading").html('<i class="fas fa-arrow-right-to-bracket"></i> Sign In');
             }
         });
@@ -725,6 +835,9 @@
             window.location.href = "index.html";
         }
     }
+    
+    // Console mantra for spiritual touch
+    console.log("%c🌿 Hela Suwaya - Ancient Healing, Modern Wisdom 🌿", "color: #D4AF7A; font-size: 14px; font-weight: bold;");
 </script>
 </body>
 </html>

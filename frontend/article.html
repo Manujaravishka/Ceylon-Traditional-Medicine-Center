@@ -7,7 +7,12 @@
     <!-- Google Fonts: Elegant Serif + Modern Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="icon" href="assets/traditonal medical center.ico" type="image/x-icon">
+
+    <!-- SweetAlert2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         * {
@@ -18,7 +23,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FCF9F4;
+            background: #FDF9F2;
             color: #2C2A29;
             line-height: 1.6;
             overflow-x: hidden;
@@ -45,12 +50,11 @@
             background: transparent;
         }
 
-        /* Glass morphism on scroll */
         .navbar.scrolled {
-            background: rgba(26, 35, 28, 0.92);
+            background: rgba(15, 35, 28, 0.96);
             backdrop-filter: blur(16px);
             padding: 0.8rem 6%;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             border-bottom: 1px solid rgba(212, 175, 122, 0.3);
         }
 
@@ -66,14 +70,6 @@
             color: #F0E5D6;
         }
 
-        .navbar.scrolled .nav-links a:after {
-            background: #E6CFA5;
-        }
-
-        .navbar.scrolled .nav-links a:hover {
-            color: #FFE6B3;
-        }
-
         .logo {
             display: flex;
             align-items: center;
@@ -82,30 +78,31 @@
         }
 
         #main-icon {
-            font-size: 2.4rem;
-            color: #C7A252;
-            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+            font-size: 2.2rem;
+            color: #D4AF7A;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
             transition: all 0.3s;
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
         }
 
         .logo-text {
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 1.4rem;
+            font-weight: 600;
             color: #FFFFFF;
             letter-spacing: 1px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transition: color 0.3s;
         }
 
-        .navbar.scrolled .logo-text {
-            text-shadow: none;
-        }
-
-        /* Navigation Links - Elegant */
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2.2rem;
+            gap: 2rem;
             margin: 0;
             padding: 0;
         }
@@ -113,13 +110,14 @@
         .nav-links li a {
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #FFFFFF;
             letter-spacing: 0.8px;
             transition: all 0.3s;
             position: relative;
             padding: 6px 0;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+            text-transform: uppercase;
         }
 
         .nav-links a:after {
@@ -129,7 +127,7 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background: #E6CFA5;
+            background: #D4AF7A;
             transition: width 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
@@ -138,25 +136,25 @@
         }
 
         .nav-links a:hover {
-            color: #FFEFD0;
+            color: #D4AF7A;
         }
 
-        /* CTA Button in Nav */
         .nav-cta {
-            background: linear-gradient(135deg, #C7A252, #A77C3C);
-            padding: 8px 24px;
-            border-radius: 40px;
-            color: white !important;
+            background: linear-gradient(135deg, #D4AF7A, #B48C48);
+            padding: 8px 28px;
+            border-radius: 60px;
+            color: #1F2A24 !important;
             text-shadow: none !important;
             font-weight: 600;
             transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: none;
         }
 
         .nav-cta:hover {
             transform: translateY(-2px);
-            background: linear-gradient(135deg, #D9B15E, #B88942);
-            box-shadow: 0 6px 18px rgba(199, 162, 82, 0.4);
+            background: linear-gradient(135deg, #E6C48A, #C9A157);
+            box-shadow: 0 6px 18px rgba(212, 175, 122, 0.4);
+            color: #0F231E !important;
         }
 
         .nav-cta:after {
@@ -165,44 +163,33 @@
 
         .hamburger {
             display: none;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             cursor: pointer;
             color: #FFFFFF;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
             z-index: 1001;
-            transition: all 0.2s;
         }
 
-        /* ========== HERO SECTION - CINEMATIC MASTERPIECE ========== */
+        /* ========== HERO SECTION ========== */
         .hero {
             position: relative;
             height: 100vh;
-            min-height: 780px;
+            min-height: 750px;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             overflow: hidden;
-            isolation: isolate;
         }
 
-        /* Video Background or Parallax Image */
-        .hero-background {
+        .hero-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
-        }
-
-        .hero-background img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-            filter: brightness(0.55) contrast(1.05) saturate(1.1);
-            transform: scale(1.02);
+            filter: brightness(0.55) contrast(1.02);
             animation: slowZoom 25s ease-out infinite alternate;
         }
 
@@ -211,177 +198,163 @@
             100% { transform: scale(1.08); }
         }
 
-        /* Overlay Gradient - Rich & Deep */
         .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(15, 25, 20, 0.65) 0%, rgba(30, 25, 20, 0.5) 50%, rgba(0, 0, 0, 0.4) 100%);
-            z-index: -1;
+            background: linear-gradient(145deg, rgba(10, 30, 22, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
         }
 
         .hero-content {
-            max-width: 950px;
-            padding: 0 24px;
-            animation: fadeUp 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            z-index: 10;
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeUp 1s ease-out;
         }
 
         @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-badge {
             display: inline-block;
             background: rgba(212, 175, 122, 0.2);
             backdrop-filter: blur(8px);
-            padding: 6px 20px;
+            padding: 8px 24px;
             border-radius: 60px;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
+            font-size: 0.7rem;
+            letter-spacing: 2.5px;
             font-weight: 500;
-            color: #F5E6D3;
+            color: #E6CFA5;
             border: 1px solid rgba(212, 175, 122, 0.5);
-            margin-bottom: 28px;
-            font-family: 'Inter', sans-serif;
+            margin-bottom: 1.8rem;
         }
 
         .hero-content h1 {
-            font-size: 5rem;
+            font-size: 4.2rem;
             font-weight: 800;
             color: #FFFFFF;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            margin-bottom: 24px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            margin-bottom: 1.2rem;
             line-height: 1.2;
-            letter-spacing: -0.02em;
         }
 
         .hero-content h1 span {
-            color: #E6CFA5;
-            display: inline-block;
-            position: relative;
+            color: #D4AF7A;
         }
 
         .hero-content p {
-            font-size: 1.2rem;
-            color: rgba(255, 248, 235, 0.95);
-            margin-bottom: 36px;
-            max-width: 700px;
+            font-size: 1.1rem;
+            color: rgba(255, 248, 235, 0.92);
+            margin-bottom: 2rem;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.7;
-            font-weight: 400;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .hero-buttons {
             display: flex;
-            gap: 20px;
+            gap: 1.2rem;
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        .btn-primary-hero {
-            background: linear-gradient(105deg, #D9B15E, #B88942);
+        .btn-primary {
+            background: linear-gradient(105deg, #D4AF7A, #B48C48);
             border: none;
-            padding: 14px 42px;
+            padding: 14px 38px;
             border-radius: 60px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #1F2A24;
-            transition: all 0.4s;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            letter-spacing: 0.5px;
+            gap: 10px;
         }
 
-        .btn-primary-hero i {
-            transition: transform 0.3s;
-        }
-
-        .btn-primary-hero:hover {
+        .btn-primary:hover {
             transform: translateY(-3px);
-            background: linear-gradient(105deg, #E8C474, #C9964A);
-            box-shadow: 0 20px 32px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(105deg, #E6C48A, #C9A157);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-primary-hero:hover i {
-            transform: translateX(6px);
-        }
-
-        .btn-outline-hero {
+        .btn-outline {
             background: transparent;
-            border: 1.5px solid rgba(230, 207, 165, 0.8);
+            border: 1.5px solid rgba(212, 175, 122, 0.7);
             padding: 14px 38px;
             border-radius: 60px;
             font-weight: 600;
+            font-size: 0.95rem;
             color: #FFFFFF;
             transition: all 0.3s;
             text-decoration: none;
             backdrop-filter: blur(4px);
         }
 
-        .btn-outline-hero:hover {
-            background: rgba(199, 162, 82, 0.25);
-            border-color: #E6CFA5;
+        .btn-outline:hover {
+            background: rgba(212, 175, 122, 0.2);
+            border-color: #D4AF7A;
             transform: translateY(-2px);
         }
 
-        /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
-            bottom: 32px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            z-index: 20;
+            gap: 8px;
+            z-index: 10;
             cursor: pointer;
             animation: bounce 2s infinite;
         }
 
         .scroll-indicator span {
-            color: #F5E6D3;
-            font-size: 0.75rem;
+            color: #E6CFA5;
+            font-size: 0.7rem;
             letter-spacing: 2px;
-            font-weight: 400;
         }
 
         .scroll-indicator i {
-            color: #E6CFA5;
-            font-size: 1.4rem;
+            color: #D4AF7A;
+            font-size: 1rem;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
+            50% { transform: translateX(-50%) translateY(6px); }
         }
 
-        /* Section Styling (Keep existing but refined) */
+        /* Section Styles */
         .section {
-            padding: 6rem 5%;
-            position: relative;
+            padding: 5rem 6%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
+
         .section-title {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3.5rem;
         }
+
         .section-title h2 {
-            font-size: 3.2rem;
-            color: #4F3A27;
-            margin-bottom: 12px;
+            font-size: 2.8rem;
+            color: #2C3A33;
+            margin-bottom: 0.8rem;
             position: relative;
             display: inline-block;
         }
+
         .section-title h2:after {
             content: '';
             display: block;
@@ -390,152 +363,254 @@
             background: #D4AF7A;
             margin: 12px auto 0;
         }
+
         .section-title p {
-            color: #6B5A4B;
-            max-width: 650px;
-            margin: 16px auto 0;
-            font-size: 1.05rem;
+            color: #6B5E4A;
+            max-width: 600px;
+            margin: 1rem auto 0;
+            font-size: 1rem;
         }
 
-        /* About + Concept (preserved elegance) */
-        .about-content, .concept-content {
+        /* About & Concept */
+        .about-grid, .concept-grid {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 4rem;
         }
+
         .about-text, .concept-text {
             flex: 1;
         }
+
         .about-image, .concept-image {
             flex: 1;
             border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
         }
+
         .about-image img, .concept-image img {
             width: 100%;
             height: auto;
             display: block;
             transition: transform 0.6s;
         }
+
         .about-image:hover img, .concept-image:hover img {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
 
-        /* Articles Section (dynamic) */
-        .articles {
-            background: #F7F2EA;
+        .about-text h3, .concept-text h3 {
+            font-size: 2rem;
+            color: #2C3A33;
+            margin-bottom: 1.2rem;
         }
+
+        .feature-list {
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .feature-icon i {
+            font-size: 1.5rem;
+            color: #D4AF7A;
+        }
+
+        .feature-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: #2C3A33;
+        }
+
+        .feature-content p {
+            font-size: 0.85rem;
+            color: #6B5E4A;
+        }
+
+        /* Articles Section */
+        .articles-section {
+            background: #F7F2EA;
+            padding: 5rem 6%;
+        }
+
         .articles-container {
             display: flex;
             flex-direction: column;
-            gap: 70px;
-            max-width: 1300px;
+            gap: 3rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
+
         .article-card {
             display: flex;
             background: #FFFFFF;
-            border-radius: 32px;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
-            border: 1px solid rgba(212, 175, 122, 0.2);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+            border: 1px solid rgba(212, 175, 122, 0.15);
+            cursor: pointer;
         }
+
         .article-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.15);
+            border-color: rgba(212, 175, 122, 0.4);
         }
+
         .article-card:nth-child(odd) { flex-direction: row; }
         .article-card:nth-child(even) { flex-direction: row-reverse; }
-        .article-image {
-            flex: 1.2;
-            min-height: 320px;
+
+        .article-img {
+            flex: 1;
+            min-height: 280px;
             overflow: hidden;
         }
-        .article-image img {
+
+        .article-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s;
         }
-        .article-card:hover .article-image img {
+
+        .article-card:hover .article-img img {
             transform: scale(1.05);
         }
+
         .article-content {
             flex: 1;
-            padding: 3rem;
+            padding: 2.2rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
+
         .article-content h3 {
-            font-size: 1.9rem;
-            color: #4F3A27;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            font-size: 1.6rem;
+            color: #2C3A33;
+            margin-bottom: 0.8rem;
         }
 
-        /* Footer (premium) */
-        footer {
-            background: #1E2A23;
-            color: #E8DFD3;
-            padding: 4rem 5% 2rem;
+        .article-meta {
+            margin-top: 1.2rem;
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.8rem;
+            color: #9B856C;
         }
-        .footer-content {
+
+        /* Footer */
+        .footer {
+            background: #17231C;
+            color: #E8DFD3;
+            padding: 4rem 6% 2rem;
+        }
+
+        .footer-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            gap: 2rem;
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .footer-section h3 {
+
+        .footer-col h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #E6CFA5;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: #D4AF7A;
         }
-        .social-icons {
+
+        .footer-col p, .footer-col li {
+            font-size: 0.85rem;
+            margin-bottom: 0.6rem;
+            color: #CEC2B2;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col a {
+            color: #CEC2B2;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: #D4AF7A;
+        }
+
+        .social-links {
             display: flex;
             gap: 1rem;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
-        .social-icons a {
-            background: rgba(255, 248, 235, 0.1);
-            width: 38px;
-            height: 38px;
+
+        .social-links a {
+            background: rgba(212, 175, 122, 0.15);
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #F0E1CF;
-            transition: 0.2s;
+            transition: all 0.3s;
         }
-        .social-icons a:hover {
-            background: #C7A252;
-            color: #1E2A23;
+
+        .social-links a:hover {
+            background: #D4AF7A;
+            color: #17231C;
+            transform: translateY(-3px);
         }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(212, 175, 122, 0.2);
+            font-size: 0.75rem;
+            color: #9B856C;
+        }
+
         .whatsapp-btn {
             position: fixed;
             bottom: 30px;
             left: 30px;
             background: #25D366;
             color: white;
-            width: 55px;
-            height: 55px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-            transition: 0.2s;
+            font-size: 1.8rem;
+            transition: 0.3s;
             z-index: 99;
             text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
+
         .whatsapp-btn:hover {
             transform: scale(1.08);
             background: #128C7E;
+        }
+
+        /* SweetAlert Custom */
+        .swal2-popup {
+            border-radius: 28px !important;
+            font-family: 'Inter', sans-serif !important;
         }
 
         @media (max-width: 992px) {
@@ -545,11 +620,10 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: rgba(26, 35, 28, 0.97);
-                backdrop-filter: blur(20px);
+                background: #17231C;
                 flex-direction: column;
                 padding: 2rem;
-                gap: 1.5rem;
+                gap: 1.2rem;
                 text-align: center;
                 border-top: 1px solid rgba(212, 175, 122, 0.3);
             }
@@ -560,50 +634,59 @@
                 display: block;
             }
             .hero-content h1 {
-                font-size: 3rem;
-            }
-            .hero-content p {
-                font-size: 1rem;
+                font-size: 2.8rem;
             }
             .article-card:nth-child(odd), .article-card:nth-child(even) {
+                flex-direction: column;
+            }
+            .article-img {
+                min-height: 220px;
+            }
+            .about-grid, .concept-grid {
                 flex-direction: column;
             }
         }
 
         @media (max-width: 768px) {
             .hero-content h1 {
-                font-size: 2.4rem;
+                font-size: 2.2rem;
+            }
+            .hero-content p {
+                font-size: 0.9rem;
             }
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
             }
-            .btn-primary-hero, .btn-outline-hero {
-                width: 80%;
+            .btn-primary, .btn-outline {
+                width: 100%;
+                max-width: 260px;
                 justify-content: center;
             }
             .section-title h2 {
-                font-size: 2.2rem;
+                font-size: 2rem;
+            }
+            .about-text h3, .concept-text h3 {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- WORLD-CLASS NAVBAR (Premium Glass) -->
+<!-- Navbar -->
 <nav class="navbar" id="navbar">
     <div class="logo">
         <i id="main-icon" class="fas fa-lotus"></i>
-        <div class="logo-text">CEYLON TRADITIONAL MEDICINE </div>
+        <div class="logo-text">Hela Suwaya</div>
     </div>
     <ul class="nav-links" id="navLinks">
         <li><a href="#home">HOME</a></li>
         <li><a href="#about">ABOUT</a></li>
-        <li><a href="#service">SERVICE</a></li>
-        <li><a href="#packageSection">PACKAGES</a></li>
-        <li><a href="#doctorSection">DOCTORS</a></li>
+        <li><a href="#services">SERVICES</a></li>
+        <li><a href="#packages">PACKAGES</a></li>
+        <li><a href="#doctors">DOCTORS</a></li>
         <li><a href="#accommodation">STAYS</a></li>
-        <li><a href="#programs">PROGRAMMES</a></li>
         <li><a href="#contact">CONTACT</a></li>
         <li><a href="#" class="nav-cta" id="bookNowBtn">BOOK RETREAT <i class="fas fa-arrow-right"></i></a></li>
     </ul>
@@ -612,11 +695,9 @@
     </div>
 </nav>
 
-<!-- HERO SECTION - Cinematic, Immersive -->
+<!-- Hero Section -->
 <section class="hero" id="home">
-    <div class="hero-background">
-        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80" alt="Ayurveda Sanctuary">
-    </div>
+    <img class="hero-bg" src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80" alt="Ayurveda Sanctuary">
     <div class="hero-overlay"></div>
     <div class="hero-content">
         <div class="hero-badge">
@@ -628,8 +709,8 @@
         </h1>
         <p>Step into Hela Suwaya — where 5,000 years of Sri Lankan medicinal heritage meets personalized wellness journeys. Rejuvenate body, mind, and soul in the heart of the cultural triangle.</p>
         <div class="hero-buttons">
-            <a href="#" class="btn-primary-hero" id="heroExploreBtn">Begin Healing Journey <i class="fas fa-leaf"></i></a>
-            <a href="#" class="btn-outline-hero" id="heroDiscoverBtn">Discover Treatments <i class="fas fa-play-circle"></i></a>
+            <a href="#" class="btn-primary" id="heroExploreBtn">Begin Healing Journey <i class="fas fa-leaf"></i></a>
+            <a href="#" class="btn-outline" id="heroDiscoverBtn">Discover Treatments <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
     <div class="scroll-indicator" id="scrollIndicator">
@@ -638,13 +719,13 @@
     </div>
 </section>
 
-<!-- About Section (preserved) -->
+<!-- About Section -->
 <section class="section" id="about">
     <div class="section-title">
         <h2>Sacred Lineage of Healing</h2>
         <p>Rooted in 5,000 years of Sri Lankan medicinal heritage</p>
     </div>
-    <div class="about-content">
+    <div class="about-grid">
         <div class="about-text">
             <h3>Hela Wedakama — The Indigenous Science of Life</h3>
             <p>At Hela Suwaya, we revive authentic traditional medicine practices passed down through generations. Our center blends herbal remedies, Panchakarma detox, and spiritual alignment to restore balance.</p>
@@ -657,117 +738,88 @@
 </section>
 
 <!-- Concept Section -->
-<section class="section concept" style="background: #F3EDE4;">
+<section class="section" style="background: #F7F2EA; border-radius: 48px; margin: 1rem 6% 2rem;">
     <div class="section-title">
         <h2>Our Philosophy</h2>
         <p>Balance of Doshas | Harmony with Nature</p>
     </div>
-    <div class="concept-content">
+    <div class="concept-grid">
         <div class="concept-image">
             <img src="https://images.unsplash.com/photo-1545579133-99bb5ab189bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Meditation">
         </div>
         <div class="concept-text">
             <h3>Ancient Wisdom, Modern Serenity</h3>
             <p>Our concept merges traditional Ayurveda with bespoke wellness journeys. From herbal steam chambers to yoga pavilions overlooking ancient reservoirs, every element is designed to heal.</p>
-            <div class="features">
-                <div class="feature-item"><div class="feature-icon"><i class="fas fa-leaf"></i></div><div class="feature-content"><h4>Authentic Formulations</h4><p>Hand-prepared herbal remedies based on ancient ola-leaf manuscripts.</p></div></div>
-                <div class="feature-item"><div class="feature-icon"><i class="fas fa-spa"></i></div><div class="feature-content"><h4>Personalized Panchakarma</h4><p>Customized detox programs supervised by resident vaidyas.</p></div></div>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                    <div class="feature-content">
+                        <h4>Authentic Formulations</h4>
+                        <p>Hand-prepared herbal remedies based on ancient ola-leaf manuscripts.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-spa"></i></div>
+                    <div class="feature-content">
+                        <h4>Personalized Panchakarma</h4>
+                        <p>Customized detox programs supervised by resident vaidyas.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Articles Section (Dynamic) -->
-<section class="section articles" id="articlesSection">
+<!-- Articles Section -->
+<section class="articles-section" id="articlesSection">
     <div class="section-title">
         <h2>Wisdom Chronicles</h2>
         <p>Insights from our healers & wellness experts</p>
     </div>
     <div class="articles-container" id="articles-container">
-        <div style="text-align:center; padding:2rem;"><i class="fas fa-spinner fa-pulse"></i> Loading sacred texts...</div>
+        <div style="text-align:center; padding: 2rem;"><i class="fas fa-spinner fa-pulse"></i> Loading sacred texts...</div>
     </div>
 </section>
 
 <!-- Footer -->
-<footer id="contact">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>SACRED SANCTUARY</h3>
+<footer class="footer" id="contact">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h3>Sacred Sanctuary</h3>
             <p>395/4, Harischandra Mawatha,<br>Anuradhapura, Sri Lanka</p>
             <p><i class="fas fa-phone-alt"></i> +94 76 992 1134</p>
             <p><i class="fas fa-envelope"></i> reservations@helasuwaya.lk</p>
-            <div class="social-icons">
+            <div class="social-links">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
-        <div class="footer-section">
+        <div class="footer-col">
             <h3>Quick Links</h3>
-            <ul style="list-style: none;">
-                <li><a href="#" style="color:#CEC2B2;">Ayurveda Treatments</a></li>
-                <li><a href="#" style="color:#CEC2B2;">Wellness Packages</a></li>
-                <li><a href="#" style="color:#CEC2B2;">Accommodation</a></li>
-                <li><a href="#" style="color:#CEC2B2;">Contact Us</a></li>
+            <ul>
+                <li><a href="#">Ayurveda Treatments</a></li>
+                <li><a href="#">Wellness Packages</a></li>
+                <li><a href="#">Accommodation</a></li>
+                <li><a href="#">Contact Us</a></li>
             </ul>
         </div>
-        <div class="footer-section">
+        <div class="footer-col">
             <h3>Certified Heritage</h3>
             <i class="fas fa-certificate" style="font-size: 2rem; color: #D4AF7A;"></i>
             <p>Traditional Medicine Council of Sri Lanka</p>
         </div>
     </div>
-    <div class="footer-bottom" style="text-align:center; margin-top:2rem; padding-top:1rem; border-top:1px solid rgba(200,180,150,0.2);">
-        <p>© 2025 Hela Suwaya Ayurveda Private Limited — Preserving Ceylon's Healing Legacy</p>
+    <div class="footer-bottom">
+        <p>© 2025 Hela Suwaya Ayurveda — Preserving Ceylon's Healing Legacy</p>
     </div>
     <a href="https://wa.me/94769921134" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
 </footer>
 
 <script>
-    // Backend API integration (unchanged)
+    // Backend Integration - Articles API
     const ARTICLE_API = "http://localhost:8080/api/v1/article";
-
-    function loadArticles() {
-        $.ajax({
-            url: ARTICLE_API + "/getAll",
-            type: "GET",
-            success: function (response) {
-                if (response.code === 201 || response.code === 200) {
-                    let articles = response.data;
-                    let html = "";
-                    if (!articles || articles.length === 0) {
-                        html = '<div class="text-center" style="padding: 3rem;">No articles found.</div>';
-                    } else {
-                        articles.forEach(article => {
-                            let imagePath = article.imageUrl ? `/uploads/${article.imageUrl}` : "https://via.placeholder.com/800x500?text=Hela+Wisdom";
-                            html += `
-                                <div class="article-card">
-                                    <div class="article-image">
-                                        <img src="${imagePath}" alt="${escapeHtml(article.title)}" loading="lazy">
-                                    </div>
-                                    <div class="article-content">
-                                        <h3>${escapeHtml(article.title)}</h3>
-                                        <p>${escapeHtml(article.description && article.description.length > 380 ? article.description.substring(0, 380) + "..." : article.description || "Discover ancient healing practices.")}</p>
-                                        <div class="article-meta" style="margin-top: 1rem; color:#9B856C;">
-                                            <span><i class="fa-regular fa-calendar"></i> ${new Date().toLocaleDateString()}</span>
-                                            <span><i class="fa-regular fa-user"></i> Vaidya Parampara</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                        });
-                    }
-                    $("#articles-container").html(html);
-                } else {
-                    $("#articles-container").html('<div style="text-align:center;">No sacred texts available now.</div>');
-                }
-            },
-            error: function () {
-                $("#articles-container").html('<div style="text-align:center; color:#A97C50;">Unable to load articles.</div>');
-            }
-        });
-    }
-
+    
     function escapeHtml(str) {
         if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
@@ -778,67 +830,126 @@
         });
     }
 
-    // Navbar scroll effect + mobile menu
-    document.addEventListener('DOMContentLoaded', function () {
-        loadArticles();
-        const navbar = document.getElementById('navbar');
-        const hamburger = document.getElementById('hamburgerBtn');
-        const navLinks = document.getElementById('navLinks');
-
-        window.addEventListener('scroll', function () {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+    function loadArticles() {
+        $.ajax({
+            url: ARTICLE_API + "/getAll",
+            type: "GET",
+            success: function(response) {
+                if (response.code === 201 || response.code === 200) {
+                    let articles = response.data;
+                    let html = "";
+                    if (!articles || articles.length === 0) {
+                        html = '<div class="text-center">No sacred texts available.</div>';
+                    } else {
+                        articles.forEach(article => {
+                            let imagePath = article.imageUrl ? `/uploads/${article.imageUrl}` : "https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&w=800&q=80";
+                            html += `
+                                <div class="article-card" data-title="${escapeHtml(article.title)}" data-desc="${escapeHtml(article.description || '')}">
+                                    <div class="article-img">
+                                        <img src="${imagePath}" alt="${escapeHtml(article.title)}" loading="lazy">
+                                    </div>
+                                    <div class="article-content">
+                                        <h3>${escapeHtml(article.title)}</h3>
+                                        <p>${escapeHtml(article.description && article.description.length > 320 ? article.description.substring(0, 320) + "..." : article.description || "Discover ancient healing practices.")}</p>
+                                        <div class="article-meta">
+                                            <span><i class="far fa-calendar-alt"></i> ${new Date().toLocaleDateString()}</span>
+                                            <span><i class="far fa-user"></i> Vaidya Parampara</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+                    $("#articles-container").html(html);
+                    
+                    $('.article-card').click(function() {
+                        const title = $(this).data('title');
+                        const desc = $(this).data('desc');
+                        Swal.fire({
+                            icon: 'info',
+                            title: title || 'Sacred Wisdom',
+                            html: `<p style="color: #6B5E4A; line-height: 1.7;">${desc || 'This sacred knowledge is part of our ongoing wellness library.'}</p>`,
+                            confirmButtonText: 'Embrace Wisdom',
+                            confirmButtonColor: '#D4AF7A',
+                            background: '#FDF9F2',
+                            borderRadius: '28px'
+                        });
+                    });
+                }
+            },
+            error: function() {
+                $("#articles-container").html('<div class="text-center">Unable to load articles. Please refresh.</div>');
             }
         });
+    }
 
-        if (hamburger) {
-            hamburger.addEventListener('click', function (e) {
-                e.stopPropagation();
-                navLinks.classList.toggle('active');
-            });
-        }
-
-        // Close mobile menu on link click
+    document.addEventListener('DOMContentLoaded', function() {
+        loadArticles();
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+        
+        // Mobile menu
+        const hamburger = document.getElementById('hamburgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        hamburger?.addEventListener('click', () => navLinks.classList.toggle('active'));
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+            link.addEventListener('click', () => navLinks.classList.remove('active'));
+        });
+        
+        // Scroll indicator
+        document.getElementById('scrollIndicator')?.addEventListener('click', () => {
+            document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Hero buttons
+        document.getElementById('heroExploreBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'info',
+                title: 'Begin Your Healing Journey',
+                text: 'Contact our wellness concierge: reservations@helasuwaya.lk | +94 76 992 1134',
+                confirmButtonText: 'Contact Us',
+                confirmButtonColor: '#D4AF7A',
+                showCancelButton: true,
+                cancelButtonText: 'Explore Packages'
+            }).then((result) => {
+                if (result.isConfirmed) window.location.href = "mailto:reservations@helasuwaya.lk";
+                else document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
             });
         });
-
-        // Scroll indicator functionality
-        const scrollIndicator = document.getElementById('scrollIndicator');
-        if (scrollIndicator) {
-            scrollIndicator.addEventListener('click', () => {
-                const aboutSection = document.getElementById('about');
-                if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
+        
+        document.getElementById('heroDiscoverBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'success',
+                title: 'Ancient Wisdom Awaits',
+                text: 'Explore our curated collection of Ayurvedic treatments.',
+                confirmButtonText: 'Explore',
+                confirmButtonColor: '#D4AF7A'
+            }).then(() => document.getElementById('articlesSection').scrollIntoView({ behavior: 'smooth' }));
+        });
+        
+        document.getElementById('bookNowBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'question',
+                title: 'Sacred Retreat Booking',
+                text: 'Our wellness team will assist you in selecting the perfect healing program.',
+                showCancelButton: true,
+                confirmButtonText: 'Book Now',
+                cancelButtonText: 'Learn More',
+                confirmButtonColor: '#D4AF7A'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({ icon: 'success', title: 'Inquiry Sent', text: 'We will contact you within 24 hours.', timer: 2000, showConfirmButton: false });
+                }
             });
-        }
-
-        // Hero buttons smooth scroll
-        const heroExplore = document.getElementById('heroExploreBtn');
-        const heroDiscover = document.getElementById('heroDiscoverBtn');
-        const bookNow = document.getElementById('bookNowBtn');
-
-        if (heroExplore) {
-            heroExplore.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-        if (heroDiscover) {
-            heroDiscover.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById('articlesSection').scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-        if (bookNow) {
-            bookNow.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert("Connect with our wellness concierge: reservations@helasuwaya.lk");
-            });
-        }
+        });
     });
 </script>
 </body>

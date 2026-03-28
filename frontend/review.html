@@ -9,6 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="icon" href="assets/traditonal medical center.ico" type="image/x-icon">
+
+
+    <!-- SweetAlert2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
@@ -143,6 +150,7 @@
             transition: var(--transition-silk);
             text-decoration: none;
             border: 1px solid rgba(230, 57, 70, 0.3);
+            cursor: pointer;
         }
 
         .btn-logout:hover {
@@ -388,6 +396,28 @@
             background: linear-gradient(135deg, var(--sacred-emerald-light), var(--sacred-emerald));
         }
 
+        /* SweetAlert Custom Theme */
+        .swal2-popup {
+            font-family: 'Inter', sans-serif;
+            border-radius: 28px !important;
+        }
+        .swal2-title {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: 700 !important;
+            color: var(--sacred-emerald) !important;
+        }
+        .swal2-confirm {
+            background: linear-gradient(135deg, var(--sacred-emerald), var(--sacred-emerald-light)) !important;
+            border-radius: 60px !important;
+            font-weight: 600 !important;
+            padding: 12px 28px !important;
+        }
+        .swal2-cancel {
+            border-radius: 60px !important;
+            border-color: var(--sacred-gold) !important;
+            color: var(--sacred-gold-dark) !important;
+        }
+
         /* Footer */
         .footer-lux {
             background: #17231C;
@@ -533,16 +563,16 @@
     <div class="container">
         <a href="#" class="logo-wrapper">
             <i class="fas fa-feather-alt logo-icon"></i>
-            <span class="logo-text">හෙළ සුවය</span>
+            <span class="logo-text">CEYLON TRADITIONAL MEDICINE CENTER</span>
         </a>
         <div class="mobile-toggle" id="mobileToggle">
             <i class="fas fa-bars"></i>
         </div>
         <ul class="nav-menu" id="navMenu">
             <li><a href="index.html" class="nav-link">Home</a></li>
-            <li><a href="index.html#treatments" class="nav-link">Treatments</a></li>
+            <li><a href="index.html#container py-5" class="nav-link">Treatments</a></li>
             <li><a href="viewReview.html" class="nav-link">My Reviews</a></li>
-            <li><a href="#" onclick="logout()" class="btn-logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            <li><a href="#" id="logoutBtn" class="btn-logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -596,7 +626,7 @@
                     <textarea class="form-control-lux" id="comment" rows="5" placeholder="Describe your healing experience, the treatments you received, and how they transformed your wellbeing..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit-lux">
+                <button type="submit" class="btn-submit-lux" id="submitReviewBtn">
                     <i class="fas fa-paper-plane"></i> Offer Your Reflection
                 </button>
             </form>
@@ -611,7 +641,7 @@
             <div class="col-lg-4">
                 <div class="d-flex align-items-center gap-3 mb-3">
                     <i class="fas fa-feather-alt" style="font-size: 1.8rem; color: var(--sacred-gold);"></i>
-                    <span class="text-white fw-bold" style="font-size: 1.2rem;">Hela Suwaya</span>
+                    <span class="text-white fw-bold" style="font-size: 1.2rem;">CEYLON TRADITIONAL MEDICINE CENTER</span>
                 </div>
                 <p class="text-white-50 small">Authentic Ceylon Healing — Preserving 5,000 years of Ayurvedic wisdom.</p>
                 <div class="social-icons">
@@ -629,14 +659,14 @@
                 </ul>
             </div>
             <div class="col-lg-4">
-                <h5 class="text-white mb-3" style="font-family: 'Cormorant Garamont';">Sacred Sanctuary</h5>
-                <p class="text-white-50 small mb-1">395/4, Harischandra Mawatha</p>
-                <p class="text-white-50 small mb-1">Anuradhapura, Sri Lanka</p>
-                <p class="text-white-50 small">reservations@helasuwaya.lk</p>
+                <h5 class="text-white mb-3" style="font-family: 'Cormorant Garamond';">Sacred Sanctuary</h5>
+                <p class="text-white-50 small mb-1">409, 1ST MAIL POST</p>
+                <p class="text-white-50 small mb-1">RATMALGODA, PORUWADANDA</p>
+                <p class="text-white-50 small">ceylontradishional@medical.lk</p>
             </div>
         </div>
         <div class="border-top mt-4 pt-4 text-center">
-            <p class="text-white-50 small mb-0">&copy; 2025 Hela Suwaya Ayurveda — Preserving Ceylon's Healing Legacy</p>
+            <p class="text-white-50 small mb-0">&copy; 2025 CEYLON TRADITIONAL MEDICINE CENTER — Preserving Ceylon's Healing Legacy</p>
         </div>
     </div>
 </footer>
@@ -645,8 +675,8 @@
 <a href="https://wa.me/94769921134" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-    // ========== BACKEND INTEGRATION (FULLY PRESERVED - NO CHANGES) ==========
-    // All original localStorage and API logic remains exactly as provided
+    // ========== BACKEND INTEGRATION with SweetAlert ==========
+    const API_BASE = "http://localhost:8080/api/v1";
     
     function getFromLocalStorage(key) {
         const data = localStorage.getItem(key);
@@ -666,41 +696,110 @@
             return data;
         }
     }
+    
+    function removeFromLocalStorage(key) {
+        localStorage.removeItem(key);
+    }
+    
+    function clearLocalStorage() {
+        localStorage.clear();
+    }
+    
+    // SweetAlert helper
+    function showSweetAlert(type, title, message, timer = null) {
+        const config = {
+            icon: type,
+            title: title,
+            text: message,
+            confirmButtonText: type === 'success' ? 'Continue' : 'Okay',
+            confirmButtonColor: '#1F4A3A',
+            background: '#FFFFFF',
+            backdrop: 'rgba(31, 74, 58, 0.4)',
+            customClass: { popup: 'swal2-popup', title: 'swal2-title', confirmButton: 'swal2-confirm' }
+        };
+        if (type === 'success' && timer) {
+            config.timer = timer;
+            config.showConfirmButton = false;
+        }
+        Swal.fire(config);
+    }
+    
+    function showConfirmDialog(title, message, confirmText = 'Yes, Logout', cancelText = 'Cancel') {
+        return Swal.fire({
+            title: title,
+            text: message,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#e63946',
+            cancelButtonColor: '#1F4A3A',
+            confirmButtonText: confirmText,
+            cancelButtonText: cancelText,
+            background: '#FFFFFF',
+            customClass: { popup: 'swal2-popup', confirmButton: 'swal2-confirm', cancelButton: 'swal2-cancel' }
+        });
+    }
 
-    // Star Rating Sync Logic (Preserved)
+    // Star Rating Sync Logic
     $(document).on('change', 'input[name="star-rating"]', function() {
         $('#rating').val($(this).val());
     });
 
     $(document).ready(function () {
-        const userEmail = localStorage.getItem("email") || getFromLocalStorage("email");
+        const userEmail = getFromLocalStorage("email");
+        const token = getFromLocalStorage("token");
         
-        if (userEmail) {
-            $("#userEmail").val(userEmail);
-            $("#userEmail").prop('readonly', true);
-        } else {
-            alert("Please log in first to submit a review. You will be redirected to sign in.");
-            window.location.href = "signin.html";
+        if (!userEmail || !token) {
+            showSweetAlert('warning', 'Sacred Journey Awaits', 'Please log in to share your healing experience.');
+            setTimeout(() => {
+                window.location.href = "signin.html";
+            }, 2000);
             return;
         }
+        
+        $("#userEmail").val(userEmail);
+        $("#userEmail").prop('readonly', true);
+        
+        // Logout handler with beautiful confirmation
+        $("#logoutBtn").on("click", function(e) {
+            e.preventDefault();
+            showConfirmDialog(
+                '🌿 Pause Your Journey?',
+                'Are you sure you want to logout? Your sacred reflections will be saved for your return.',
+                'Yes, Logout',
+                'Stay'
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    clearLocalStorage();
+                    showSweetAlert('success', 'Farewell, Seeker', 'You have been logged out. May peace follow you.', 1500);
+                    setTimeout(() => {
+                        window.location.href = "index.html";
+                    }, 1500);
+                }
+            });
+        });
 
-        // Form submission - original backend logic unchanged
+        // Form submission with SweetAlert
         $("#addReviewForm").submit(function(event) {
             event.preventDefault();
+            
             const rating = $("input[name='star-rating']:checked").val();
-            const comment = $("#comment").val();
+            const comment = $("#comment").val().trim();
             const userEmailVal = $("#userEmail").val();
+            const submitBtn = $("#submitReviewBtn");
 
             if (!rating) {
-                alert("Please select a rating to share your experience.");
+                showSweetAlert('warning', 'Share Your Experience', 'Please select a rating to honor your healing journey.');
                 return;
             }
 
-            if (!comment || comment.trim() === '') {
-                alert("Please write your reflection before submitting.");
+            if (!comment) {
+                showSweetAlert('warning', 'Sacred Words', 'Please share your reflection before offering it to our community.');
                 return;
             }
 
+            // Show loading state
+            submitBtn.prop("disabled", true).html('<i class="fas fa-spinner fa-pulse"></i> Offering Your Reflection...');
+            
             const reviewData = {
                 userEmail: userEmailVal,
                 rating: parseInt(rating),
@@ -708,37 +807,49 @@
             };
 
             $.ajax({
-                url: "http://localhost:8080/api/v1/review/save",
+                url: `${API_BASE}/review/save`,
                 method: "POST",
                 contentType: "application/json",
+                headers: { "Authorization": `Bearer ${token}` },
                 data: JSON.stringify(reviewData),
                 success: function(response) {
                     if (response.code === 201 || response.code === 200) {
-                        alert("✨ Your sacred reflection has been received! Thank you for sharing your healing journey.");
+                        Swal.fire({
+                            icon: 'success',
+                            title: '✨ Sacred Reflection Received ✨',
+                            html: `<p style="font-size: 1rem;">Thank you for sharing your healing journey with our community.</p>
+                                   <p class="small text-muted">Your words inspire others on their path to wellness.</p>`,
+                            confirmButtonText: 'Blessings',
+                            confirmButtonColor: '#1F4A3A',
+                            background: '#FDF7F0'
+                        });
+                        
+                        // Reset form
                         $("#addReviewForm")[0].reset();
                         $('input[name="star-rating"]').prop('checked', false);
                         $("#rating").val('');
                         $("#userEmail").val(userEmailVal);
                     } else {
-                        alert("Unable to submit: " + (response.message || 'Please try again.'));
+                        showSweetAlert('error', 'Unable to Submit', response.message || 'Please try again later.');
                     }
+                    submitBtn.prop("disabled", false).html('<i class="fas fa-paper-plane"></i> Offer Your Reflection');
                 },
                 error: function(xhr) {
-                    const errorMsg = xhr?.responseJSON?.message || "Connection issue. Please ensure you are connected to the server.";
-                    alert("❌ " + errorMsg);
-                    console.error("Review submission error:", xhr);
+                    let errorMsg = "Connection issue. Please ensure you are connected to the server.";
+                    if (xhr.status === 401 || xhr.status === 403) {
+                        errorMsg = "Your session has expired. Please log in again.";
+                        setTimeout(() => { window.location.href = "signin.html"; }, 2000);
+                    } else if (xhr.responseJSON?.message) {
+                        errorMsg = xhr.responseJSON.message;
+                    }
+                    showSweetAlert('error', 'Submission Failed', errorMsg);
+                    submitBtn.prop("disabled", false).html('<i class="fas fa-paper-plane"></i> Offer Your Reflection');
                 }
             });
         });
     });
-
-    // Logout function - preserved
-    function logout() {
-        localStorage.clear();
-        window.location.href = "index.html";
-    }
     
-    // UI Interactions (Navbar scroll, mobile menu, back to top)
+    // UI Interactions
     window.addEventListener('scroll', function() {
         const navbar = document.getElementById('mainNavbar');
         const backBtn = document.getElementById('backToTop');
@@ -770,6 +881,8 @@
     document.getElementById('backToTop')?.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+    
+    console.log("%c🌿 Hela Suwaya - Your Sacred Reflection Matters 🌿", "color: #D4AF7A; font-size: 14px; font-weight: bold;");
 </script>
 </body>
 </html>

@@ -2,26 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Hela Suwaya | Sacred Accommodations - Ayurvedic Sanctuary</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hela Suwaya | Sacred Sanctuaries - Luxury Ayurvedic Accommodations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="assets/traditonal medical center.ico" type="image/x-icon">
+
+    <!-- SweetAlert2 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <style>
         :root {
-            --deep-forest: #1F2E24;
-            --gold-leaf: #C9A87C;
-            --gold-dark: #B48C48;
-            --cream: #FDF8F0;
-            --stone: #6B5E4A;
-            --charcoal: #2C2A29;
-            --transition-smooth: all 0.6s cubic-bezier(0.2, 0.95, 0.4, 1.05);
+            --sacred-emerald: #1F4A3A;
+            --sacred-emerald-light: #3A6B58;
+            --sacred-gold: #D4AF7A;
+            --sacred-gold-dark: #B48C48;
+            --earth-cream: #FDF7F0;
+            --charcoal-elegant: #2C3A33;
+            --stone-mist: #6B5E4A;
+            --white-pure: #FFFFFF;
+            --shadow-soft: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            --shadow-lux: 0 30px 50px -15px rgba(31, 74, 58, 0.15);
+            --transition-silk: all 0.5s cubic-bezier(0.2, 0.95, 0.4, 1.1);
         }
 
         * {
@@ -32,348 +45,431 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--cream);
-            color: var(--charcoal);
+            background: var(--earth-cream);
+            color: var(--charcoal-elegant);
             overflow-x: hidden;
         }
 
         h1, h2, h3, h4, .brand-logo, .section-main-title, .card-title {
             font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.02em;
         }
 
-        /* --- World-Class Navbar --- */
-        .navbar {
-            padding: 1.4rem 0;
-            transition: var(--transition-smooth);
+        /* ========== WORLD-CLASS NAVBAR ========== */
+        .navbar-premium {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: var(--transition-silk);
             background: transparent;
         }
-        
-        .navbar.scrolled {
-            background: rgba(31, 46, 36, 0.96) !important;
-            backdrop-filter: blur(12px);
+
+        .navbar-premium.scrolled {
+            background: rgba(31, 74, 58, 0.96);
+            backdrop-filter: blur(16px);
             padding: 0.8rem 0;
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(212, 175, 122, 0.2);
         }
-        
-        .navbar.scrolled .nav-link { color: #F5EAD9 !important; }
-        .navbar.scrolled .brand-logo { 
+
+        .navbar-premium .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            font-size: 1.8rem;
+            color: var(--sacred-gold);
+            transition: var(--transition-silk);
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .brand-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
             background: linear-gradient(135deg, #F5EAD9, #E6CFA5);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-        }
-
-        .brand-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #F8F0E3, #E6CFA5);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 1px 8px rgba(0,0,0,0.2);
             letter-spacing: 1px;
         }
 
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
         .nav-link {
+            color: rgba(255, 248, 235, 0.9);
+            text-decoration: none;
             font-weight: 500;
             font-size: 0.85rem;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            margin: 0 14px;
+            transition: var(--transition-silk);
             position: relative;
-            color: #FDF3E6 !important;
-            transition: var(--transition-smooth);
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 1.5px;
+            height: 2px;
             bottom: -4px;
             left: 0;
-            background: var(--gold-leaf);
-            transition: width 0.4s ease;
+            background: var(--sacred-gold);
+            transition: width 0.3s ease;
         }
-        
-        .nav-link:hover::after { width: 100%; }
-        .nav-link:hover { color: var(--gold-leaf) !important; }
 
-        .btn-outline-lux {
-            border: 1.5px solid rgba(201, 168, 124, 0.7);
-            background: transparent;
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--sacred-gold);
+        }
+
+        .btn-signature {
+            background: var(--sacred-gold);
+            color: var(--sacred-emerald);
             padding: 8px 28px;
-            border-radius: 40px;
+            border-radius: 60px;
+            font-weight: 600;
             font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-        .btn-outline-lux:hover {
-            background: var(--gold-leaf);
-            border-color: var(--gold-leaf);
-            color: var(--deep-forest);
-            transform: translateY(-2px);
+            transition: var(--transition-silk);
+            text-decoration: none;
+            display: inline-block;
         }
 
-        /* --- Hero Section - Cinematic --- */
-        .page-header {
-            height: 78vh;
-            min-height: 600px;
+        .btn-signature:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 122, 0.3);
+            background: #c49a5c;
+            color: white;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--sacred-gold);
+            cursor: pointer;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero-section {
+            position: relative;
+            min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            background: linear-gradient(115deg, rgba(20, 30, 22, 0.75), rgba(0, 0, 0, 0.55)), url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(31, 74, 58, 0.85), rgba(31, 74, 58, 0.75)), url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
             background-attachment: fixed;
             margin-top: 0;
         }
-        
-        .page-header::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30%;
-            background: linear-gradient(to top, rgba(253, 248, 240, 0.95), transparent);
-            pointer-events: none;
+
+        .hero-content {
+            animation: fadeUp 1s ease-out;
+            padding: 0 2rem;
         }
-        
-        .hero-inner {
-            position: relative;
-            z-index: 3;
-            animation: fadeUp 1.1s ease-out;
-        }
-        
+
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(35px); }
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .hero-badge {
-            background: rgba(201, 168, 124, 0.18);
-            backdrop-filter: blur(8px);
             display: inline-block;
-            padding: 6px 20px;
+            background: rgba(212, 175, 122, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 8px 24px;
             border-radius: 60px;
             font-size: 0.7rem;
-            letter-spacing: 2.5px;
-            color: #F5E6D3;
-            border: 1px solid rgba(201, 168, 124, 0.5);
-            margin-bottom: 24px;
+            letter-spacing: 3px;
+            color: var(--sacred-gold);
+            border: 1px solid rgba(212, 175, 122, 0.4);
+            margin-bottom: 1.5rem;
         }
-        
-        .page-header .display-4 {
-            font-size: clamp(2.8rem, 6vw, 5rem);
-            font-weight: 700;
-            letter-spacing: -1px;
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
             color: white;
-            text-shadow: 0 4px 18px rgba(0,0,0,0.2);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1rem;
         }
-        
-        .hero-sub {
-            font-size: 1.1rem;
-            color: rgba(255,250,235,0.9);
-            max-width: 550px;
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 248, 235, 0.85);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ========== ACCOMMODATION SECTION ========== */
+        .accommodation-section {
+            padding: 5rem 6%;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* --- Accommodation Section - Masterpiece Grid --- */
         .section-title-wrap {
-            margin-bottom: 4rem;
             text-align: center;
+            margin-bottom: 4rem;
         }
-        
+
         .section-subtitle {
-            color: var(--gold-leaf);
+            color: var(--sacred-gold);
             font-weight: 500;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             display: inline-block;
-            margin-bottom: 12px;
-            background: rgba(201, 168, 124, 0.1);
+            background: rgba(212, 175, 122, 0.1);
             padding: 6px 20px;
-            border-radius: 40px;
+            border-radius: 60px;
+            margin-bottom: 1rem;
         }
-        
+
         .section-main-title {
-            font-size: 3.4rem;
+            font-size: 3rem;
+            color: var(--sacred-emerald);
+            margin-bottom: 1rem;
             position: relative;
             display: inline-block;
-            color: var(--deep-forest);
-            margin-top: 8px;
         }
-        
+
         .section-main-title:after {
             content: '';
             position: absolute;
             width: 70px;
-            height: 2px;
-            background: var(--gold-leaf);
-            bottom: -15px;
+            height: 3px;
+            background: var(--sacred-gold);
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
         }
-        
-        /* Luxury Cards */
+
+        /* ========== LUXURY CARDS ========== */
         .accommodation-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2.5rem;
+            margin-top: 2rem;
         }
-        
-        .dest-card {
-            background: #FFFFFF;
+
+        .sanctuary-card {
+            background: var(--white-pure);
             border-radius: 28px;
             overflow: hidden;
-            transition: var(--transition-smooth);
-            box-shadow: 0 15px 35px -12px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(201, 168, 124, 0.2);
+            transition: var(--transition-silk);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(212, 175, 122, 0.15);
+        }
+
+        .sanctuary-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lux);
+            border-color: rgba(212, 175, 122, 0.4);
+        }
+
+        .card-image-wrapper {
             position: relative;
-        }
-        
-        .dest-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 28px 45px -15px rgba(31, 46, 36, 0.2);
-            border-color: rgba(201, 168, 124, 0.4);
-        }
-        
-        .dest-img-container {
-            height: 300px;
+            height: 280px;
             overflow: hidden;
-            position: relative;
         }
-        
-        .dest-img-container img {
+
+        .card-image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: transform 0.7s ease;
         }
-        
-        .dest-card:hover .dest-img-container img {
+
+        .sanctuary-card:hover .card-image-wrapper img {
             transform: scale(1.08);
         }
-        
-        .card-category {
+
+        .category-badge {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(201, 168, 124, 0.9);
-            backdrop-filter: blur(4px);
-            padding: 5px 16px;
+            background: var(--sacred-gold);
+            color: var(--sacred-emerald);
+            padding: 6px 16px;
             border-radius: 40px;
             font-size: 0.7rem;
-            font-weight: 600;
-            color: #1F2E24;
+            font-weight: 700;
             letter-spacing: 0.5px;
             z-index: 2;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
+
         .card-content {
             padding: 1.8rem;
         }
-        
+
         .card-title {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--sacred-emerald);
             margin-bottom: 0.5rem;
-            color: var(--deep-forest);
         }
-        
-        .card-location {
+
+        .location-info {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 0.8rem;
-            color: var(--stone);
+            color: var(--stone-mist);
             margin-bottom: 1rem;
-            border-bottom: 1px dashed #EADBCE;
-            padding-bottom: 0.7rem;
-        }
-        
-        .card-description {
-            color: #5A4A3A;
-            line-height: 1.6;
-            font-size: 0.9rem;
-            margin: 1rem 0;
-        }
-        
-        .price-tag {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold-dark);
-            font-family: 'Cormorant Garamond', serif;
-            margin: 0.5rem 0;
-        }
-        
-        .price-tag small {
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: var(--stone);
-        }
-        
-        .btn-card {
-            background: transparent;
-            border: 1.5px solid var(--gold-leaf);
-            border-radius: 40px;
-            padding: 8px 24px;
-            font-weight: 500;
-            transition: all 0.3s;
-            color: var(--deep-forest);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-card:hover {
-            background: var(--gold-leaf);
-            border-color: var(--gold-leaf);
-            color: white;
-            transform: translateX(5px);
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(212, 175, 122, 0.2);
         }
 
-        /* Footer Elegance */
-        .footer {
-            background: #17231C !important;
-            border-top: 1px solid rgba(201, 168, 124, 0.25);
+        .location-info i {
+            color: var(--sacred-gold);
         }
-        
-        .footer h3 {
-            font-family: 'Inter', sans-serif;
+
+        .card-description {
+            color: var(--stone-mist);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .price-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 1.2rem;
+        }
+
+        .price-amount {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--sacred-gold-dark);
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .price-period {
+            font-size: 0.8rem;
+            color: var(--stone-mist);
+        }
+
+        .btn-inquire {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            border: 1.5px solid var(--sacred-gold);
+            color: var(--sacred-emerald);
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-weight: 600;
             font-size: 0.85rem;
-            letter-spacing: 2.5px;
-            font-weight: 500;
+            transition: var(--transition-silk);
+            text-decoration: none;
+            width: 100%;
+            justify-content: center;
+            cursor: pointer;
         }
-        
-        .contact-item h4 {
-            font-size: 0.7rem;
-            opacity: 0.7;
-            letter-spacing: 1px;
+
+        .btn-inquire:hover {
+            background: var(--sacred-gold);
+            color: var(--sacred-emerald);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 122, 0.3);
         }
-        
+
+        /* SweetAlert Custom Theme */
+        .swal2-popup {
+            font-family: 'Inter', sans-serif;
+            border-radius: 28px !important;
+        }
+        .swal2-title {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: 700 !important;
+            color: var(--sacred-emerald) !important;
+        }
+        .swal2-confirm {
+            background: linear-gradient(135deg, var(--sacred-emerald), var(--sacred-emerald-light)) !important;
+            border-radius: 60px !important;
+            font-weight: 600 !important;
+            padding: 12px 28px !important;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer-lux {
+            background: #17231C;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-lux h4 {
+            color: var(--sacred-gold);
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .footer-lux a {
+            color: #B8C9C0;
+            text-decoration: none;
+            transition: var(--transition-silk);
+            font-size: 0.85rem;
+        }
+
+        .footer-lux a:hover {
+            color: var(--sacred-gold);
+        }
+
         .social-icon {
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            background: rgba(255,255,240,0.08);
+            background: rgba(212, 175, 122, 0.15);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: 0.2s;
-            color: var(--gold-leaf);
+            transition: var(--transition-silk);
+            color: var(--sacred-gold);
         }
-        
+
         .social-icon:hover {
-            background: var(--gold-leaf);
+            background: var(--sacred-gold);
             color: #17231C;
             transform: translateY(-3px);
         }
-        
+
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -381,17 +477,25 @@
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            background: var(--gold-leaf);
-            color: #1F2E24;
+            background: var(--sacred-gold);
+            color: var(--sacred-emerald);
             border: none;
             cursor: pointer;
+            transition: var(--transition-silk);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             z-index: 99;
         }
-        
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .whatsapp-btn {
             position: fixed;
             bottom: 30px;
@@ -405,194 +509,222 @@
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-            transition: 0.2s;
-            z-index: 99;
+            transition: var(--transition-silk);
             text-decoration: none;
+            z-index: 99;
         }
-        
+
         .whatsapp-btn:hover {
             transform: scale(1.08);
             background: #128C7E;
         }
-        
+
         @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--sacred-emerald);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .section-main-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
             .accommodation-grid {
                 grid-template-columns: 1fr;
             }
-            .section-main-title {
-                font-size: 2.4rem;
+            .hero-title {
+                font-size: 2rem;
             }
-        }
-        
-        @media (max-width: 768px) {
-            .page-header {
-                height: 60vh;
+            .card-image-wrapper {
+                height: 240px;
             }
-            .card-content {
-                padding: 1.4rem;
-            }
-        }
-        
-        .loading-spinner {
-            text-align: center;
-            padding: 3rem;
-            color: var(--gold-leaf);
         }
     </style>
 </head>
 <body>
 
 <!-- World-Class Navbar -->
-<header class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavbar">
+<nav class="navbar-premium" id="mainNavbar">
     <div class="container">
-        <a class="navbar-brand brand-logo" href="index.html">CEYLON TRADITIONAL MEDICINE</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navmenu">
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#treatments">Services</a></li>
-                <li class="nav-item"><a class="nav-link active" href="#accommodation">Accommodation</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                <li class="nav-item ms-lg-3">
-                    <a href="signin.html" class="btn btn-outline-lux text-white">SIGN IN</a>
-                </li>
-            </ul>
+        <a href="index.html" class="brand-wrapper">
+            <i class="fas fa-feather-alt brand-icon"></i>
+            <span class="brand-logo">CEYLON TRADITIONAL MEDICINE CENTER</span>
+        </a>
+        <div class="mobile-toggle" id="mobileToggle">
+            <i class="fas fa-bars"></i>
         </div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="index.html#about" class="nav-link">About</a></li>
+            <li><a href="index.html#services" class="nav-link">Services</a></li>
+            <li><a href="#accommodation" class="nav-link active">Sanctuaries</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li><a href="signin.html" class="btn-signature">Sign In <i class="fas fa-arrow-right ms-1"></i></a></li>
+        </ul>
     </div>
-</header>
+</nav>
 
-<!-- Hero Section - Cinematic -->
-<div class="page-header" id="home">
-    <div class="container text-center hero-inner">
-        <div class="hero-badge"><i class="fas fa-feather-alt me-2"></i> AYURVEDIC SANCTUARY</div>
-        <h1 class="display-4 text-white mb-3">Sacred Stays<br>for Deep Renewal</h1>
-        <p class="hero-sub mx-auto">Immerse yourself in spaces designed with Vastu principles, blending nature's tranquility with heritage elegance.</p>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-feather-alt me-2"></i> SACRED SANCTUARIES</div>
+        <h1 class="hero-title">Where Serenity<br>Meets Spirituality</h1>
+        <p class="hero-subtitle">Immerse yourself in spaces designed with Vastu principles, blending nature's tranquility with heritage elegance.</p>
     </div>
-</div>
+</section>
 
-<!-- Accommodation Section - Dynamic, World-Class UI -->
-<div class="container py-5 mt-4" id="accommodation">
-    <div class="section-title-wrap">
-        <span class="section-subtitle"><i class="fas fa-leaf me-1"></i> Serene Abodes</span>
-        <h2 class="section-main-title">Where Wellness Begins</h2>
-        <p class="text-muted mt-4 mx-auto" style="max-width: 620px;">Each residence is curated with natural materials, private garden views, and authentic Ayurvedic ambiance.</p>
+<!-- Accommodation Section -->
+<section class="accommodation-section" id="accommodation">
+    <div class="section-title-wrap" data-aos="fade-up">
+        <span class="section-subtitle"><i class="fas fa-leaf me-1"></i> Sacred Abodes</span>
+        <h2 class="section-main-title">Your Healing Sanctuary</h2>
+        <p class="text-muted mt-3">Each residence is curated with natural materials, private garden views, and authentic Ayurvedic ambiance.</p>
     </div>
     
     <div class="accommodation-grid" id="destinationList">
-        <!-- Dynamic content from backend loads here -->
-        <div class="loading-spinner"><i class="fas fa-spinner fa-pulse fa-2x"></i><br>Loading sacred spaces...</div>
+        <div class="text-center py-5" style="grid-column: 1/-1;">
+            <i class="fas fa-spinner fa-pulse fa-2x" style="color: var(--sacred-gold);"></i>
+            <p class="mt-3 text-muted">Loading sacred sanctuaries...</p>
+        </div>
     </div>
-</div>
+</section>
 
-<!-- Footer Luxury -->
-<footer class="footer pt-5 mt-5" id="contact">
-    <div class="container py-5">
+<!-- Footer -->
+<footer class="footer-lux" id="contact">
+    <div class="container">
         <div class="row g-5">
-            <div class="col-lg-4 col-md-6">
-                <h3 class="text-white mb-4">CONTACT</h3>
-                <div class="contact-item mb-4">
-                    <h4 class="text-white-50">ADDRESS</h4>
-                    <p class="text-white-50">395/4, Harischandra Mawatha,<br>Anuradhapura, Sri Lanka</p>
-                </div>
-                <div class="contact-item mb-4">
-                    <h4 class="text-white-50">INQUIRIES</h4>
-                    <p class="text-white-50">+94 25 2030200<br>reservations@helasuwaya.lk</p>
-                </div>
-                <div class="d-flex gap-3 mt-4">
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <div class="col-md-4">
+                <h4>Sacred Sanctuary</h4>
+                <p class="text-white-50 small">409, 1ST MAIL POST<br>RATMALGODA, PORUWADANDA</p>
+                <p class="text-white-50 small"><i class="fas fa-phone me-2"></i> +94 76 343 2913</p>
+                <p class="text-white-50 small"><i class="fas fa-envelope me-2"></i> ceylontradishional@medical.lk</p>
+                <div class="d-flex gap-3 mt-3">
                     <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-
-            <div class="col-lg-5 col-md-6">
-                <h3 class="text-white mb-4">EXPLORE</h3>
-                <div class="row">
-                    <div class="col-6">
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">The Sanctuary</a></li>
-                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Ayurveda Programs</a></li>
-                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Dining Experience</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6">
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Wellness Packages</a></li>
-                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Contact Us</a></li>
-                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Privacy</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="col-md-4">
+                <h4>Explore</h4>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#">Ayurveda Wisdom</a></li>
+                    <li class="mb-2"><a href="#">Our Physicians</a></li>
+                    <li class="mb-2"><a href="#">Wellness Packages</a></li>
+                    <li class="mb-2"><a href="#">Sacred Stays</a></li>
+                </ul>
             </div>
-
-            <div class="col-lg-3 text-center">
-                <div class="p-4" style="border: 1px solid rgba(201, 168, 124, 0.3); background: rgba(0,0,0,0.2);">
-                    <i class="fas fa-feather-alt mb-3" style="font-size: 2rem; color: var(--gold-leaf);"></i>
-                    <h4 class="text-white">HELA SUWAYA</h4>
-                    <p class="small text-white-50">Authentic Ceylon Healing</p>
+            <div class="col-md-4 text-center">
+                <div class="p-4" style="border: 1px solid rgba(212, 175, 122, 0.3); border-radius: 24px;">
+                    <i class="fas fa-leaf fa-3x mb-3" style="color: var(--sacred-gold);"></i>
+                    <h4 class="text-white mb-0">Hela Suwaya</h4>
+                    <p class="text-white-50 small">Ceylon Traditional Medicine</p>
                 </div>
             </div>
         </div>
-
-        <div class="border-top mt-5 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center" style="border-color: rgba(255,255,240,0.1) !important;">
-            <p class="small text-white-50">&copy; 2026 Hela Suwaya Ayurveda. All rights reserved. | Traditional Wisdom</p>
-            <p class="small text-white-50">Crafted by <a href="#" class="text-decoration-none" style="color: var(--gold-leaf);">Athwa Solutions</a></p>
-        </div>
+        <hr class="mt-5" style="border-color: rgba(212, 175, 122, 0.2);">
+        <p class="text-center text-white-50 small mb-0">&copy; 2025 CEYLON TRADITIONAL MEDICINE CENTER — Preserving Ceylon's Healing Legacy</p>
     </div>
 </footer>
 
-<button class="back-to-top border-0" id="backToTopBtn">
-    <i class="fas fa-arrow-up"></i>
-</button>
-<a href="https://wa.me/94704725634" class="whatsapp-btn" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
+<button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
+<a href="https://wa.me/94704725634" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
-    // =============== BACKEND INTEGRATION (UNCHANGED) ===============
-    // API Endpoint exactly as originally used
+    // Initialize AOS
+    AOS.init({ duration: 800, once: true, offset: 100 });
+
+    // ========== BACKEND INTEGRATION with SweetAlert ==========
     const API_URL = "http://localhost:8080/api/v1/accommodation/getAll";
 
-    // Load accommodations dynamically (keeping original backend logic)
+    function showSweetAlert(type, title, message, timer = null) {
+        const config = {
+            icon: type,
+            title: title,
+            text: message,
+            confirmButtonText: type === 'success' ? 'Continue' : 'Okay',
+            confirmButtonColor: '#1F4A3A',
+            background: '#FFFFFF',
+            backdrop: 'rgba(31, 74, 58, 0.4)',
+            customClass: { popup: 'swal2-popup', title: 'swal2-title', confirmButton: 'swal2-confirm' }
+        };
+        if (type === 'success' && timer) {
+            config.timer = timer;
+            config.showConfirmButton = false;
+        }
+        Swal.fire(config);
+    }
+
+    function getFromLocalStorage(key) {
+        const data = localStorage.getItem(key);
+        if (!data) return null;
+        try {
+            const parsed = JSON.parse(data);
+            const now = new Date().getTime();
+            if (parsed.expiry && parsed.expiry < now) {
+                localStorage.removeItem(key);
+                return null;
+            }
+            return parsed.value;
+        } catch {
+            return data;
+        }
+    }
+
     function loadAccommodations() {
         $.ajax({
             url: API_URL,
             type: "GET",
             success: function(response) {
                 let accommodations = [];
-                // Handle different response structures (like original code supports)
                 if (response && response.data && Array.isArray(response.data)) {
                     accommodations = response.data;
                 } else if (Array.isArray(response)) {
                     accommodations = response;
                 } else if (response && response.code && response.data) {
                     accommodations = response.data;
-                } else {
-                    accommodations = [];
                 }
-                
                 renderAccommodationCards(accommodations);
             },
-            error: function(xhr, status, error) {
-                console.error("Error loading accommodations:", error);
+            error: function(xhr) {
+                console.error("Error loading accommodations:", xhr);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Connection Issue',
+                    text: 'Unable to load sacred sanctuaries. Please check your connection and refresh the page.',
+                    confirmButtonColor: '#1F4A3A'
+                });
                 $("#destinationList").html(`
                     <div class="text-center py-5" style="grid-column: 1/-1;">
-                        <i class="fas fa-leaf fa-2x" style="color: var(--gold-leaf); opacity:0.6;"></i>
-                        <p class="mt-3 text-muted">Unable to load accommodations. Please refresh or try again later.</p>
+                        <i class="fas fa-leaf fa-2x" style="color: var(--sacred-gold); opacity:0.6;"></i>
+                        <p class="mt-3 text-muted">Unable to load sanctuaries. Please refresh or try again later.</p>
+                        <button onclick="location.reload()" class="btn btn-outline-warning mt-2 rounded-pill px-4" style="border-color: #D4AF7A; color: #1F4A3A;">Refresh</button>
                     </div>
                 `);
             }
         });
     }
 
-    // Render cards with world-class UI (pure frontend, backend untouched)
     function renderAccommodationCards(items) {
         const container = $("#destinationList");
         container.empty();
@@ -600,7 +732,7 @@
         if (!items || items.length === 0) {
             container.html(`
                 <div class="text-center py-5" style="grid-column: 1/-1;">
-                    <i class="fas fa-spa fa-3x" style="color: var(--gold-leaf);"></i>
+                    <i class="fas fa-spa fa-3x" style="color: var(--sacred-gold);"></i>
                     <h4 class="mt-3">Coming Soon</h4>
                     <p class="text-muted">New luxury sanctuaries being prepared for your arrival.</p>
                 </div>
@@ -608,9 +740,7 @@
             return;
         }
         
-        items.forEach(item => {
-            // Support various property names from backend
-            const id = item.id || item.accommodationId || 0;
+        items.forEach((item, index) => {
             const name = item.name || item.accommodationName || "Serene Retreat";
             const description = item.description || item.accommodationDesc || "A peaceful space designed for holistic healing and rejuvenation.";
             const location = item.location || item.address || "Anuradhapura, Sri Lanka";
@@ -618,32 +748,32 @@
             const costPerDay = item.costPerDay || item.price || item.dailyRate || 0;
             let imageUrl = item.imageUrl || item.image || item.imgUrl;
             
-            // Fix image path (same logic as original)
             if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('/uploads/')) {
                 imageUrl = `/uploads/${imageUrl}`;
             } else if (!imageUrl) {
-                imageUrl = "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80";
+                imageUrl = "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80";
             }
             
             const cardHtml = `
-                <div class="dest-card">
-                    <div class="dest-img-container">
-                        <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(name)}" loading="lazy">
-                        <span class="card-category"><i class="fas fa-tag me-1"></i> ${escapeHtml(category)}</span>
+                <div class="sanctuary-card" data-aos="fade-up" data-aos-delay="${index * 50}" data-sanctuary-name="${escapeHtml(name)}" data-sanctuary-price="${costPerDay}" data-sanctuary-category="${escapeHtml(category)}">
+                    <div class="card-image-wrapper">
+                        <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(name)}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80'">
+                        <span class="category-badge"><i class="fas fa-tag me-1"></i> ${escapeHtml(category)}</span>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">${escapeHtml(name)}</h3>
-                        <div class="card-location">
-                            <i class="fas fa-map-marker-alt" style="color: var(--gold-leaf);"></i>
+                        <div class="location-info">
+                            <i class="fas fa-map-marker-alt"></i>
                             <span>${escapeHtml(location)}</span>
                         </div>
-                        <p class="card-description">${escapeHtml(description.length > 120 ? description.substring(0, 120) + "..." : description)}</p>
-                        <div class="price-tag">LKR ${Number(costPerDay).toLocaleString()} <small>/ per night</small></div>
-                        <div class="mt-3">
-                            <a href="#" class="btn-card" onclick="event.preventDefault(); alert('Enquiry for ${escapeHtml(name)}: Contact reservations@helasuwaya.lk');">
-                                Inquire Now <i class="fas fa-arrow-right"></i>
-                            </a>
+                        <p class="card-description">${escapeHtml(description.length > 110 ? description.substring(0, 110) + "..." : description)}</p>
+                        <div class="price-wrapper">
+                            <span class="price-amount">LKR ${Number(costPerDay).toLocaleString()}</span>
+                            <span class="price-period">/ per night</span>
                         </div>
+                        <button class="btn-inquire" onclick="inquireSanctuary(this)">
+                            Inquire Now <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
             `;
@@ -661,12 +791,48 @@
         });
     }
     
-    // =============== UI Enhancements (Scroll, Back to Top, Navbar) ===============
+    window.inquireSanctuary = function(button) {
+        const card = $(button).closest('.sanctuary-card');
+        const sanctuaryName = card.data('sanctuary-name') || "this sanctuary";
+        const sanctuaryPrice = card.data('sanctuary-price') || "custom";
+        
+        const userEmail = getFromLocalStorage("email");
+        
+        Swal.fire({
+            icon: 'info',
+            title: '✨ Sacred Inquiry ✨',
+            html: `
+                <div class="text-start">
+                    <p><strong style="color: #D4AF7A;">${escapeHtml(sanctuaryName)}</strong> awaits your presence.</p>
+                    <p class="small text-muted mt-2">Our wellness concierge will assist you with availability, special rates, and personalized healing programs.</p>
+                    <hr style="border-color: #EADBCE;">
+                    <p><i class="fas fa-phone me-2" style="color: #D4AF7A;"></i> +94 25 2030200<br>
+                    <i class="fas fa-envelope me-2" style="color: #D4AF7A;"></i> reservations@helasuwaya.lk</p>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Contact Concierge',
+            cancelButtonText: 'Browse More',
+            confirmButtonColor: '#1F4A3A',
+            cancelButtonColor: '#D4AF7A'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Journey Initiated',
+                    text: 'Our wellness team will reach out within 24 hours to craft your sacred stay.',
+                    confirmButtonColor: '#1F4A3A'
+                });
+            }
+        });
+    };
+    
+    // ========== UI ENHANCEMENTS ==========
     document.addEventListener('DOMContentLoaded', function() {
         loadAccommodations();
         
         const navbar = document.getElementById('mainNavbar');
-        const backBtn = document.getElementById('backToTopBtn');
+        const backBtn = document.getElementById('backToTop');
         
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -674,14 +840,11 @@
             } else {
                 navbar.classList.remove('scrolled');
             }
-            
             if (backBtn) {
                 if (window.scrollY > 400) {
-                    backBtn.style.opacity = '1';
-                    backBtn.style.visibility = 'visible';
+                    backBtn.classList.add('visible');
                 } else {
-                    backBtn.style.opacity = '0';
-                    backBtn.style.visibility = 'hidden';
+                    backBtn.classList.remove('visible');
                 }
             }
         });
@@ -691,6 +854,22 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
+        
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-link, .btn-signature').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
         
         // Smooth scroll for anchor links
         document.querySelectorAll('.nav-link').forEach(link => {
@@ -702,13 +881,30 @@
                     const targetEl = document.getElementById(targetId);
                     if (targetEl) {
                         targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    } else if (targetId === 'accommodation') {
-                        document.getElementById('accommodation')?.scrollIntoView({ behavior: 'smooth' });
                     }
                 }
             });
         });
+        
+        // Welcome message with SweetAlert if new visitor (optional)
+        const hasVisited = sessionStorage.getItem('accommodation_visited');
+        if (!hasVisited) {
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'info',
+                    title: '🏝️ Find Your Sanctuary',
+                    text: 'Discover our handpicked luxury accommodations designed for deep healing and tranquility.',
+                    confirmButtonText: 'Explore',
+                    confirmButtonColor: '#1F4A3A',
+                    timer: 4000,
+                    showConfirmButton: true
+                });
+                sessionStorage.setItem('accommodation_visited', 'true');
+            }, 1500);
+        }
     });
+    
+    console.log("%c🏝️ Hela Suwaya - Sacred Sanctuaries Await 🏝️", "color: #D4AF7A; font-size: 14px; font-weight: bold;");
 </script>
 </body>
 </html>
