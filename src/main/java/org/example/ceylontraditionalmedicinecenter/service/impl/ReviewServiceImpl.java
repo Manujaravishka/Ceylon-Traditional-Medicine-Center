@@ -23,7 +23,13 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public int saveReview(ReviewDTO reviewDTO) {
-        Review review = modelMapper.map(reviewDTO, Review.class);
+        Review review = new Review();
+        review.setUserEmail(reviewDTO.getUserEmail());
+        review.setComment(reviewDTO.getComment());
+        review.setRating(reviewDTO.getRating());
+        review.setProblem(reviewDTO.getProblem());
+        review.setSolved(reviewDTO.isSolved());
+        review.setCreatedAt(java.time.LocalDateTime.now().toString());
         reviewRepository.save(review);
         return VarList.Created;
     }

@@ -21,6 +21,12 @@ public class Review {
     @Column(nullable = false)
     private String comment; // Review content
 
+    @Column(nullable = true)
+    private String problem; // Health problem described
+
+    @Column(nullable = false)
+    private boolean solved; // Whether the problem was solved
+
     @Column(nullable = false)
     private int rating; // Rating (e.g., 1-5)
 

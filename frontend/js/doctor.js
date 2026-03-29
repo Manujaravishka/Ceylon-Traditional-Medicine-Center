@@ -94,6 +94,15 @@ $(document).ready(function () {
         reader.readAsDataURL(event.target.files[0]);
     });
 
+    // ✅ Image Preview Edit
+    $("#editDoctorImage").on("change", function (event) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            $("#editImagePreview").attr("src", e.target.result).show();
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
     // ✅ Edit Doctor - Fill Modal
     $(document).on("click", ".edit-doctor-btn", function () {
         $("#editDoctorEmail").val($(this).data("email"));

@@ -83,7 +83,8 @@ public class SecurityConfig {
                                                 "/api/v1/payment/**",
                                                 "/api/v1/dashboard/**",
                                                 "/api/v1/review/**",
-                                                "/api/v1/article/**"
+                                                "/api/v1/article/**",
+                                                "/api/v1/ai-diagnose"
                                         ).permitAll()
                                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                                         .requestMatchers("/api/v1/user/update-role").hasRole("ADMIN")

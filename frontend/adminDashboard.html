@@ -341,7 +341,7 @@
     </div>
 
     <!-- Users Panel -->
-    <div id="users" class="hidden"><div class="d-flex flex-wrap justify-content-between align-items-center mb-4"><div><h3><i class="fas fa-users me-2"></i>User Registry</h3><small class="text-muted">Showing active users. Toggle to load all.</small></div><div class="d-flex gap-2 align-items-center"><input type="text" id="searchInput" class="search-glass" placeholder="Search by name or email..."><select id="userStatusFilter" class="form-select" style="width:auto;"><option value="active" selected>Active</option><option value="all">All</option><option value="inactive">Inactive</option></select></div></div><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Full Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></thead><tbody id="userTableBody"></tbody></table></div></div>
+    <div id="users" class="hidden"><div class="d-flex flex-wrap justify-content-between align-items-center mb-4"><div><h3><i class="fas fa-users me-2"></i>User Registry</h3><small class="text-muted">Showing active users. Toggle to load all.</small></div><div class="d-flex gap-2 align-items-center"><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="fas fa-plus me-2"></i>Add User</button><input type="text" id="searchInput" class="search-glass" placeholder="Search by name or email..."><select id="userStatusFilter" class="form-select" style="width:auto;"><option value="active" selected>Active</option><option value="all">All</option><option value="inactive">Inactive</option></select></div></div><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Full Name</th><th>Email</th><th>Role</th><th>Status</th><th>Action</th></thead><tbody id="userTableBody"></tbody></table></div></div>
     <div id="reviews" class="hidden"><h3><i class="fas fa-star me-2"></i>Guest Reviews</h3><input type="text" id="searchReview" class="search-glass my-3" placeholder="Filter by user or comment..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>ID</th><th>User Email</th><th>Rating</th><th>Comment</th><th>Date</th><th>Action</th></thead><tbody id="reviewTableBody"></tbody></table></div></div>
     <div id="bookings" class="hidden"><h3><i class="fas fa-calendar-check me-2"></i>Booking Logs</h3><input type="text" id="searchBooking" class="search-glass my-3" placeholder="Search by email or package..."><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Package</th><th>Doctor</th><th>Accommodation</th><th>User</th><th>Booking Date</th><th>Checkout</th><th>Days</th><th>Doctor Fee</th><th>Package Price</th><th>Total (LKR)</th></thead><tbody id="bookingTableBody"></tbody></table></div></div>
     <div id="doctors" class="hidden"><div class="d-flex justify-content-between align-items-center mb-3"><h3><i class="fas fa-user-md me-2"></i>Ayurvedic Practitioners</h3><button class="btn btn-primary-lux btn-lux" data-bs-toggle="modal" data-bs-target="#addDoctorModal"><i class="fas fa-plus me-2"></i>Add Doctor</button><input type="text" id="searchDoctor" class="search-glass" placeholder="Search doctor..."></div><div class="table-responsive"><table class="table custom-table"><thead><tr><th>Name</th><th>Email</th><th>Image</th><th>Description</th><th>Fee/Day</th><th>LinkedIn</th><th>Booked</th><th>Status</th><th>Actions</th></thead><tbody id="doctorTableBody"></tbody></table></div></div>
@@ -353,7 +353,9 @@
 </div>
 
 <!-- MODALS (Refined) -->
+<div class="modal fade modal-modern" id="addUserModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5><i class="fas fa-user-plus me-2"></i>Add New User</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addUserForm"><div class="mb-3"><label>Name</label><input type="text" id="userName" class="form-control" required></div><div class="mb-3"><label>Email</label><input type="email" id="userEmail" class="form-control" required></div><div class="mb-3"><label>Password</label><input type="password" id="userPassword" class="form-control" required></div><div class="mb-3"><label>Role</label><select id="userRole" class="form-control"><option value="ROLE_USER">User</option><option value="ROLE_ADMIN">Admin</option></select></div><button type="submit" class="btn btn-primary-lux w-100">Create User</button></form></div></div></div></div>
 <div class="modal fade modal-modern" id="addDoctorModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5><i class="fas fa-user-md me-2"></i>Register New Doctor</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addDoctorForm" enctype="multipart/form-data"><div class="mb-3"><label>Full Name</label><input type="text" id="doctorName" class="form-control" required></div><div class="mb-3"><label>Email</label><input type="email" id="doctorEmail" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="doctorDescription" rows="2" class="form-control" required></textarea></div><div class="mb-3"><label>Payment/day (LKR)</label><input type="number" id="doctorPayment" class="form-control" required></div><div class="mb-3"><label>LinkedIn</label><input type="url" id="doctorLinkedIn" class="form-control"></div><div class="mb-3"><label>Profile Image</label><input type="file" id="doctorImage" class="form-control" accept="image/*"><img id="addImagePreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Create Doctor</button></form></div></div></div></div>
+<div class="modal fade modal-modern" id="editDoctorModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5><i class="fas fa-user-md me-2"></i>Edit Doctor Details</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="editDoctorForm" enctype="multipart/form-data"><input type="hidden" id="editDoctorEmail"><div class="mb-3"><label>Full Name</label><input type="text" id="editDoctorName" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="editDoctorDescription" rows="2" class="form-control" required></textarea></div><div class="mb-3"><label>Payment/day (LKR)</label><input type="number" id="editDoctorPayment" class="form-control" required></div><div class="mb-3"><label>LinkedIn</label><input type="url" id="editDoctorLinkedIn" class="form-control"></div><div class="mb-3"><label>Profile Image</label><input type="file" id="editDoctorImage" class="form-control" accept="image/*"><img id="editImagePreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Update Doctor</button></form></div></div></div></div>
 <div class="modal fade modal-modern" id="addPackageModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Create New Package</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addPackageForm" enctype="multipart/form-data"><div class="mb-3"><label>Name</label><input type="text" name="name" class="form-control" required></div><div class="mb-3"><label>Price (LKR)</label><input type="number" name="price" class="form-control" required></div><div class="mb-3"><label>Estimate Days</label><input type="number" name="estimateDays" class="form-control" required></div><div class="mb-3"><label>Select Activities</label><select multiple class="form-control" name="activity" id="packageActivities" required></select></div><div class="mb-3"><label>Image</label><input type="file" name="imageUrl" id="packageImage" class="form-control"><img id="PackageImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Save Package</button></form></div></div></div></div>
 <div class="modal fade modal-modern" id="addArticleModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Publish Article</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addArticleForm" enctype="multipart/form-data"><div class="mb-3"><label>Title</label><input type="text" id="articleTitle" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="articleDescription" rows="2" class="form-control" required></textarea></div><div class="mb-3"><label>Image</label><input type="file" id="articleImage" class="form-control"><img id="addArticleImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux w-100">Create</button></form></div></div></div></div>
 <div class="modal fade modal-modern" id="addAccommodationModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5>Add Accommodation</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addAccommodationForm" enctype="multipart/form-data"><div class="mb-3"><label>Name</label><input type="text" id="accommodationName" class="form-control" required></div><div class="mb-3"><label>Description</label><textarea id="accommodationDescription" class="form-control" rows="2"></textarea></div><div class="mb-3"><label>Location</label><input type="text" id="accommodationLocation" class="form-control" required></div><div class="mb-3"><label>Category</label><select id="accommodationCategory" class="form-control"><option>A/C</option><option>Non A/C</option><option>Luxary</option><option>City</option></select></div><div class="mb-3"><label>Cost/Day</label><input type="text" id="accommodationCost" class="form-control" required></div><div class="mb-3"><label>Image</label><input type="file" id="accommodationImage" class="form-control"><img id="addImgPreview" class="img-preview"></div><button type="submit" class="btn btn-primary-lux">Save</button></form></div></div></div></div>
@@ -579,7 +581,10 @@
                 <td>${escapeHtml(u.email)}</td>
                 <td><span class="badge-status">${escapeHtml(u.role)}</span></td>
                 <td><span class="badge-status">${status}</span></td>
-                <td><button class="btn btn-danger-lux btn-sm rounded-pill" onclick="deleteUser('${escapeHtml(u.email)}')"><i class="fas fa-trash"></i> Delete</button></td>
+                <td>
+                    <button class="btn btn-warning btn-sm rounded-pill me-2" onclick="editUserRole('${escapeHtml(u.email)}', '${escapeHtml(u.role)}')"><i class="fas fa-edit"></i> Edit Role</button>
+                    <button class="btn btn-danger-lux btn-sm rounded-pill" onclick="deleteUser('${escapeHtml(u.email)}')"><i class="fas fa-trash"></i> Delete</button>
+                </td>
             </tr>`;
         });
         $("#userTableBody").html(html || '<tr><td colspan="5">No users</td></tr>');
@@ -590,7 +595,7 @@
             .then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: `http://localhost:8080/api/v1/user/delete/${encodeURIComponent(email)}`,
+                        url: `http://localhost:8080/api/v1/admin/delete-user?email=${encodeURIComponent(email)}`,
                         method: "DELETE",
                         headers: getAuthHeaders(),
                         success: () => {
@@ -598,6 +603,79 @@
                             loadAllUsers($("#userStatusFilter").val());
                         },
                         error: () => showSweetAlert('error', 'Deletion Failed', 'Unable to delete user. Please try again.')
+                    });
+                }
+            });
+    }
+
+    // Add User Form Submission
+    $("#addUserForm").submit(function(event) {
+        event.preventDefault();
+        const name = $("#userName").val().trim();
+        const email = $("#userEmail").val().trim();
+        const password = $("#userPassword").val().trim();
+        const role = $("#userRole").val();
+
+        if (!name || !email || !password) {
+            showSweetAlert('warning', 'Incomplete Data', 'Please fill all required fields.');
+            return;
+        }
+
+        const userData = { name, email, password, role };
+
+        $.ajax({
+            url: "http://localhost:8080/api/v1/admin/create-user",
+            method: "POST",
+            contentType: "application/json",
+            headers: getAuthHeaders(),
+            data: JSON.stringify(userData),
+            success: function(response) {
+                if (response.code === 201) {
+                    showSweetAlert('success', 'User Created', 'New user has been added successfully.');
+                    $("#addUserForm")[0].reset();
+                    $("#addUserModal").modal('hide');
+                    loadAllUsers($("#userStatusFilter").val());
+                } else {
+                    showSweetAlert('error', 'Creation Failed', response.message || 'Unable to create user.');
+                }
+            },
+            error: function(xhr) {
+                let errorMsg = 'Unable to create user.';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                showSweetAlert('error', 'Creation Failed', errorMsg);
+            }
+        });
+    });
+
+    // Edit User Role
+    window.editUserRole = function(email, currentRole) {
+        const newRole = currentRole === 'ROLE_ADMIN' ? 'ROLE_USER' : 'ROLE_ADMIN';
+        const roleText = newRole === 'ROLE_ADMIN' ? 'Admin' : 'User';
+
+        showConfirmDialog('Change User Role', `Change ${email} to ${roleText}?`, `Yes, Make ${roleText}`, 'Cancel')
+            .then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `http://localhost:8080/api/v1/admin/update-role?email=${encodeURIComponent(email)}&role=${encodeURIComponent(newRole)}`,
+                        method: "PUT",
+                        headers: getAuthHeaders(),
+                        success: function(response) {
+                            if (response.code === 200) {
+                                showSweetAlert('success', 'Role Updated', `User role changed to ${roleText}.`);
+                                loadAllUsers($("#userStatusFilter").val());
+                            } else {
+                                showSweetAlert('error', 'Update Failed', response.message || 'Unable to update role.');
+                            }
+                        },
+                        error: function(xhr) {
+                            let errorMsg = 'Unable to update role.';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMsg = xhr.responseJSON.message;
+                            }
+                            showSweetAlert('error', 'Update Failed', errorMsg);
+                        }
                     });
                 }
             });

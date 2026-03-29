@@ -261,6 +261,8 @@
             <thead>
                 <tr>
                     <th>Ref ID</th>
+                    <th>Problem</th>
+                    <th>Solved</th>
                     <th>Rating</th>
                     <th>Comment</th>
                     <th>Date</th>
@@ -269,7 +271,7 @@
             </thead>
             <tbody id="reviewsTableBody">
                 <tr>
-                    <td colspan="5" class="text-center py-5 text-muted">
+                    <td colspan="7" class="text-center py-5 text-muted">
                         <i class="fas fa-spinner fa-pulse me-2"></i>Loading your sacred feedback...
                     </td>
                 </tr>
@@ -404,7 +406,7 @@
     function loadUserReviews() {
         const userEmail = getFromLocalStorage("email");
         if (!userEmail) {
-            $("#reviewsTableBody").html('<tr><td colspan="5" class="text-center"><div class="empty-state"><i class="fas fa-heart-broken"></i><p>Please log in to view your reviews.</p></div></td></tr>');
+            $("#reviewsTableBody").html('<tr><td colspan="7" class="text-center"><div class="empty-state"><i class="fas fa-heart-broken"></i><p>Please log in to view your reviews.</p></div></td></tr>');
             return;
         }
 
@@ -423,7 +425,7 @@
                     } else {
                         $("#reviewsTableBody").html(`
                             <tr>
-                                <td colspan="5" class="text-center">
+                                <td colspan="7" class="text-center">
                                     <div class="empty-state">
                                         <i class="fas fa-leaf"></i>
                                         <p>You haven't shared any healing experiences yet.</p>
@@ -436,7 +438,7 @@
                         `);
                     }
                 } else {
-                    $("#reviewsTableBody").html('<tr><td colspan="5" class="text-center text-muted">Unable to load reviews. Please try again later.</td></tr>');
+                    $("#reviewsTableBody").html('<tr><td colspan="7" class="text-center text-muted">Unable to load reviews. Please try again later.</td></tr>');
                 }
             },
             error: function(xhr) {
@@ -447,7 +449,7 @@
                         window.location.href = "index.html";
                     }, 2000);
                 } else {
-                    $("#reviewsTableBody").html('<tr><td colspan="5" class="text-center text-muted">Connection issue. Please refresh the page.</td></tr>');
+                    $("#reviewsTableBody").html('<tr><td colspan="7" class="text-center text-muted">Connection issue. Please refresh the page.</td></tr>');
                 }
             }
         });
@@ -468,9 +470,15 @@
         tbody.empty();
         reviews.forEach(review => {
             const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+            const solvedIcon = review.solved ? '<i class="fas fa-check-circle text-success"></i> Yes' : '<i class="fas fa-times-circle text-danger"></i> No';
             tbody.append(`
                 <tr id="review-${review.id}" style="animation: fadeInUp 0.3s ease;">
                     <td><span class="badge" style="background: var(--soft-gold); color: var(--royal-green); padding: 6px 12px;">#${review.id}</span></td>
+                    <td class="text-muted" style="max-width: 200px;">
+                        <i class="fas fa-stethoscope me-1" style="color: var(--gold); font-size: 0.8rem;"></i>
+                        "${escapeHtml(review.problem || 'Not specified')}"
+                    </td>
+                    <td>${solvedIcon}</td>
                     <td>
                         <span class="rating-badge" style="background: var(--royal-green); color: var(--gold);">
                             ${stars} ${review.rating}

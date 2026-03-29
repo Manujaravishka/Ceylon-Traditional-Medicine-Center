@@ -626,6 +626,21 @@
                     <textarea class="form-control-lux" id="comment" rows="5" placeholder="Describe your healing experience, the treatments you received, and how they transformed your wellbeing..."></textarea>
                 </div>
 
+                <!-- Problem Field -->
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-question-circle me-2"></i> Health Problem Addressed</label>
+                    <textarea class="form-control-lux" id="problem" rows="3" placeholder="Describe the health issue or condition you sought treatment for..."></textarea>
+                </div>
+
+                <!-- Solved Checkbox -->
+                <div class="form-group">
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="solved" class="me-3" style="width: 20px; height: 20px; accent-color: var(--sacred-gold);">
+                        <label for="solved" class="form-label mb-0" style="cursor: pointer;"><i class="fas fa-check-circle me-2"></i> Problem Solved</label>
+                    </div>
+                    <small class="text-muted mt-1 d-block">Check this if your health issue was resolved through our treatments</small>
+                </div>
+
                 <button type="submit" class="btn-submit-lux" id="submitReviewBtn">
                     <i class="fas fa-paper-plane"></i> Offer Your Reflection
                 </button>
@@ -785,6 +800,8 @@
             const rating = $("input[name='star-rating']:checked").val();
             const comment = $("#comment").val().trim();
             const userEmailVal = $("#userEmail").val();
+            const problem = $("#problem").val().trim();
+            const solved = $("#solved").is(":checked");
             const submitBtn = $("#submitReviewBtn");
 
             if (!rating) {
@@ -797,13 +814,20 @@
                 return;
             }
 
+            if (!problem) {
+                showSweetAlert('warning', 'Health Details', 'Please describe the health problem you addressed.');
+                return;
+            }
+
             // Show loading state
             submitBtn.prop("disabled", true).html('<i class="fas fa-spinner fa-pulse"></i> Offering Your Reflection...');
             
             const reviewData = {
                 userEmail: userEmailVal,
                 rating: parseInt(rating),
-                comment: comment
+                comment: comment,
+                problem: problem,
+                solved: solved
             };
 
             $.ajax({

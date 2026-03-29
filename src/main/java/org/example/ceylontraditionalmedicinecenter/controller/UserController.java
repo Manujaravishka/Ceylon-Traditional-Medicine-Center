@@ -75,6 +75,7 @@ public class UserController {
     }
 
     @GetMapping("/getAll")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseDTO> getAllUsers(@RequestParam(required = false) String status) {
         List<UserDTO> users;
         if (status == null || status.isBlank()) {
@@ -93,6 +94,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{email}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseDTO> deleteUser(@PathVariable String email) {
         boolean deleted = userService.deleteUserByEmail(email);
         if (deleted) {

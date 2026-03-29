@@ -15,5 +15,8 @@ public class ReviewDTO {
     private String comment;
     private String createdAt;
 
+    private String problem;
+    private boolean solved;
+
     private int rating;
 }
