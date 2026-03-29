@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Diagnosis | Hela Suwaya - Ayurvedic Symptom Checker</title>
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="assets/traditonal medical center.ico" type="image/x-icon">
+
+    <!-- SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        :root {
+            --sacred-emerald: #1F4A3A;
+            --sacred-emerald-light: #3A6B58;
+            --sacred-gold: #D4AF7A;
+            --sacred-gold-dark: #B48C48;
+            --earth-cream: #FDF7F0;
+            --charcoal-elegant: #2C3A33;
+            --stone-mist: #6B5E4A;
+            --white-pure: #FFFFFF;
+            --shadow-elegant: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            --shadow-lux: 0 30px 50px -15px rgba(31, 74, 58, 0.2);
+            --transition-silk: all 0.5s cubic-bezier(0.2, 0.95, 0.4, 1.05);
+        }
+
+        body {
+            background: linear-gradient(145deg, var(--earth-cream) 0%, #F5EFE6 100%);
+            font-family: 'Inter', sans-serif;
+            color: var(--charcoal-elegant);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: rgba(31, 74, 58, 0.95);
+            backdrop-filter: blur(16px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(212, 175, 122, 0.2);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: var(--sacred-gold);
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .navbar-custom .nav-link {
+            color: rgba(255, 248, 235, 0.9);
+            font-weight: 500;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: var(--sacred-gold);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(115deg, rgba(31, 74, 58, 0.85), rgba(27, 59, 43, 0.75)),
+                        url('https://images.unsplash.com/photo-1540555700478-4be289fbecee?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 80px 0 60px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .diagnosis-container {
+            max-width: 800px;
+            margin: -60px auto 60px;
+            padding: 0 1.5rem;
+        }
+
+        .diagnosis-card {
+            background: var(--white-pure);
+            border-radius: 32px;
+            box-shadow: var(--shadow-lux);
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 122, 0.2);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--sacred-emerald), var(--sacred-emerald-light));
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .card-header-custom h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .card-header-custom p {
+            color: rgba(255, 248, 235, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        .card-body-custom {
+            padding: 2.5rem;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--sacred-emerald);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .textarea-custom {
+            width: 100%;
+            min-height: 150px;
+            padding: 1.2rem;
+            border: 2px solid #EADBCE;
+            border-radius: 16px;
+            background: #FEFCF8;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            transition: var(--transition-silk);
+        }
+
+        .textarea-custom:focus {
+            outline: none;
+            border-color: var(--sacred-gold);
+            box-shadow: 0 0 0 4px rgba(212, 175, 122, 0.15);
+            background: var(--white-pure);
+        }
+
+        .textarea-custom::placeholder {
+            color: #C9BCA8;
+        }
+
+        /* Submit Button */
+        .btn-diagnose {
+            background: linear-gradient(135deg, var(--sacred-emerald), var(--sacred-emerald-light));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: var(--transition-silk);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-diagnose:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(31, 74, 58, 0.35);
+        }
+
+        .btn-diagnose:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Results Card */
+        .results-card {
+            background: linear-gradient(135deg, #FEFCF8, #FDF7F0);
+            border: 2px solid rgba(212, 175, 122, 0.3);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-header h4 {
+            color: var(--sacred-emerald);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-section {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            border-left: 4px solid var(--sacred-gold);
+        }
+
+        .result-section h5 {
+            color: var(--sacred-emerald);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .result-section p {
+            color: var(--charcoal-elegant);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: rgba(212, 175, 122, 0.1);
+            border: 1px solid rgba(212, 175, 122, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .disclaimer i {
+            color: var(--sacred-gold);
+            margin-right: 8px;
+        }
+
+        .disclaimer p {
+            color: var(--stone-mist);
+            font-size: 0.9rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(31, 74, 58, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-silk);
+        }
+
+        .loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(212, 175, 122, 0.3);
+            border-top: 4px solid var(--sacred-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .loading-subtext {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* SweetAlert Custom */
+        .swal2-popup {
+            font-family: 'Inter', sans-serif;
+            border-radius: 28px !important;
+        }
+        .swal2-title {
+            font-family: 'Cormorant Garamond', serif !important;
+            color: var(--sacred-emerald) !important;
+        }
+        .swal2-confirm {
+            background: linear-gradient(135deg, var(--sacred-emerald), var(--sacred-emerald-light)) !important;
+            border-radius: 50px !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .diagnosis-container {
+                margin-top: -40px;
+            }
+            .card-body-custom {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <i class="fas fa-feather-alt me-2"></i>HELA SUWAYA
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="signin.html">Sign In</a></li>
+                <li class="nav-item"><a class="nav-link active" href="ai-diagnosis.html">AI Diagnosis</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="hero-title">AI ප්‍රකෘතික රෝග විනිශ්චය</h1>
+        <p class="hero-subtitle">ඔබේ රෝග ලක්ෂණ විස්තර කරන්න. අපගේ AI ආයුර්වේද විශේෂඥයා ඔබට සුදුසු සිංහල ඖෂධ සහ ප්‍රාකෘතික ප්‍රතිකාර යෝජනා කරනු ඇත.</p>
+    </div>
+</section>
+
+<!-- Diagnosis Form -->
+<div class="diagnosis-container">
+    <div class="diagnosis-card">
+        <div class="card-header-custom">
+            <h3><i class="fas fa-brain me-2"></i>AI රෝග විනිශ්චය</h3>
+            <p>ඔබේ රෝග ලක්ෂණ ඇතුළත් කරන්න</p>
+        </div>
+        <div class="card-body-custom">
+            <form id="diagnosisForm">
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-stethoscope me-2"></i>ඔබේ රෝග ලක්ෂණ විස්තර කරන්න</label>
+                    <textarea
+                        class="textarea-custom"
+                        id="symptoms"
+                        placeholder="උදා: මගේ හිස පිරිවරනවා, බඩගානවා, සහ උල්පත් වෙනවා. මේක දවස් 2 කට පටන් ගත්තා..."
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="btn-diagnose" id="diagnoseBtn">
+                    <i class="fas fa-search"></i>
+                    රෝග විනිශ්චය ලබා ගන්න
+                </button>
+            </form>
+
+            <!-- Results Section -->
+            <div class="results-card" id="resultsCard">
+                <div class="results-header">
+                    <h4><i class="fas fa-leaf me-2"></i>ඔබේ රෝග විනිශ්චය සහ යෝජනා</h4>
+                </div>
+
+                <div id="diagnosisResults">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer">
+                <p><i class="fas fa-exclamation-triangle"></i><strong>වැදගත් සැලැස්සුම:</strong> මෙය වෛද්‍ය ප්‍රකෘතික රෝග විනිශ්චයක් නොවේ. කරුණාකර සුදුසු වෛද්‍යවරයෙකුගෙන් උපදෙස් ලබා ගන්න.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">AI විශ්ලේෂණය කරමින්...</div>
+        <div class="loading-subtext">ඔබේ රෝග ලක්ෂණ විශ්ලේෂණය කරමින් සුදුසු ආයුර්වේද යෝජනා සොයමින්</div>
+    </div>
+</div>
+
+<script>
+    // ========== AI DIAGNOSIS INTEGRATION ==========
+    const API_BASE = "http://localhost:8080/api/v1";
+
+    function showLoading() {
+        document.getElementById('loadingOverlay').classList.add('show');
+    }
+
+    function hideLoading() {
+        document.getElementById('loadingOverlay').classList.remove('show');
+    }
+
+    function showSweetAlert(type, title, message) {
+        Swal.fire({
+            icon: type,
+            title: title,
+            text: message,
+            confirmButtonText: 'හරි',
+            confirmButtonColor: '#1F4A3A',
+            background: '#FFFFFF',
+            customClass: { popup: 'swal2-popup', title: 'swal2-title', confirmButton: 'swal2-confirm' }
+        });
+    }
+
+    function displayResults(diagnosis) {
+        const resultsDiv = document.getElementById('diagnosisResults');
+        resultsDiv.innerHTML = '';
+
+        // Parse the diagnosis response
+        const sections = diagnosis.split('\n\n');
+
+        sections.forEach(section => {
+            if (section.trim()) {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'result-section';
+
+                // Try to identify section type
+                if (section.includes('හැකි රෝගය') || section.includes('නිදානය')) {
+                    sectionDiv.innerHTML = `<h5><i class="fas fa-diagnoses me-2"></i>හැකි රෝගය</h5><p>${section}</p>`;
+                } else if (section.includes('ඖෂධ') || section.includes('වෛද්‍ය') || section.includes('ප්‍රතිකාර')) {
+                    sectionDiv.innerHTML = `<h5><i class="fas fa-pills me-2"></i>යෝජනා කරන ඖෂධ සහ ප්‍රතිකාර</h5><p>${section}</p>`;
+                } else if (section.includes('ආහාර') || section.includes('ජීවන රටාව') || section.includes('නිර්දේශ')) {
+                    sectionDiv.innerHTML = `<h5><i class="fas fa-utensils me-2"></i>ප්‍රාකෘතික යෝජනා සහ ජීවන රටාව</h5><p>${section}</p>`;
+                } else {
+                    sectionDiv.innerHTML = `<p>${section}</p>`;
+                }
+
+                resultsDiv.appendChild(sectionDiv);
+            }
+        });
+
+        document.getElementById('resultsCard').style.display = 'block';
+        document.getElementById('resultsCard').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Form submission
+    document.getElementById('diagnosisForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const symptoms = document.getElementById('symptoms').value.trim();
+        const submitBtn = document.getElementById('diagnoseBtn');
+
+        if (!symptoms) {
+            showSweetAlert('warning', 'රෝග ලක්ෂණ අවශ්‍යයි', 'කරුණාකර ඔබේ රෝග ලක්ෂණ විස්තර කරන්න.');
+            return;
+        }
+
+        if (symptoms.length < 10) {
+            showSweetAlert('warning', 'වැඩි විස්තර අවශ්‍යයි', 'කරුණාකර ඔබේ රෝග ලක්ෂණ වඩා විස්තරාත්මකව විස්තර කරන්න.');
+            return;
+        }
+
+        // Show loading
+        showLoading();
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> විශ්ලේෂණය කරමින්...';
+
+        // Send to backend
+        fetch(`${API_BASE}/ai-diagnose`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                symptoms: symptoms,
+                language: 'sinhala'
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('AI සේවාවට ප්‍රවේශ විය නොහැක');
+            }
+            return response.json();
+        })
+        .then(data => {
+            hideLoading();
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-search"></i> රෝග විනිශ්චය ලබා ගන්න';
+
+            if (data.code === 200 && data.data) {
+                displayResults(data.data.diagnosis);
+            } else {
+                showSweetAlert('error', 'විශ්ලේෂණය අසාර්ථක විය', data.message || 'කරුණාකර නැවත උත්සාහ කරන්න.');
+            }
+        })
+        .catch(error => {
+            hideLoading();
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-search"></i> රෝග විනිශ්චය ලබා ගන්න';
+
+            console.error('AI Diagnosis Error:', error);
+            showSweetAlert('error', 'සම්බන්ධතාවයේ දෝෂයක්', 'AI සේවාවට ප්‍රවේශ විය නොහැක. කරුණාකර පසුව උත්සාහ කරන්න.');
+        });
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('AI Diagnosis page loaded');
+    });
+</script>
+
+</body>
+</html>
