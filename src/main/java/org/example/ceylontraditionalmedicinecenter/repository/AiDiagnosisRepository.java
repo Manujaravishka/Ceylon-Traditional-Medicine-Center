@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+// @Repository annotation used here.
 @Repository
 public interface AiDiagnosisRepository extends JpaRepository<AiDiagnosis, Long> {
     List<AiDiagnosis> findByUserEmail(String userEmail);

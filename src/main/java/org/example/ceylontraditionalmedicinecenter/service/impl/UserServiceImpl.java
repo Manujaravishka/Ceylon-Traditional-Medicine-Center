@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// @Service annotation used here.
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.modelMapper = modelMapper;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int saveUser(UserDTO userDTO) {
         if (userRepository.existsByEmail(userDTO.getEmail())) {
@@ -54,6 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return VarList.Created;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public UserDTO getUserByEmail(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
@@ -63,6 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return modelMapper.map(optionalUser.get(), UserDTO.class);
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream()
@@ -70,6 +74,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<UserDTO> getActiveUsers() {
         return userRepository.findActiveOrUnspecifiedStatusUsers().stream()
@@ -77,16 +82,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public long getTotalUsers() {
         return userRepository.count();
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public long getActiveUsersCount() {
         return userRepository.countActiveOrUnspecifiedStatusUsers();
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public boolean deleteUserByEmail(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
@@ -97,6 +105,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return true;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public boolean updateUserRole(String email, String role) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
@@ -116,6 +125,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return true;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public boolean updateUser(String email, UserDTO userDTO) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
@@ -135,11 +145,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return true;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public UserDTO loadUserDetailsByUsername(String email) {
         return getUserByEmail(email);
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email).orElse(null);

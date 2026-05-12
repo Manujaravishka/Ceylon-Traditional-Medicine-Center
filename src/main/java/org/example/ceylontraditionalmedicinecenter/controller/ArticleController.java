@@ -19,19 +19,27 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+// Allows CORS requests from specified origins; here it permits any origin.
 @CrossOrigin(origins = "*")
+// Combines @Controller and @ResponseBody to expose REST endpoints returning JSON/XML.
 @RestController
+// Defines base URL mapping for the controller or a request mapping for a handler method.
 @RequestMapping("api/v1/article")
 public class ArticleController {
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ArticleService articleService;
 
     private static final String UPLOAD_DIR = System.getProperty("user.dir")+"/uploads/";
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/save")
     public ResponseEntity<ResponseDTO> saveArticle(
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("title") String title,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("description") String description,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam(value = "imageUrl", required = false) MultipartFile image) {
         try {
             ArticleDTO articleDTO = new ArticleDTO();
@@ -75,11 +83,16 @@ public class ArticleController {
         return uniqueFileName;
     }
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/update/{id}")
     public ResponseEntity<ResponseDTO> updateArticle(
+            // Binds a URI template variable to a method parameter.
             @PathVariable Long id,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("title") String title,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("description") String description,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam(value = "imageUrl", required = false) MultipartFile image) {
         try {
             ArticleDTO articleDTO = new ArticleDTO();
@@ -110,6 +123,7 @@ public class ArticleController {
         }
     }
 
+    // Maps HTTP DELETE requests to this handler method.
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDTO> deleteArticle(@PathVariable Long id) {
         try {
@@ -131,6 +145,7 @@ public class ArticleController {
         }
     }
 
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/getAll")
     public ResponseEntity<ResponseDTO> getAllArticles() {
         try {

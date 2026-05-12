@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+// @Repository annotation used here.
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
@@ -18,9 +19,11 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     long countByStatus(String status);
 
+    // @org.springframework.data.jpa.repository.Query annotation used here.
     @org.springframework.data.jpa.repository.Query("SELECT u FROM User u WHERE u.status = 'ACTIVE' OR u.status IS NULL OR u.status = ''")
     List<User> findActiveOrUnspecifiedStatusUsers();
 
+    // @org.springframework.data.jpa.repository.Query annotation used here.
     @org.springframework.data.jpa.repository.Query("SELECT COUNT(u) FROM User u WHERE u.status = 'ACTIVE' OR u.status IS NULL OR u.status = ''")
     long countActiveOrUnspecifiedStatusUsers();
 }

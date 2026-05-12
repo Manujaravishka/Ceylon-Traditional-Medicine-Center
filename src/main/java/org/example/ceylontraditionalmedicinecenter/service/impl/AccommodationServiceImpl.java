@@ -15,13 +15,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// @Service annotation used here.
 @Service
 public class AccommodationServiceImpl implements AccommodationService {
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private AccommodationRepository accommodationRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ModelMapper modelMapper;
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int saveAccommodation(AccommodationDTO accommodationDTO) {
         if (accommodationRepository.existsByName(accommodationDTO.getName())) {
@@ -32,6 +36,7 @@ public class AccommodationServiceImpl implements AccommodationService {
         return VarList.Created; // Successfully saved
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int updateAccommodation(Long id, AccommodationDTO accommodationDTO) {
         Optional<Accommodation> existingAccommodationOpt = accommodationRepository.findById(id);
@@ -53,7 +58,9 @@ public class AccommodationServiceImpl implements AccommodationService {
         }
         return VarList.Not_Found;
     }
+    // @Transactional annotation used here.
     @Transactional
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int deleteAccommodation(Long id) {
         if (accommodationRepository.existsById(id)) {
@@ -63,6 +70,7 @@ public class AccommodationServiceImpl implements AccommodationService {
         return VarList.Not_Found;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<AccommodationDTO> getAllAccommodation() {
         List<Accommodation> accommodations = accommodationRepository.findAll();
@@ -71,6 +79,7 @@ public class AccommodationServiceImpl implements AccommodationService {
                 .collect(Collectors.toList());
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int getTotalAccommodationCount() {
         return (int) accommodationRepository.count();

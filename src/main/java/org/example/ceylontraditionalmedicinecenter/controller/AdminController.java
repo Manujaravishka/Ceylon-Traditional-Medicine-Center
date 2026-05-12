@@ -14,26 +14,36 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Allows CORS requests from specified origins; here it permits any origin.
 @CrossOrigin(origins = "*")
+// Combines @Controller and @ResponseBody to expose REST endpoints returning JSON/XML.
 @RestController
+// Defines base URL mapping for the controller or a request mapping for a handler method.
 @RequestMapping("api/v1/admin")
+// Lombok annotation that generates a constructor for final fields.
 @RequiredArgsConstructor
 public class AdminController {
     private final UserService userService;
 
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/admin")
+    // Evaluates a security expression before allowing access to the method.
     @PreAuthorize("hasRole('ADMIN')")
     public String helloAdmin() {
         return "Hello Admin";
     }
 
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/user")
+    // Evaluates a security expression before allowing access to the method.
     @PreAuthorize("hasRole('USER')")
     public String helloUser() {
         return "Hello User";
     }
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/create-user")
+    // Evaluates a security expression before allowing access to the method.
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseDTO> createUser(@RequestBody UserDTO userDTO) {
         try {
@@ -58,7 +68,9 @@ public class AdminController {
         }
     }
 
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/users")
+    // Evaluates a security expression before allowing access to the method.
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseDTO> getAllUsers() {
         try {
@@ -70,7 +82,9 @@ public class AdminController {
         }
     }
 
+    // Maps HTTP PUT requests to this handler method.
     @PutMapping("/update-role")
+    // Evaluates a security expression before allowing access to the method.
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseDTO> updateUserRole(@RequestParam String email, @RequestParam String role) {
         try {
@@ -87,7 +101,9 @@ public class AdminController {
         }
     }
 
+    // Maps HTTP DELETE requests to this handler method.
     @DeleteMapping("/delete-user")
+    // Evaluates a security expression before allowing access to the method.
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseDTO> deleteUser(@RequestParam String email) {
         try {

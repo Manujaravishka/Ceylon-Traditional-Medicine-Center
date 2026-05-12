@@ -7,9 +7,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+// Lombok annotation that generates a constructor with one parameter for each field.
 @AllArgsConstructor
+// Lombok annotation that generates a no-argument constructor.
 @NoArgsConstructor
+// Lombok annotation that generates getters, setters, equals/hashCode, and toString.
 @Data
+// Marks this class as a Spring-managed component for component scanning.
 @Component
 public class TreatPackageDTO {
     private Long id;
@@ -18,4 +22,5 @@ public class TreatPackageDTO {
     private Integer estimateDays;
     private List<String> activities;
     private String imageUrl;
+    private Integer sold;
 }

@@ -12,9 +12,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
+// Declares this class as a source of Spring bean definitions.
 @Configuration
+//Spring Framework එකේ භාවිතා කරන annotation එකක්.
 public class ApplicationConfig implements WebMvcConfigurer {
 
+    // Registers the method return value as a Spring bean in the application context.
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
@@ -24,11 +27,13 @@ public class ApplicationConfig implements WebMvcConfigurer {
         return modelMapper;
     }
 
+    // Registers the method return value as a Spring bean in the application context.
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**")

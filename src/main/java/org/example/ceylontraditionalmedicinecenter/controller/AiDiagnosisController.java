@@ -9,14 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+// Allows CORS requests from specified origins; here it permits any origin.
 @CrossOrigin(origins = "*")
+// Combines @Controller and @ResponseBody to expose REST endpoints returning JSON/XML.
 @RestController
+// Defines base URL mapping for the controller or a request mapping for a handler method.
 @RequestMapping("api/v1")
+// Lombok annotation that generates a constructor for final fields.
 @RequiredArgsConstructor
 public class AiDiagnosisController {
 
     private final AiDiagnosisService aiDiagnosisService;
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/ai-diagnose")
     public ResponseEntity<ResponseDTO> diagnoseSymptoms(@RequestBody AiDiagnosisDTO diagnosisDTO) {
         try {

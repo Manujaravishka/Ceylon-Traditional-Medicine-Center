@@ -12,15 +12,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// @Service annotation used here.
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ReviewRepository reviewRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ModelMapper modelMapper;
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int saveReview(ReviewDTO reviewDTO) {
         Review review = new Review();
@@ -34,12 +38,14 @@ public class ReviewServiceImpl implements ReviewService {
         return VarList.Created;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public Object getAllReviews() {
         List<Review> reviews = reviewRepository.findAll();
         return reviews.stream().map(r -> modelMapper.map(r, ReviewDTO.class)).collect(Collectors.toList());
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int deleteReview(Long id) {
         if (!reviewRepository.existsById(id)) {

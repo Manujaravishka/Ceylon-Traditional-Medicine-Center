@@ -15,9 +15,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+// Combines @Controller and @ResponseBody to expose REST endpoints returning JSON/XML.
 @RestController
+// Defines base URL mapping for the controller or a request mapping for a handler method.
 @RequestMapping("api/v1/auth")
+// Lombok annotation that generates a constructor for final fields.
 @RequiredArgsConstructor
+// Allows CORS requests from specified origins; here it permits any origin.
 @CrossOrigin(origins = "*")  // any origin allow
 
 public class AuthController {
@@ -26,6 +30,7 @@ public class AuthController {
     private final UserServiceImpl userService;
     private final ResponseDTO responseDTO;
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/authentication")
     public ResponseEntity<ResponseDTO> authenticate(@RequestBody UserDTO userDTO) {
         try {

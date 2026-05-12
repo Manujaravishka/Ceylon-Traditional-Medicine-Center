@@ -18,13 +18,16 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+// Marks this class as a Spring-managed component for component scanning.
 @Component
+// Loads additional property files into the Spring environment.
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:otherprops.properties")
 public class JWTUtil implements Serializable {
     private static final long serialVersionUID = 234234523523L;
 
     public static final long JWT_TOKEN_VALIDITY = 24 * 60 * 60 * 12;
 
+    // Injects a value from application properties or environment into a field.
     @Value("${jwt.secret}")
 
     private String secretKey;

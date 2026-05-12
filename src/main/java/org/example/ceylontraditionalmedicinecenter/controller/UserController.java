@@ -16,14 +16,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Allows CORS requests from specified origins; here it permits any origin.
 @CrossOrigin(origins = "*")
+// Combines @Controller and @ResponseBody to expose REST endpoints returning JSON/XML.
 @RestController
+// Defines base URL mapping for the controller or a request mapping for a handler method.
 @RequestMapping("api/v1/user")
+// Lombok annotation that generates a constructor for final fields.
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final JWTUtil jwtUtil;
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping(value = "/register")
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody @Valid UserDTO userDTO) {
         try {
@@ -51,6 +56,7 @@ public class UserController {
                     .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
         }
     }
+    // Maps HTTP GET requests to this handler method.
     @GetMapping(value = "/getUserByEmail")
     public ResponseEntity<ResponseDTO> getUserDetail(@RequestParam String email) {
 
@@ -62,7 +68,9 @@ public class UserController {
                     .body(new ResponseDTO(VarList.Not_Acceptable, "User not found", null));
         }
     }
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/update-role")
+    // Evaluates a security expression before allowing access to the method.
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseDTO> updateUserRole(@RequestParam String email, @RequestParam String role) {
         boolean updated = userService.updateUserRole(email, role);
@@ -74,7 +82,9 @@ public class UserController {
                 .body(new ResponseDTO(VarList.Not_Acceptable, "User not found", null));
     }
 
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/getAll")
+    // Evaluates a security expression before allowing access to the method.
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseDTO> getAllUsers(@RequestParam(required = false) String status) {
         List<UserDTO> users;
@@ -93,7 +103,9 @@ public class UserController {
         return ResponseEntity.ok(new ResponseDTO(VarList.Created, "Users retrieved successfully", users));
     }
 
+    // Maps HTTP DELETE requests to this handler method.
     @DeleteMapping("/delete/{email}")
+    // Evaluates a security expression before allowing access to the method.
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseDTO> deleteUser(@PathVariable String email) {
         boolean deleted = userService.deleteUserByEmail(email);
@@ -105,6 +117,7 @@ public class UserController {
         }
     }
 
+    // Maps HTTP PUT requests to this handler method.
     @PutMapping("/update")
     public ResponseEntity<ResponseDTO> updateUser(@RequestParam String email, @RequestBody UserDTO userDTO) {
         try {

@@ -13,18 +13,23 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.List;
 
+// Marks this class as a Spring-managed component for component scanning.
 @Component
 public class BookingStatusScheduler {
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private BookingRepository bookingRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private AccommodationRepository accommodationRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private DoctorRepository doctorRepository;
 
+    // @Scheduled annotation used here.
     @Scheduled(cron = "0 * * * * ?")
     public void updateBookingStatus() {
         LocalDate today = LocalDate.now();

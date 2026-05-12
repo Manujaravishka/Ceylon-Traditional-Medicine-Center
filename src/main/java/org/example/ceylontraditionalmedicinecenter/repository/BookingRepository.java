@@ -10,15 +10,18 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+// @Repository annotation used here.
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, String> {
     List<Booking> findByUserEmail(String email);
 
     List<Booking> findByCheckoutDateLessThanEqualAndActive(LocalDate checkoutDateIsGreaterThan, boolean active);
 
+    // @Query annotation used here.
     @Query(value = "SELECT booking_date AS date, COUNT(*) AS count FROM booking GROUP BY booking_date", nativeQuery = true)
     List<Map<String, Object>> findBookingsPerDay();
 
+    // @Query annotation used here.
     @Query(value = "SELECT id AS bookingId, total_price AS total FROM booking", nativeQuery = true)
     List<Map<String, Object>> findTotalPricePerBooking();
 }

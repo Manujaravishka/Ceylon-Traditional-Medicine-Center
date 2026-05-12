@@ -11,12 +11,15 @@ import org.springframework.stereotype.Component;
  * Initializes a default ADMIN user on application startup.
  * This ensures admin credentials are available immediately for login.
  */
+// Marks this class as a Spring-managed component for component scanning.
 @Component
 public class AdminInitializer implements CommandLineRunner {
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private UserRepository userRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -24,6 +27,7 @@ public class AdminInitializer implements CommandLineRunner {
     private static final String ADMIN_PASSWORD = "1234";
     private static final String ADMIN_ROLE = "ROLE_ADMIN";
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public void run(String... args) throws Exception {
         initializeAdminUser();

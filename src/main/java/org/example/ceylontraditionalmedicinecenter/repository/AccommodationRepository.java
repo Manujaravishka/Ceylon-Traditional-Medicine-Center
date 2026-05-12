@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+// @Repository annotation used here.
 @Repository
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
     boolean existsByName(String name);

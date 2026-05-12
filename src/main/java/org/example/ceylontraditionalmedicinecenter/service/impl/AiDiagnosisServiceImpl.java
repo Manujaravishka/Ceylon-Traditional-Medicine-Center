@@ -17,23 +17,29 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+// @Service annotation used here.
 @Service
 public class AiDiagnosisServiceImpl implements AiDiagnosisService {
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private AiDiagnosisRepository aiDiagnosisRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ModelMapper modelMapper;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private RestTemplate restTemplate;
 
+    // Injects a value from application properties or environment into a field.
     @Value("${openai.api.key:YOUR_OPENAI_API_KEY}")
     private String openaiApiKey;
 
     private static final String OPENAI_URL = "https://api.openai.com/v1/chat/completions";
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public AiDiagnosisDTO diagnoseSymptoms(AiDiagnosisDTO diagnosisDTO) {
         try {

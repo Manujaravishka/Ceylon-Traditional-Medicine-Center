@@ -12,15 +12,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// @Service annotation used here.
 @Service
 public class DoctorServiceImpl implements DoctorService {
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private DoctorRepository doctorRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ModelMapper modelMapper;
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int saveDoctor(DoctorDTO doctorDTO) {
         if (doctorRepository.existsByEmail(doctorDTO.getEmail())) {
@@ -31,6 +35,7 @@ public class DoctorServiceImpl implements DoctorService {
         return VarList.Created;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int updateDoctor(String email, DoctorDTO doctorDTO) {
         Doctor doctor = doctorRepository.findByEmail(email).orElse(null);
@@ -46,6 +51,7 @@ public class DoctorServiceImpl implements DoctorService {
         return VarList.Created;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int deactivateDoctor(String email) {
         Doctor doctor = doctorRepository.findByEmail(email).orElse(null);
@@ -57,6 +63,7 @@ public class DoctorServiceImpl implements DoctorService {
         return VarList.Created;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int activateDoctor(String email) {
         Doctor doctor = doctorRepository.findByEmail(email).orElse(null);
@@ -68,18 +75,21 @@ public class DoctorServiceImpl implements DoctorService {
         return VarList.Created;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<DoctorDTO> getAllDoctors() {
         List<Doctor> doctors = doctorRepository.findAll();
         return doctors.stream().map(d -> modelMapper.map(d, DoctorDTO.class)).collect(Collectors.toList());
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<DoctorDTO> getAvailableDoctors() {
         List<Doctor> doctors = doctorRepository.findAllByBookedAndStatus("No", "ACTIVE");
         return doctors.stream().map(d -> modelMapper.map(d, DoctorDTO.class)).collect(Collectors.toList());
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int deleteDoctor(String email) {
         Doctor doctor = doctorRepository.findByEmail(email).orElse(null);
@@ -90,6 +100,7 @@ public class DoctorServiceImpl implements DoctorService {
         return VarList.Created;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int getTotalDoctorCount() {
         return (int) doctorRepository.count();

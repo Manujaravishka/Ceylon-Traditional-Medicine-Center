@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+// @Repository annotation used here.
 @Repository
 public interface TreatPackageRepository extends JpaRepository<TreatPackage, Long> {
     boolean existsByName(String name);

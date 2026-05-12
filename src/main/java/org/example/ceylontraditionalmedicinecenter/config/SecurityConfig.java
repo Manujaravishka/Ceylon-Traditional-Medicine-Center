@@ -1,6 +1,5 @@
 package org.example.ceylontraditionalmedicinecenter.config;
 
-import org.example.ceylontraditionalmedicinecenter.service.impl.UserServiceImpl;
 import org.example.ceylontraditionalmedicinecenter.util.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,19 +24,25 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+// Declares this class as a source of Spring bean definitions.
 @Configuration
+// Enables Spring Security support for web requests.
 @EnableWebSecurity
+// Enables method-level security annotations like @PreAuthorize.
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
 
+    // Registers the method return value as a Spring bean in the application context.
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // Registers the method return value as a Spring bean in the application context.
     @Bean
     public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
@@ -45,12 +50,14 @@ public class SecurityConfig {
         return authProvider;
     }
 
+    // Registers the method return value as a Spring bean in the application context.
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    // Registers the method return value as a Spring bean in the application context.
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -65,6 +72,7 @@ public class SecurityConfig {
         return source;
     }
 
+    // Registers the method return value as a Spring bean in the application context.
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.cors(cors -> cors.configurationSource(corsConfigurationSource()))

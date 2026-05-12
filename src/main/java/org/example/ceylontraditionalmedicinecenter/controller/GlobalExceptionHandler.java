@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.stream.Collectors;
 
+// Global exception handler that applies to all controllers.
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Handles exceptions thrown by controller methods and maps them to HTTP responses.
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseDTO> handleValidationException(MethodArgumentNotValidException ex) {
         String errors = ex.getBindingResult().getFieldErrors()
@@ -26,6 +28,7 @@ public class GlobalExceptionHandler {
                 .body(new ResponseDTO(VarList.Bad_Request, "Validation Error", errors));
     }
 
+    // Handles exceptions thrown by controller methods and maps them to HTTP responses.
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDTO> handleGeneralException(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

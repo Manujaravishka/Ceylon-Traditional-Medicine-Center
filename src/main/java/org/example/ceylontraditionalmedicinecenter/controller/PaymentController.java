@@ -14,14 +14,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+// Allows CORS requests from specified origins; here it permits any origin.
 @CrossOrigin(origins = "*")
+// Combines @Controller and @ResponseBody to expose REST endpoints returning JSON/XML.
 @RestController
+// Defines base URL mapping for the controller or a request mapping for a handler method.
 @RequestMapping("/api/v1/payment")
 public class PaymentController {
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private PaymentService paymentService;
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/save")
     public ResponseEntity<ResponseDTO>makePayment(@RequestBody PaymentDTO paymentDTO) {
         try {
@@ -39,6 +44,7 @@ public class PaymentController {
         }
     }
 
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/getAll")
     public ResponseEntity<ResponseDTO> getAllPayments() {
         try {

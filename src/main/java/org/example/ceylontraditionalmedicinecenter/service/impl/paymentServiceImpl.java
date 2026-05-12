@@ -13,15 +13,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+// @Service annotation used here.
 @Service
 public class paymentServiceImpl implements PaymentService {
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private PaymentRepository paymentRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ModelMapper modelMapper;
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public boolean savePayment(PaymentDTO paymentDTO) {
         Payment payment = modelMapper.map(paymentDTO, Payment.class);
@@ -30,6 +34,7 @@ public class paymentServiceImpl implements PaymentService {
         return true;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<Map<String, Object>> getAllPayments() {
         return paymentRepository.findAll().stream()

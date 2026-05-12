@@ -13,15 +13,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// @Service annotation used here.
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ArticleRepository articleRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ModelMapper modelMapper;
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int updateArticle(Long id, ArticleDTO articleDTO) {
         Optional<Article> optionalArticle = articleRepository.findById(id);
@@ -39,6 +43,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int saveArticle(ArticleDTO articleDTO) {
         if (articleRepository.existsByTitle(articleDTO.getTitle())) {
@@ -49,6 +54,7 @@ public class ArticleServiceImpl implements ArticleService {
         return VarList.Created;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int deleteArticle(Long id) {
         if (articleRepository.existsById(id)) {
@@ -59,6 +65,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<ArticleDTO> getAllArticles() {
         List<Article> articles = articleRepository.findAll();

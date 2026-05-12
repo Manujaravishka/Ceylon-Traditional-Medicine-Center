@@ -5,7 +5,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,14 +19,18 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// Marks this class as a Spring-managed component for component scanning.
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private JWTUtil jwtUtil;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private UserDetailsService userService;
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader("Authorization");

@@ -12,13 +12,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+// Allows CORS requests from specified origins; here it permits any origin.
 @CrossOrigin(origins = "*")
+// Combines @Controller and @ResponseBody to expose REST endpoints returning JSON/XML.
 @RestController
+// Defines base URL mapping for the controller or a request mapping for a handler method.
 @RequestMapping("api/v1/review")
 public class ReviewController {
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ReviewService reviewService;
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/save")
     public ResponseEntity<ResponseDTO> addReview(@RequestBody @Valid ReviewDTO reviewDTO) {
         try {
@@ -38,6 +43,7 @@ public class ReviewController {
     }
 
     // ✅ Get all reviews
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/all")
     public ResponseEntity<ResponseDTO> getAllReviews() {
         try {
@@ -50,6 +56,7 @@ public class ReviewController {
         }
     }
 
+    // Maps HTTP DELETE requests to this handler method.
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDTO> deleteReview(@PathVariable Long id) {
         try {

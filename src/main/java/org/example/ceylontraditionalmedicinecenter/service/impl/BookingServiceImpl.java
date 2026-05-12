@@ -12,53 +12,52 @@ import org.example.ceylontraditionalmedicinecenter.repository.DoctorRepository;
 import org.example.ceylontraditionalmedicinecenter.repository.TreatPackageRepository;
 import org.example.ceylontraditionalmedicinecenter.repository.UserRepository;
 import org.example.ceylontraditionalmedicinecenter.service.BookingService;
-import org.example.ceylontraditionalmedicinecenter.util.VarList;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// @Service annotation used here.
 @Service
 public class BookingServiceImpl implements BookingService {
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private final BookingRepository bookingRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private final UserRepository userRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private final TreatPackageRepository treatPackageRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private final AccommodationRepository accommodationRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private final DoctorRepository doctorRepository;
-
-    @Autowired
-    private final ModelMapper modelMapper;
 
     public BookingServiceImpl(BookingRepository bookingRepository,
                               UserRepository userRepository,
                               TreatPackageRepository treatPackageRepository,
                               AccommodationRepository accommodationRepository,
-                              DoctorRepository doctorRepository,
-                              ModelMapper modelMapper) {
+                              DoctorRepository doctorRepository) {
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
         this.treatPackageRepository = treatPackageRepository;
         this.accommodationRepository = accommodationRepository;
         this.doctorRepository = doctorRepository;
-        this.modelMapper = modelMapper;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public boolean saveBooking(BookingDTO bookingDTO) {
         Optional<User> optionalUser = userRepository.findByEmail(bookingDTO.getUserEmail());
@@ -85,29 +84,37 @@ public class BookingServiceImpl implements BookingService {
         booking.setActive(true);
 
         bookingRepository.save(booking);
+        TreatPackage bookedPackage = optionalPackage.get();
+        bookedPackage.setSold((bookedPackage.getSold() == null ? 0 : bookedPackage.getSold()) + 1);
+        treatPackageRepository.save(bookedPackage);
         return true;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<BookingDTO> getAllBookings() {
         return bookingRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<BookingDTO> getBookingByUserEmail(String email) {
         return bookingRepository.findByUserEmail(email).stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int getTotalBookings() {
         return (int) bookingRepository.count();
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<Map<String, Object>> getBookingsPerDay() {
         return bookingRepository.findBookingsPerDay();
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<Map<String, Object>> getTotalPricePerBooking() {
         return bookingRepository.findTotalPricePerBooking();

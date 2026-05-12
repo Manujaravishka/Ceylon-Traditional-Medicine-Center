@@ -20,6 +20,7 @@ $(document).ready(function () {
                                 <td>${pkg.name}</td>
                                 <td>${pkg.estimateDays}</td>
                                 <td>${pkg.price}</td>
+                                <td>${pkg.sold || 0}</td>
                                 <td>${activities}</td>
                                 <td>${img}</td>
                                 <td>

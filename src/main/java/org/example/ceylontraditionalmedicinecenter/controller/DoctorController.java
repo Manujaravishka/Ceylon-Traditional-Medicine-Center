@@ -21,25 +21,37 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+// Allows CORS requests from specified origins; here it permits any origin.
 @CrossOrigin(origins = "*")
+// Combines @Controller and @ResponseBody to expose REST endpoints returning JSON/XML.
 @RestController
 
+// Defines base URL mapping for the controller or a request mapping for a handler method.
 @RequestMapping("api/v1/doctor")
 public class DoctorController {
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private DoctorService doctorService;
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private EmailService emailService;
 
     private static final String UPLOAD_DIR = System.getProperty("user.dir")+"/uploads/";
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/save")
     public ResponseEntity<ResponseDTO> saveDoctor(
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("fullName") String fullName,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("description") String description,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("email") String email,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam(value = "imageUrl", required = false) MultipartFile image,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("linkedin") String linkedin,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("paymentPerDay") String paymentPerDay ){
         try{
             DoctorDTO doctorDTO = new DoctorDTO();
@@ -91,13 +103,20 @@ public class DoctorController {
         return uniqueFileName;
     }
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/update/{email}")
     public ResponseEntity<ResponseDTO> updateDoctor(
+            // Binds a URI template variable to a method parameter.
             @PathVariable String email,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("editDoctorName") String fullName,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("editDoctorDescription") String description,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam(value = "editDoctorImage", required = false) MultipartFile image,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("editDoctorLinkedIn") String linkedin,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("editDoctorPayment") String paymentPerDay) {
 
         try {
@@ -131,6 +150,7 @@ public class DoctorController {
                     .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
         }
     }
+    // Maps HTTP PUT requests to this handler method.
     @PutMapping("/deactivate/{email}")
     public ResponseEntity<ResponseDTO> deactivateDoctor(@PathVariable String email) {
         try {
@@ -153,6 +173,7 @@ public class DoctorController {
                     .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
         }
     }
+    // Maps HTTP PUT requests to this handler method.
     @PutMapping("/active/{email}")
     public ResponseEntity<ResponseDTO> activateDoctor(@PathVariable String email) {
         try {
@@ -176,6 +197,7 @@ public class DoctorController {
         }
     }
 
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/getAll")
     public ResponseEntity<ResponseDTO> getAllDoctors() {
         try {
@@ -187,6 +209,7 @@ public class DoctorController {
                     .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
         }
     }
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/available")
     public ResponseEntity<ResponseDTO> getAvailableDoctors() {
         try {
@@ -204,6 +227,7 @@ public class DoctorController {
         }
     }
 
+    // Maps HTTP DELETE requests to this handler method.
     @DeleteMapping("/delete/{email}")
     public ResponseEntity<ResponseDTO> deleteDoctor(@PathVariable String email) {
         try {

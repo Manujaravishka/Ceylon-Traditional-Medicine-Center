@@ -19,20 +19,29 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+// Allows CORS requests from specified origins; here it permits any origin.
 @CrossOrigin(origins = "*")
+// Combines @Controller and @ResponseBody to expose REST endpoints returning JSON/XML.
 @RestController
+// Defines base URL mapping for the controller or a request mapping for a handler method.
 @RequestMapping("api/v1/activity")
 public class ActivityController {
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ActivityService activityService;
 
     private static final String UPLOAD_DIR = System.getProperty("user.dir")+"/uploads/";
 
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/save")
     public ResponseEntity<ResponseDTO>saveActivity(
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("name") String name,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("description") String description,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("costPerDay") String costPerDay,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam(value = "imageUrl",required = false)MultipartFile image){
         try{
             ActivityDTO activityDTO = new ActivityDTO();
@@ -77,12 +86,18 @@ public class ActivityController {
         return uniqueFileName;
 
     }
+    // Maps HTTP POST requests to this handler method.
     @PostMapping("/update/{id}")
     public ResponseEntity<ResponseDTO> updateActivity(
+            // Binds a URI template variable to a method parameter.
             @PathVariable Long id,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("name") String name,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("description") String description,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam("costPerDay") String costPerDay,
+            // Binds a query parameter or form field to a method parameter.
             @RequestParam(value = "imageUrl", required = false) MultipartFile image) {
         System.out.println(id);
         try {
@@ -118,6 +133,7 @@ public class ActivityController {
         }
     }
 
+    // Maps HTTP DELETE requests to this handler method.
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDTO> deleteActivity(@PathVariable Long id) {
         try {
@@ -138,6 +154,7 @@ public class ActivityController {
                     .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
         }
     }
+    // Maps HTTP GET requests to this handler method.
     @GetMapping("/getAll")
     public ResponseEntity<ResponseDTO> getAllActivity() {
         try {

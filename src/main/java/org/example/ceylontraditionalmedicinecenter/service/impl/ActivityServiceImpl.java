@@ -15,14 +15,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// @Service annotation used here.
 @Service
 public class ActivityServiceImpl implements ActivityService {
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ActivityRepository activityRepository;
 
+    // Injects a dependency automatically by type from the Spring context.
     @Autowired
     private ModelMapper modelMapper;
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int saveActivity(ActivityDTO activityDTO) {
         if (activityRepository.existsByName(activityDTO.getName())) {
@@ -33,6 +37,7 @@ public class ActivityServiceImpl implements ActivityService {
         return VarList.Created; // Successfully saved
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int updateActivity(Long id, ActivityDTO activityDTO) {
         Optional<Activity> existingActivityOpt = activityRepository.findById(id);
@@ -53,6 +58,7 @@ public class ActivityServiceImpl implements ActivityService {
         return VarList.Not_Found;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public int deleteActivity(Long id) {
         if (activityRepository.existsById(id)) {
@@ -62,6 +68,7 @@ public class ActivityServiceImpl implements ActivityService {
         return VarList.Not_Found;
     }
 
+    // Indicates this method overrides a method from a superclass or interface.
     @Override
     public List<ActivityDTO> getAllActivity() {
         List<Activity> activities = activityRepository.findAll();
